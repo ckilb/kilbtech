@@ -56,6 +56,7 @@ func main() {
 		route.NewSpryker(tplSpryker),
 		route.NewLegal(tplLegal),
 		route.NewStatic(*staticPath),
+		route.NewRobots(),
 	}
 
 	s := server.NewServer(*port, routes)
