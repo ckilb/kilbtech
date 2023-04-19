@@ -10,10 +10,11 @@ import (
 )
 
 type SprykerTemplateData struct {
-	AssetCacheId string
-	Projects     []dto.Project
-	Headline     string
-	SubHeadline  string
+	AssetCacheId    string
+	Projects        []dto.Project
+	MetaDescription string
+	Headline        string
+	SubHeadline     string
 }
 
 type Spryker struct {
@@ -30,9 +31,10 @@ func (r *Spryker) Handler() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		err := r.tpl.Execute(w, &SprykerTemplateData{
-			AssetCacheId: assetCacheId,
-			Headline:     "Spryker Freelancer &amp; Developer",
-			SubHeadline:  "Spryker Developer & Consultant in Hamburg, Germany",
+			AssetCacheId:    assetCacheId,
+			MetaDescription: "Christian Kilb has over 20 years of experience in web development and works with Spryker since 2017 as a freelancer, developer and consultant.",
+			Headline:        "Spryker Freelancer &amp; Developer",
+			SubHeadline:     "Spryker Developer & Consultant in Hamburg, Germany",
 			Projects: []dto.Project{
 				{
 					LogoFileName: "marel.svg",

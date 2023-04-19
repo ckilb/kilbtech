@@ -10,10 +10,11 @@ import (
 )
 
 type HomeTemplateData struct {
-	AssetCacheId string
-	Projects     []dto.Project
-	Headline     string
-	SubHeadline  string
+	AssetCacheId    string
+	Projects        []dto.Project
+	MetaDescription string
+	Headline        string
+	SubHeadline     string
 }
 
 type Home struct {
@@ -30,9 +31,10 @@ func (r *Home) Handler() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		err := r.tpl.Execute(w, &HomeTemplateData{
-			AssetCacheId: assetCacheId,
-			Headline:     "Christian Kilb",
-			SubHeadline:  "Technical Lead | Software Architect | Developer",
+			AssetCacheId:    assetCacheId,
+			MetaDescription: "With over 20 years of experience in software development, Christian Kilb has acquired a wealth of knowledge in technologies, strategies and leadership.",
+			Headline:        "Christian Kilb",
+			SubHeadline:     "Technical Lead | Software Architect | Developer",
 			Projects: []dto.Project{
 				{
 					LogoFileName: "marel.svg",

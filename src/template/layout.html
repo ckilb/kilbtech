@@ -3,6 +3,7 @@
 <head>
     <title>{{template "title" .}}</title>
 
+    <meta name="description" content="{{ .MetaDescription }}">
     <meta name="author" content="Christian Kilb" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index,follow" />
@@ -21,6 +22,15 @@
 
     <script src="static/aos.js?id={{ .AssetCacheId }}" defer></script>
     <script src="static/script.js?id={{ .AssetCacheId }}" defer></script>
+
+    <style type="text/css">
+        @font-face {
+            font-family: "Public Sans";
+            src: url("static/PublicSans.ttf") format("truetype-variations");
+            font-weight: 1 999;
+            font-display: swap;
+        }
+    </style>
 </head>
 
 <body class="bg-slate-900 text-gray-50 font-extralight relative leading-7">
