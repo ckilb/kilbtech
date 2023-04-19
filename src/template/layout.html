@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <title>{{template "title" .}}</title>
+
+    <meta name="author" content="Christian Kilb" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index,follow" />
+
+    <link rel="stylesheet" href="static/build/style.css?id={{ .AssetCacheId }}">
+    <script src="static/aos.js?id={{ .AssetCacheId }}" defer></script>
+    <script src="static/script.js?id={{ .AssetCacheId }}" defer></script>
+</head>
+
+<body class="bg-slate-900 text-gray-50 font-extralight relative leading-7">
+    <header class="md:absolute top-0 left-0 w-full text-right p-3 text-xs md:text-base">
+        <nav class="inline-block">
+            <ul>
+                <li class="inline-block ml-4">
+                    <a class="md:opacity-75 hover:opacity-100 transition-all duration-500"
+                       href="/">About me</a>
+                </li>
+                <li class="inline-block ml-4">
+                    <a class="md:opacity-75 hover:opacity-100 transition-all duration-500"
+                       href="/spryker-freelancer">Spryker</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {{template "main" .}}
+    </main>
+    <footer class="text-center my-5">
+        <nav>
+            <ul>
+                <li>
+                    <a class="text-xs opacity-75 hover:opacity-100"
+                       href="/legal">Legal notice (Impressum)</a>
+                </li>
+            </ul>
+        </nav>
+    </footer>
+</body>

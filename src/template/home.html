@@ -1,0 +1,42 @@
+{{define "title"}}Christian Kilb – Technical Lead | Software Architect | Developer{{end}}
+
+{{define "main"}}
+<div class="md:min-h-[90vh]">
+    {{ template "teaser" . }}
+    <div class="min-h-[40vh] grid items-center">
+        <div class="p-3 md:p-8 py-5 md:py-14 max-w-6xl mx-auto"
+             data-aos="fade-zoom-in"
+             data-aos-duration="2000">
+            <p class="mb-8">
+                With over <strong>20 years of experience</strong> in software development and E-Commerce, I have acquired a wealth of knowledge in technologies, strategies and leadership, which I have the opportunity to demonstrate on a daily basis under high motivation.
+            </p>
+
+            <p class="mb-8">
+                I have a great intrinsic motivation to fundamentally understand technical concepts and tools in order to use them in a meaningful and goal-oriented way to solve problems.
+            </p>
+
+            <p class="mb-8">
+                I always try to understand how systems work as a whole. This is the only way to implement complex projects in a goal-oriented way. It is my personal ambition to always be among the best in my field.
+            </p>
+
+            <p>
+                It gives me great pleasure to pass on my knowledge and at the same time to gain new insights and learn efficient approaches through the exchange with colleagues and friends.
+            </p>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="hidden md:block text-center min-h-[10vh]">
+        <a class="inline-block text-gray-50"
+           href="#projects">
+            <img class="w-14 hover:scale-125 transition-all duration-500"
+                 src="static/chevron-double-down.svg"
+                 title="Scroll down"
+                 alt="Scroll down"
+                 width="56"
+                 height="56" />
+        </a>
+    </div>
+</div>
+{{ template "projects" . }}
+{{ end }}

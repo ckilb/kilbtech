@@ -1,0 +1,21 @@
+{
+  "name": "kilbtech",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build-css": "npx tailwindcss -i ./src/asset/style.css -o ./static/build/style.css --minify",
+    "serve": "cd ./src && go run main.go",
+    "dev": "npm run build-css && npm run serve",
+    "watch": "npx nodemon --signal SIGTERM --watch src --ext html,go,css --exec npm run dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "animate.css": "^4.1.1",
+    "nodemon": "^2.0.22",
+    "tailwindcss": "^3.3.1"
+  },
+  "dependencies": {
+    "aos": "^3.0.0-beta.6"
+  }
+}
