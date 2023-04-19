@@ -6,7 +6,8 @@
     "build-css": "npx tailwindcss -i ./src/asset/style.css -o ./static/build/style.css --minify",
     "serve": "cd ./src && go run main.go",
     "dev": "npm run build-css && npm run serve",
-    "watch": "npx nodemon --signal SIGTERM --watch src --ext html,go,css --exec npm run dev"
+    "watch": "npx nodemon --signal SIGTERM --watch src --ext html,go,css --exec npm run dev",
+    "deploy": "sh ./scripts/deploy.sh"
   },
   "author": "",
   "license": "ISC",
