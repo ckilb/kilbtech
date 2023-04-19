@@ -1,0 +1,26 @@
+{{ define "contact" }}
+<div class="py-8">
+    <div class="max-w-6xl mx-auto text-center"
+         id="contact">
+        <h2 class="text-4xl mb-8">Contact me</h2>
+        <form class="w-full max-w-3xl mx-auto text-left">
+            <label class="block mb-8  cursor-pointer">
+                <small>Email</small>
+                <input class="block w-full p-3 rounded focus:bg-yellow-100 transition-colors duration-500 outline-0 text-gray-900"
+                       name="email"
+                       type="email"
+                       placeholder="email@adress.com"
+                       required />
+            </label>
+            <label class="block mb-8 cursor-pointer">
+                <small>Message</small>
+                <textarea class="block w-full p-3 rounded focus:bg-yellow-100 transition-colors duration-500 outline-0 min-h-[15vh]  text-gray-900"
+                          name="message"
+                          placeholder="your message"></textarea>
+            </label>
+            <button class="inline-block py-3 px-5 bg-orange-500 hover:bg-orange-400 text-white font-bold text-sm rounded-lg"
+                    type="submit">Send</button>
+        </form>
+    </div>
+</div>
+{{ end }}
