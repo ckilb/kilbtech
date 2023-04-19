@@ -6,4 +6,6 @@ type Project struct {
 	Position     string
 	Url          string
 	Description  string
+	LogoWidth    uint
+	LogoHeight   uint
 }
