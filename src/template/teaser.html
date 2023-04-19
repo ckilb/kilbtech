@@ -2,15 +2,16 @@
 <div class=" bg-gradient-to-b from-slate-700 to-slate-950 overflow-hidden items-end">
     <div class="max-w-6xl grid gap-1 md:gap-4 grid-cols-12 items-center mx-auto">
         <div class="col-span-5">
-            <img data-aos="zoom-out"
+            <picture data-aos="zoom-out"
                  data-aos-duration="1500"
-                 src="static/me.webp"
-                 srcset="static/me.webp, static/me-hq.webp 2x"
-                 class="max-h-[60vh]"
-                 alt="Christian Kilb"
-                 title="Christian Kilb"
-                 width="512"
-                 height="704"/>
+                 class="max-h-[60vh]">
+                <source media="(min-width: 1000px)" srcset="static/me.webp, static/me-hq.webp 2x">
+                <img src="static/me.webp"
+                     alt="Christian Kilb"
+                     title="Christian Kilb"
+                     width="512"
+                     height="704"/>
+            </picture>
         </div>
         <div class="col-span-7 pr-2">
             <h1 class="text-gray-50 text-2xl sm:text-3xl md:text-6xl mb-3 md:mb-5"

@@ -4,11 +4,11 @@ cp -r ./static/* ./build/static &&
 cd ./src &&
 env GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ../build/main ./main.go &&
 cd .. &&
-ssh root@kilb.tech << END_SSH
+ssh root@173.212.224.156 << END_SSH
   systemctl stop kilbtech.service
 END_SSH
-scp -r ./build/* root@kilb.tech:/var/www/kilbtech/ &&
-ssh root@kilb.tech << END_SSH
+scp -r ./build/* root@173.212.224.156:/var/www/kilbtech/ &&
+ssh root@173.212.224.156 << END_SSH
   systemctl start kilbtech.service
 END_SSH
 
