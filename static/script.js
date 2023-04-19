@@ -1,8 +1,12 @@
 AOS.init();
 
 const contactForm = document.querySelector('#contact form');
-const contactFormButton = contactForm.querySelector('button');
+const contactFormButtonWrapper = contactForm.querySelector('.button-wrapper');
+const contactFormButton = contactFormButtonWrapper.querySelector('button');
 const contactFormButtonSpinner = contactFormButton.querySelector('.animate-spin');
+const contactFormButtonText = contactFormButton.querySelector('.text');
+const contactFormSuccessMessage = contactForm.querySelector('.success-message');
+const contactFormErrorMessage = contactForm.querySelector('.error-message');
 
 contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -14,6 +18,8 @@ contactForm.addEventListener('submit', (event) => {
     contactFormButton.classList.add('text-[0px]');
     contactFormButtonSpinner.classList.remove('hidden');
     contactFormButtonSpinner.classList.add('inline-block');
+    contactFormButtonText.classList.remove('inline-block');
+    contactFormButtonText.classList.add('hidden');
 
     fetch(contactForm.getAttribute('action'), {
         method: contactForm.getAttribute('method'),
@@ -22,11 +28,16 @@ contactForm.addEventListener('submit', (event) => {
             message: data.get('message')
         })
     }).then(res=> {
+        if (res.status !== 204) {
+            contactFormErrorMessage.classList.remove('hidden');
 
+            return;
+        }
+
+        contactFormSuccessMessage.classList.remove('hidden');
+    }).catch(() => {
+        contactFormErrorMessage.classList.remove('hidden');
     }).finally(() => {
-        contactForm.classList.remove('pointer-events-none');
-        contactForm.classList.remove('opacity-75');
-        contactFormButtonSpinner.classList.remove('inline-block');
-        contactFormButtonSpinner.classList.add('hidden');
+        contactFormButtonWrapper.classList.add('hidden');
     });
 })

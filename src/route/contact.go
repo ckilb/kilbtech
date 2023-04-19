@@ -53,6 +53,10 @@ func (r *Contact) Handler() http.Handler {
 
 		if err := r.sender.Send(content); err != nil {
 			log.Println(fmt.Errorf("sending contact form: %w", err))
+
+			w.WriteHeader(500)
+
+			return
 		}
 
 		w.WriteHeader(204)
