@@ -29,7 +29,10 @@ func (r *Home) Handler() http.Handler {
 	assetCacheId := uuid.NewString()
 
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		w.WriteHeader(http.StatusOK)
+		if req.URL.Path != "/" {
+			w.WriteHeader(http.StatusNotFound)
+		}
+
 		err := r.tpl.Execute(w, &HomeTemplateData{
 			AssetCacheId:    assetCacheId,
 			MetaDescription: "With over 20 years of experience in software development, Christian Kilb has acquired a wealth of knowledge in technologies, strategies and leadership.",
@@ -87,6 +90,7 @@ func (r *Home) Handler() http.Handler {
 		if err != nil {
 			log.Println(fmt.Errorf("executing home template: %w", err))
 		}
+
 	})
 }
 
