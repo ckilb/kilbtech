@@ -10,10 +10,11 @@ import (
 )
 
 type AboutTemplateData struct {
-	AssetCacheId string
-	Projects     []dto.Project
-	Headline     string
-	SubHeadline  string
+	AssetCacheId    string
+	Projects        []dto.Project
+	Headline        string
+	SubHeadline     string
+	MetaDescription string
 }
 
 type Legal struct {
@@ -30,7 +31,8 @@ func (r *Legal) Handler() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		err := r.tpl.Execute(w, &AboutTemplateData{
-			AssetCacheId: assetCacheId,
+			AssetCacheId:    assetCacheId,
+			MetaDescription: "Legal notice (Impressum) for kilb.tech",
 		})
 
 		if err != nil {
