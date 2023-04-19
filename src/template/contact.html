@@ -1,9 +1,22 @@
 {{ define "contact" }}
-<div class="py-8">
+<div class="px-3 py-8 bg-slate-800"
+     data-aos="fade-up"
+     data-aos-duration="1000">
     <div class="max-w-6xl mx-auto text-center"
          id="contact">
         <h2 class="text-4xl mb-8">Contact me</h2>
-        <form class="w-full max-w-3xl mx-auto text-left">
+        <form class="w-full max-w-3xl mx-auto text-left"
+              action="/contact"
+              method="post">
+
+            <!-- anti spam -->
+            <label class="block mb-8 cursor-pointer absolute left-0 top-0 pointer-events-none opacity-0">
+                <small>Name</small>
+                <input name="name"
+                       type="text"/>
+            </label>
+            <!-- end anti spam -->
+
             <label class="block mb-8  cursor-pointer">
                 <small>Email</small>
                 <input class="block w-full p-3 rounded focus:bg-yellow-100 transition-colors duration-500 outline-0 text-gray-900"
@@ -18,8 +31,11 @@
                           name="message"
                           placeholder="your message"></textarea>
             </label>
-            <button class="inline-block py-3 px-5 bg-orange-500 hover:bg-orange-400 text-white font-bold text-sm rounded-lg"
-                    type="submit">Send</button>
+            <div class="group relative inline-block rounded-lg overflow-hidden">
+                <button class="inline-block py-3 px-5 bg-gradient-to-b from-yellow-500 to-orange-400 font-semibold text-white rounded-lg">Send</button>
+                <div class="opacity-0 group-hover:opacity-30 transition-all duration-500 absolute left-0 top-0 w-full h-full pointer-events-none bg-yellow-300">
+                </div>
+            </div>
         </form>
     </div>
 </div>

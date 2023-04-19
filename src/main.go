@@ -1,11 +1,13 @@
 package main
 
 import (
+	"ckilb/kilbtech/mail"
 	"ckilb/kilbtech/route"
 	"ckilb/kilbtech/server"
 	_ "embed"
 	"flag"
 	"fmt"
+	"github.com/joho/godotenv"
 	"text/template"
 )
 
@@ -38,6 +40,12 @@ func main() {
 
 	flag.Parse()
 
+	if err := godotenv.Load(); err != nil {
+		panic(fmt.Errorf("loading dotenv: %w", err))
+	}
+
+	sender := mail.NewSender()
+
 	tplHome := template.New("home")
 	tplSpryker := template.New("spryker")
 	tplLegal := template.New("legal")
@@ -60,6 +68,7 @@ func main() {
 		route.NewLegal(tplLegal),
 		route.NewStatic(*staticPath),
 		route.NewRobots(),
+		route.NewContact(sender),
 	}
 
 	s := server.NewServer(*port, routes)

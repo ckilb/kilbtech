@@ -1,10 +1,9 @@
 {{ define "projects" }}
-<div class="bg-slate-800"
-     id="projects">
+<div id="projects">
     {{- range .Projects }}
     <div data-aos="fade-up"
          data-aos-duration="1000"
-         class="my-3 md:my-8 p-3 md:p-8 py-5 md:py-14 mx-auto  even:bg-slate-700 group">
+         class="my-3 md:my-8 p-3 md:p-8 py-5 md:py-14 mx-auto  even:bg-slate-800 group">
         <div class="max-w-6xl grid grid-cols-12 gap-x-8 gap-y-14 items-center mx-auto">
             <a class="col-span-5 order-first group-even:order-last text-center"
                href="{{ .Url }}"

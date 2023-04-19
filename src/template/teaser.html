@@ -1,6 +1,6 @@
 {{ define "teaser" }}
 <div class="bg-gradient-to-b from-slate-700 to-slate-950 overflow-hidden items-end">
-    <div class="max-w-6xl grid gap-1 md:gap-4 grid-cols-12 items-center mx-auto">
+    <div class="max-w-6xl grid gap-2 md:gap-4 grid-cols-12 items-center mx-auto">
         <div class="col-span-5">
             <picture data-aos="zoom-out"
                  data-aos-duration="1500"
@@ -24,11 +24,15 @@
                 data-aos-duration="1000"
                 data-aos-delay="500">{{ .SubHeadline }}</h2>
 
-            <a class="inline-block py-3 px-5 bg-orange-500 hover:bg-orange-400 text-white font-bold rounded-lg md:ml-1"
-               href="#contact"
-               data-aos="fade-up"
-               data-aos-delay="750"
-               data-aos-duration="1000">Contact me</a>
+            <div class="group relative inline-block rounded-lg md:ml-1 overflow-hidden"
+                 data-aos="fade-up"
+                 data-aos-delay="750"
+                 data-aos-duration="1000">
+                <a class="inline-block py-3 px-5 bg-gradient-to-b from-yellow-500 to-orange-400 font-semibold text-white rounded-lg"
+                   href="#contact">Contact</a>
+                <div class="opacity-0 group-hover:opacity-30 transition-all duration-500 absolute left-0 top-0 w-full h-full pointer-events-none bg-yellow-300">
+                </div>
+            </div>
         </div>
     </div>
 </div>
