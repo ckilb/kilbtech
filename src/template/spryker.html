@@ -1,57 +1,43 @@
 {{define "title"}}Spryker Freelancer & Developer in Hamburg – Christian Kilb{{end}}
 
-{{define "main"}}
-<div class="md:min-h-[90vh] bg-slate-800">
-    {{ template "teaser" . }}
+{{ define "intro_text" }}
+<p class="mb-3 md:mb-8">
+    My name is <strong>Christian Kilb</strong>, and I have more than 20 years of experience in web development.<br />
+    Since January 2017, I have been serving my clients as a technical lead, senior & lead developer, specializing in the <strong>Spryker Commerce OS</strong> for enterprise applications.
+</p>
 
-    <div class=" min-h-[40vh] grid items-center">
-        <div class="p-3 md:p-8 py-5 md:py-14 max-w-6xl mx-auto"
-             data-aos="fade-zoom-in"
-             data-aos-duration="2000">
-            <p class="mb-3 md:mb-8">
-                My name is <strong>Christian Kilb</strong> and I have <strong>over 20 years of experience</strong> in web development.<br />
-                Since January 2017 I have been supporting my customers in programming with the Spryker Commerce OS in the enterprise environment as a <strong>technical lead</strong>, <strong>lead</strong> and <strong>senior developer</strong>.
-            </p>
+<p class="mb-3 md:mb-8">
+    I possess extensive expertise in Spryker, and I am widely regarded as a <strong>top performer</strong> in this area.
+    <br />
+    In the past, I have assisted both Spryker themselves and my clients in addressing critical <strong>security vulnerabilities</strong> and implementing <strong>performance optimizations</strong>.
+    <br />
+    I place great emphasis on <strong>clean architecture</strong> and code quality.<br />
+    I prioritize clean programming paradigms, such as composition over inheritance, to ensure that Spryker can be <strong>updated effectively in the long term</strong>.<br />
+    Moreover, I enjoy sharing my expertise with colleagues to promote efficient and collaborative teamwork.
+</p>
 
-            <p class="mb-3 md:mb-8">
-                My experience in Spryker is very advanced and I am often considered a <strong>top performer</strong>.<br />
-                I have already helped Spryker themselves and my customers to <strong>fix critical security vulnerabilities</strong> and <strong>make performance optimizations</strong>.
-                <br />
-                <strong>Clean architecture</strong> and <strong>code quality</strong> is very important to me.<br />
-                I attach great importance to clean programming paradigms, including the preference for composition over inheritance in order to ensure that Spryker can be updated over the long term.
-                It is important to me to pass on my experience and knowledge to my colleagues so that we can work efficiently and cleanly together as a team
-            </p>
+<p>
+    If you're seeking someone who can help you in the following areas, then you've come to the right place:
+</p>
 
-            <p>
-                You've come to the right place with me if you're looking for someone who
-            </p>
-            <ul>
-                <li>
-                    critically reviews your requirements and may also question them: In many cases, results can be achieved more quickly if adjustments are made to the original requirement. I see myself as an experienced translator from requirements to code.
-                </li>
-                <li>
-                    supports your existing development team, if necessary, in a lead position
-                </li>
-                <li>
-                    accelerates your development through high-quality implementations
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="bg-slate-800 p-3">
-    <div class="hidden md:block text-center min-h-[10vh]">
-        <a class="inline-block text-gray-50"
-           href="#projects">
-            <img class="w-14 hover:scale-125 transition-all duration-500"
-                 src="/static/chevron-double-down.svg"
-                 title="Scroll down"
-                 alt="Scroll down"
-                 width="56"
-                 height="56" />
-        </a>
-    </div>
-</div>
+<ul>
+    <li>
+        Critically reviewing your requirements and questioning them when necessary:<br />
+        I strongly believe that in many cases, faster results can be achieved by adjusting original requirements.<br />I consider myself an experienced translator from requirements to code.
+    </li>
+    <li>
+        Supporting your existing development team in a lead position, if needed.
+    </li>
+    <li>
+        Accelerating your development through high-quality implementations.
+    </li>
+</ul>
+{{ end }}
+
+{{ define "main" }}
+{{ template "teaser_intro" . }}
+{{ template "project_scroller" . }}
+
 {{ template "projects" . }}
 {{ template "contact" . }}
 {{end}}

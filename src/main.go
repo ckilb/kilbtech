@@ -24,6 +24,15 @@ var (
 	//go:embed template/projects.html
 	projectsTemplate string
 
+	//go:embed template/project-scroller.html
+	projectScrollerTemplate string
+
+	//go:embed template/intro.html
+	introTemplate string
+
+	//go:embed template/teaser-intro.html
+	teaserIntroTemplate string
+
 	//go:embed template/home.html
 	homeTemplate string
 
@@ -50,15 +59,15 @@ func main() {
 	tplSpryker := template.New("spryker")
 	tplLegal := template.New("legal")
 
-	if _, err := tplHome.Parse(contactTemplate + layoutTemplate + teaserTemplate + projectsTemplate + homeTemplate); err != nil {
+	if _, err := tplHome.Parse(projectScrollerTemplate + teaserIntroTemplate + introTemplate + contactTemplate + layoutTemplate + teaserTemplate + projectsTemplate + homeTemplate); err != nil {
 		panic(fmt.Errorf("parsing home template: %w", err))
 	}
 
-	if _, err := tplSpryker.Parse(contactTemplate + layoutTemplate + teaserTemplate + projectsTemplate + sprykerTemplate); err != nil {
+	if _, err := tplSpryker.Parse(projectScrollerTemplate + teaserIntroTemplate + introTemplate + contactTemplate + layoutTemplate + teaserTemplate + projectsTemplate + sprykerTemplate); err != nil {
 		panic(fmt.Errorf("parsing spryker template: %w", err))
 	}
 
-	if _, err := tplLegal.Parse(contactTemplate + layoutTemplate + teaserTemplate + projectsTemplate + legalTemplate); err != nil {
+	if _, err := tplLegal.Parse(projectScrollerTemplate + teaserIntroTemplate + introTemplate + contactTemplate + layoutTemplate + teaserTemplate + projectsTemplate + legalTemplate); err != nil {
 		panic(fmt.Errorf("parsing legal template: %w", err))
 	}
 

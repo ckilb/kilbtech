@@ -1,43 +1,27 @@
 {{define "title"}}Christian Kilb – Technical Lead | Software Architect | Developer{{end}}
 
-{{define "main"}}
-<div class="md:min-h-[90vh] bg-slate-800">
-    {{ template "teaser" . }}
-    <div class="min-h-[40vh] grid items-center">
-        <div class="p-3 md:p-8 py-5 md:py-14 max-w-6xl mx-auto"
-             data-aos="fade-zoom-in"
-             data-aos-duration="2000">
-            <p class="mb-8">
-                With over <strong>20 years of experience</strong> in software development and E-Commerce, I have acquired a wealth of knowledge in technologies, strategies and leadership, which I have the opportunity to demonstrate on a daily basis under high motivation.
-            </p>
+{{ define "intro_text" }}
+<p class="mb-8">
+    I have <strong>over 20 years of experience</strong> in software development and E-commerce, which has equipped me with a wealth of knowledge in various <strong>technologies, strategies, and leadership</strong>.
+    I have the privilege of utilizing this expertise on a daily basis, and it continues to motivate me to excel in my work.
+</p>
 
-            <p class="mb-8">
-                I have a great intrinsic motivation to fundamentally understand technical concepts and tools in order to use them in a meaningful and goal-oriented way to solve problems.
-            </p>
+<p class="mb-8">
+    I am intrinsically motivated to deeply comprehend technical concepts and tools, and leverage them in a purposeful and goal-oriented manner to solve problems.
+</p>
 
-            <p class="mb-8">
-                I always try to understand how systems work as a whole. This is the only way to implement complex projects in a goal-oriented way. It is my personal ambition to always be among the best in my field.
-            </p>
+<p class="mb-8">
+    I strive to comprehend systems holistically, as this is the key to executing complex projects in a goal-oriented manner. It is my personal ambition to continuously enhance my knowledge and skills, and be among the foremost professionals in my field.
+</p>
 
-            <p>
-                It gives me great pleasure to pass on my knowledge and at the same time to gain new insights and learn efficient approaches through the exchange with colleagues and friends.
-            </p>
-        </div>
-    </div>
-</div>
-<div class="bg-slate-800 p-3">
-    <div class="hidden md:block text-center min-h-[10vh]">
-        <a class="inline-block text-gray-50"
-           href="#projects">
-            <img class="w-14 hover:scale-125 transition-all duration-500"
-                 src="/static/chevron-double-down.svg"
-                 title="Scroll down"
-                 alt="Scroll down"
-                 width="56"
-                 height="56" />
-        </a>
-    </div>
-</div>
+<p>
+    I take great pleasure in sharing my knowledge and gaining new insights through meaningful exchanges with colleagues and friends. It is a mutually beneficial process that enables us to learn efficient approaches and stay abreast of emerging trends.
+</p>
+{{ end }}
+
+{{ define "main" }}
+{{ template "teaser_intro" . }}
+{{ template "project_scroller" . }}
 {{ template "projects" . }}
 {{ template "contact" . }}
 {{ end }}
