@@ -2,11 +2,10 @@ package route
 
 import (
 	"ckilb/kilbtech/dto"
+	"ckilb/kilbtech/tpl"
 	"fmt"
-	"github.com/google/uuid"
 	"log"
 	"net/http"
-	"text/template"
 )
 
 type AboutTemplateData struct {
@@ -18,7 +17,7 @@ type AboutTemplateData struct {
 }
 
 type Legal struct {
-	tpl *template.Template
+	renderer tpl.Renderer
 }
 
 func (r *Legal) Path() string {
@@ -26,21 +25,17 @@ func (r *Legal) Path() string {
 }
 
 func (r *Legal) Handler() http.Handler {
-	assetCacheId := uuid.NewString()
-
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		err := r.tpl.Execute(w, &AboutTemplateData{
-			AssetCacheId:    assetCacheId,
+		data := tpl.TemplateData{
 			MetaDescription: "Legal notice (Impressum) for kilb.tech",
-		})
+		}
 
-		if err != nil {
+		if err := r.renderer.Render(w, "legal", data); err != nil {
 			log.Println(fmt.Errorf("executing legal template: %w", err))
 		}
 	})
 }
 
-func NewLegal(tpl *template.Template) Route {
-	return &Legal{tpl: tpl}
+func NewLegal(renderer tpl.Renderer) Route {
+	return &Legal{renderer: renderer}
 }

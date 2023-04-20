@@ -15,7 +15,7 @@ type ContactRequest struct {
 }
 
 type Contact struct {
-	sender *mail.Sender
+	sender mail.Sender
 }
 
 func (r *Contact) Path() string {
@@ -63,7 +63,7 @@ func (r *Contact) Handler() http.Handler {
 	})
 }
 
-func NewContact(sender *mail.Sender) Route {
+func NewContact(sender mail.Sender) Route {
 	return &Contact{
 		sender: sender,
 	}

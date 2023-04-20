@@ -2,24 +2,14 @@ package route
 
 import (
 	"ckilb/kilbtech/dto"
+	"ckilb/kilbtech/tpl"
 	"fmt"
-	"github.com/google/uuid"
 	"log"
 	"net/http"
-	"text/template"
 )
 
-type HomeTemplateData struct {
-	AssetCacheId    string
-	Projects        []dto.Project
-	TeaserImage     string
-	MetaDescription string
-	Headline        string
-	SubHeadline     string
-}
-
 type Home struct {
-	tpl *template.Template
+	renderer tpl.Renderer
 }
 
 func (r *Home) Path() string {
@@ -27,15 +17,12 @@ func (r *Home) Path() string {
 }
 
 func (r *Home) Handler() http.Handler {
-	assetCacheId := uuid.NewString()
-
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		if req.URL.Path != "/" {
 			w.WriteHeader(http.StatusNotFound)
 		}
 
-		err := r.tpl.Execute(w, &HomeTemplateData{
-			AssetCacheId:    assetCacheId,
+		data := tpl.TemplateData{
 			MetaDescription: "With over 20 years of experience in software development, Christian Kilb has acquired a wealth of knowledge in technologies, strategies and leadership.",
 			Headline:        "Christian Kilb",
 			SubHeadline:     "Technical Lead | Software Architect | Developer",
@@ -87,15 +74,14 @@ func (r *Home) Handler() http.Handler {
 					LogoHeight:   553,
 				},
 			},
-		})
-
-		if err != nil {
-			log.Println(fmt.Errorf("executing home template: %w", err))
 		}
 
+		if err := r.renderer.Render(w, "home", data); err != nil {
+			log.Println(fmt.Errorf("executing home template: %w", err))
+		}
 	})
 }
 
-func NewHome(tpl *template.Template) Route {
-	return &Home{tpl: tpl}
+func NewHome(renderer tpl.Renderer) Route {
+	return &Home{renderer: renderer}
 }

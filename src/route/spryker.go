@@ -2,24 +2,14 @@ package route
 
 import (
 	"ckilb/kilbtech/dto"
+	"ckilb/kilbtech/tpl"
 	"fmt"
-	"github.com/google/uuid"
 	"log"
 	"net/http"
-	"text/template"
 )
 
-type SprykerTemplateData struct {
-	AssetCacheId    string
-	Projects        []dto.Project
-	TeaserImage     string
-	MetaDescription string
-	Headline        string
-	SubHeadline     string
-}
-
 type Spryker struct {
-	tpl *template.Template
+	renderer tpl.Renderer
 }
 
 func (r *Spryker) Path() string {
@@ -27,12 +17,8 @@ func (r *Spryker) Path() string {
 }
 
 func (r *Spryker) Handler() http.Handler {
-	assetCacheId := uuid.NewString()
-
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		err := r.tpl.Execute(w, &SprykerTemplateData{
-			AssetCacheId:    assetCacheId,
+		data := tpl.TemplateData{
 			MetaDescription: "Christian Kilb has over 20 years of experience in web development and works with Spryker since 2017 as a freelancer, developer and consultant.",
 			Headline:        "Spryker Freelancer &amp; Developer",
 			SubHeadline:     "Spryker Developer & Consultant in Hamburg, Germany",
@@ -66,14 +52,14 @@ func (r *Spryker) Handler() http.Handler {
 					LogoHeight:   59,
 				},
 			},
-		})
+		}
 
-		if err != nil {
+		if err := r.renderer.Render(w, "spryker", data); err != nil {
 			log.Println(fmt.Errorf("executing spryker template: %w", err))
 		}
 	})
 }
 
-func NewSpryker(tpl *template.Template) Route {
-	return &Spryker{tpl: tpl}
+func NewSpryker(renderer tpl.Renderer) Route {
+	return &Spryker{renderer: renderer}
 }

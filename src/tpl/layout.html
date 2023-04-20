@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index,follow" />
 
-    <link rel="stylesheet" href="/static/build/style.css?id={{ .AssetCacheId }}">
+    <link rel="stylesheet" href="/static/build/style.css?id={{ .AssetId }}">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
@@ -20,8 +20,8 @@
     <meta name="msapplication-config" content="/static/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <script src="/static/aos.js?id={{ .AssetCacheId }}" defer></script>
-    <script src="/static/script.js?id={{ .AssetCacheId }}" defer></script>
+    <script src="/static/aos.js?id={{ .AssetId }}" defer></script>
+    <script src="/static/script.js?id={{ .AssetId }}" defer></script>
 
     <style>
         @font-face {
@@ -38,15 +38,15 @@
         <nav class="inline-block">
             <ul>
                 <li class="inline-block ml-4">
-                    <a class="md:opacity-75 hover:opacity-100 transition-all duration-500"
+                    <a class="md:opacity-75 md:hover:opacity-100 transition-all duration-500"
                        href="/">About me</a>
                 </li>
                 <li class="inline-block ml-4">
-                    <a class="md:opacity-75 hover:opacity-100 transition-all duration-500"
+                    <a class="md:opacity-75 md:hover:opacity-100 transition-all duration-500"
                        href="/spryker-freelancer">Spryker</a>
                 </li>
                 <li class="inline-block ml-4">
-                    <a class="md:opacity-75 hover:opacity-100 transition-all duration-500"
+                    <a class="md:opacity-75 md:hover:opacity-100 transition-all duration-500"
                        href="https://github.com/ckilb/kilbtech"
                        target=" blank">
                         <img src="/static/gh.svg"
@@ -67,7 +67,7 @@
         <nav>
             <ul>
                 <li>
-                    <a class="text-xs opacity-75 hover:opacity-100"
+                    <a class="text-xs opacity-75 md:hover:opacity-100"
                        href="/legal">Legal notice (Impressum)</a>
                 </li>
             </ul>

@@ -7,9 +7,13 @@ import (
 	"os"
 )
 
-type Sender struct{}
+type Sender interface {
+	Send(content string) error
+}
 
-func (s *Sender) Send(content string) error {
+type sender struct{}
+
+func (s *sender) Send(content string) error {
 	host := os.Getenv("SMTP_HOST")
 	port := os.Getenv("SMTP_PORT")
 	from := os.Getenv("SMTP_USERNAME")
@@ -68,6 +72,6 @@ func (s *Sender) Send(content string) error {
 	return nil
 }
 
-func NewSender() *Sender {
-	return &Sender{}
+func NewSender() Sender {
+	return &sender{}
 }

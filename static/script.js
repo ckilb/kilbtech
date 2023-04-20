@@ -1,8 +1,7 @@
 AOS.init();
 
 const contactForm = document.querySelector('#contact form');
-const contactFormButtonWrapper = contactForm.querySelector('.button-wrapper');
-const contactFormButton = contactFormButtonWrapper.querySelector('button');
+const contactFormButton = contactForm.querySelector('button');
 const contactFormButtonSpinner = contactFormButton.querySelector('.animate-spin');
 const contactFormButtonText = contactFormButton.querySelector('.text');
 const contactFormSuccessMessage = contactForm.querySelector('.success-message');
@@ -38,6 +37,6 @@ contactForm.addEventListener('submit', (event) => {
     }).catch(() => {
         contactFormErrorMessage.classList.remove('hidden');
     }).finally(() => {
-        contactFormButtonWrapper.classList.add('hidden');
+        contactFormButton.classList.add('hidden');
     });
 })
