@@ -12,6 +12,7 @@ import (
 type SprykerTemplateData struct {
 	AssetCacheId    string
 	Projects        []dto.Project
+	TeaserImage     string
 	MetaDescription string
 	Headline        string
 	SubHeadline     string
@@ -35,6 +36,7 @@ func (r *Spryker) Handler() http.Handler {
 			MetaDescription: "Christian Kilb has over 20 years of experience in web development and works with Spryker since 2017 as a freelancer, developer and consultant.",
 			Headline:        "Spryker Freelancer &amp; Developer",
 			SubHeadline:     "Spryker Developer & Consultant in Hamburg, Germany",
+			TeaserImage:     "antelope",
 			Projects: []dto.Project{
 				{
 					LogoFileName: "marel.svg",

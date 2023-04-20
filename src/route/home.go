@@ -12,6 +12,7 @@ import (
 type HomeTemplateData struct {
 	AssetCacheId    string
 	Projects        []dto.Project
+	TeaserImage     string
 	MetaDescription string
 	Headline        string
 	SubHeadline     string
@@ -38,6 +39,7 @@ func (r *Home) Handler() http.Handler {
 			MetaDescription: "With over 20 years of experience in software development, Christian Kilb has acquired a wealth of knowledge in technologies, strategies and leadership.",
 			Headline:        "Christian Kilb",
 			SubHeadline:     "Technical Lead | Software Architect | Developer",
+			TeaserImage:     "me",
 			Projects: []dto.Project{
 				{
 					LogoFileName: "marel.svg",

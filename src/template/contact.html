@@ -1,59 +1,77 @@
 {{ define "contact" }}
-<div class="px-3 py-8 bg-slate-800"
+<div class="px-3 pt-8 bg-slate-800"
      data-aos="fade-up"
      data-aos-duration="1000">
     <div class="max-w-6xl mx-auto text-center"
          id="contact">
         <h2 class="text-4xl mb-8">Contact me</h2>
-        <form class="w-full max-w-3xl mx-auto text-left"
-              action="/contact"
-              method="post">
-
-            <!-- anti spam -->
-            <label class="block mb-8 cursor-pointer absolute left-0 top-0 pointer-events-none opacity-0">
-                <small>Name</small>
-                <input name="name"
-                       type="text"/>
-            </label>
-            <!-- end anti spam -->
-
-            <label class="block mb-8  cursor-pointer">
-                <small>Email</small>
-                <input class="block w-full p-3 rounded focus:bg-yellow-100 transition-colors duration-500 outline-0 text-gray-900"
-                       name="email"
-                       type="email"
-                       placeholder="email@address.com"
-                       required />
-            </label>
-            <label class="block mb-8 cursor-pointer">
-                <small>Message</small>
-                <textarea class="block w-full p-3 rounded focus:bg-yellow-100 transition-colors duration-500 outline-0 min-h-[15vh]  text-gray-900"
-                          name="message"
-                          placeholder="your message"></textarea>
-            </label>
-            <div class="button-wrapper group relative inline-block rounded-lg overflow-hidden">
-                <button class="inline-block py-3 px-5 bg-gradient-to-b from-yellow-500 to-orange-400 font-semibold text-white rounded-lg">
-                    <img class="w-5 h-5 animate-spin mr-1 hidden"
-                         src="/static/spinner.svg"
-                         alt="Loading"
-                         title="Loading" />
-                    <span class="text">Send</span>
-                </button>
-                <div class="opacity-0 group-hover:opacity-30 transition-all duration-500 absolute left-0 top-0 w-full h-full pointer-events-none bg-yellow-300">
-                </div>
+        <div class="grid grid-cols-12 gap-4 items-end">
+            <div class="col-span-12 md:col-span-4 order-2 md:order-1">
+                <picture data-aos="zoom-out"
+                         data-aos-duration="1500"
+                         class="max-h-[60vh]">
+                    <source media="(min-width: 256px)" srcset="/static/me-256w.webp, /static/me-384w.webp 1.5x, /static/me-512w.webp 2x">
+                    <source media="(min-width: 384px)" srcset="/static/me-384w.webp, /static/me-512w.webp 1.5x">
+                    <source media="(min-width: 512px)" srcset="/static/me-512w.webp, /static/me-1024w.webp 2x">
+                    <img src="/static/me-128w.webp"
+                         alt="Christian Kilb"
+                         title="Christian Kilb"
+                         width="512"
+                         height="704"/>
+                </picture>
             </div>
+            <div class="col-span-12 md:col-span-8 order-1 md:order-2 md:pb-8">
+                <form class="w-full max-w-3xl mx-auto text-left"
+                      action="/contact"
+                      method="post">
 
-            <div class="success-message text-green-500 font-semibold hidden">
-                Thank you!<br />
-                Your contact message has been sent.
-            </div>
+                    <!-- anti spam -->
+                    <label class="block mb-8 cursor-pointer absolute left-0 top-0 pointer-events-none opacity-0">
+                        <small>Name</small>
+                        <input name="name"
+                               type="text"/>
+                    </label>
+                    <!-- end anti spam -->
 
-            <div class="error-message text-red-500 font-semibold hidden">
-                I'm sorry!<br />
-                For some reason the contact message could not be sent.<br />
-                Please contact me via email instead: christian.kilb@gmail.com
+                    <label class="block mb-8  cursor-pointer">
+                        <small>Email</small>
+                        <input class="block w-full p-3 rounded focus:bg-yellow-100 transition-colors duration-500 outline-0 text-gray-900"
+                               name="email"
+                               type="email"
+                               placeholder="email@address.com"
+                               required />
+                    </label>
+                    <label class="block mb-8 cursor-pointer">
+                        <small>Message</small>
+                        <textarea class="block w-full p-3 rounded focus:bg-yellow-100 transition-colors duration-500 outline-0 min-h-[15vh]  text-gray-900"
+                                  name="message"
+                                  placeholder="your message"></textarea>
+                    </label>
+                    <div class="button-wrapper group relative inline-block rounded-lg overflow-hidden">
+                        <button class="inline-block py-3 px-5 bg-gradient-to-b from-yellow-500 to-orange-400 font-semibold text-white rounded-lg">
+                            <img class="w-5 h-5 animate-spin mr-1 hidden"
+                                 src="/static/spinner.svg"
+                                 alt="Loading"
+                                 title="Loading" />
+                            <span class="text">Send</span>
+                        </button>
+                        <div class="opacity-0 group-hover:opacity-30 transition-all duration-500 absolute left-0 top-0 w-full h-full pointer-events-none bg-yellow-300">
+                        </div>
+                    </div>
+
+                    <div class="success-message text-green-500 font-semibold hidden">
+                        Thank you!<br />
+                        Your contact message has been sent.
+                    </div>
+
+                    <div class="error-message text-red-500 font-semibold hidden">
+                        I'm sorry!<br />
+                        For some reason the contact message could not be sent.<br />
+                        Please contact me via email instead: christian.kilb@gmail.com
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 {{ end }}
