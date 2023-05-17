@@ -3,25 +3,23 @@ package route
 import (
 	"ckilb/kilbtech/dto"
 	"ckilb/kilbtech/tpl"
-	"fmt"
-	"log"
+	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 type Home struct {
-	renderer tpl.Renderer
 }
 
 func (r *Home) Path() string {
 	return "/"
 }
 
-func (r *Home) Handler() http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		if req.URL.Path != "/" {
-			w.WriteHeader(http.StatusNotFound)
-		}
+func (r *Home) Method() string {
+	return http.MethodGet
+}
 
+func (r *Home) Handler() gin.HandlerFunc {
+	return func(c *gin.Context) {
 		data := tpl.TemplateData{
 			MetaDescription: "With over 20 years of experience in software development, Christian Kilb has acquired a wealth of knowledge in technologies, strategies and leadership.",
 			Headline:        "Christian Kilb",
@@ -76,12 +74,10 @@ func (r *Home) Handler() http.Handler {
 			},
 		}
 
-		if err := r.renderer.Render(w, "home", data); err != nil {
-			log.Println(fmt.Errorf("executing home template: %w", err))
-		}
-	})
+		c.HTML(http.StatusOK, "home", data)
+	}
 }
 
-func NewHome(renderer tpl.Renderer) Route {
-	return &Home{renderer: renderer}
+func NewHome() Route {
+	return &Home{}
 }

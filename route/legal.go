@@ -3,8 +3,7 @@ package route
 import (
 	"ckilb/kilbtech/dto"
 	"ckilb/kilbtech/tpl"
-	"fmt"
-	"log"
+	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
@@ -17,25 +16,26 @@ type AboutTemplateData struct {
 }
 
 type Legal struct {
-	renderer tpl.Renderer
 }
 
 func (r *Legal) Path() string {
 	return "/legal"
 }
 
-func (r *Legal) Handler() http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+func (r *Legal) Method() string {
+	return http.MethodGet
+}
+
+func (r *Legal) Handler() gin.HandlerFunc {
+	return func(c *gin.Context) {
 		data := tpl.TemplateData{
 			MetaDescription: "Legal notice (Impressum) for kilb.tech",
 		}
 
-		if err := r.renderer.Render(w, "legal", data); err != nil {
-			log.Println(fmt.Errorf("executing legal template: %w", err))
-		}
-	})
+		c.HTML(http.StatusOK, "legal", data)
+	}
 }
 
-func NewLegal(renderer tpl.Renderer) Route {
-	return &Legal{renderer: renderer}
+func NewLegal() Route {
+	return &Legal{}
 }

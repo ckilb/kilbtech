@@ -3,11 +3,11 @@ package main
 import (
 	"ckilb/kilbtech/mail"
 	"ckilb/kilbtech/route"
-	"ckilb/kilbtech/server"
 	"ckilb/kilbtech/tpl"
 	_ "embed"
 	"flag"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
 
@@ -22,20 +22,32 @@ func main() {
 	}
 
 	sender := mail.NewSender()
-	renderer := tpl.NewRenderer()
 
 	routes := []route.Route{
-		route.NewHome(renderer),
-		route.NewSpryker(renderer),
-		route.NewLegal(renderer),
-		route.NewStatic(*staticPath),
+		route.NewHome(),
+		route.NewSpryker(),
+		route.NewLegal(),
 		route.NewRobots(),
 		route.NewContact(sender),
 	}
 
-	s := server.NewServer(*port, routes)
+	engine := gin.Default()
+	fmt.Println(*staticPath)
+	engine.Static(*staticPath, "static")
 
-	if err := s.Start(); err != nil {
+	renderer, err := tpl.NewRenderer()
+
+	if err != nil {
+		panic(err)
+	}
+
+	engine.HTMLRender = renderer
+
+	for _, r := range routes {
+		engine.Handle(r.Method(), r.Path(), r.Handler())
+	}
+
+	if err := engine.Run(fmt.Sprintf("127.0.0.1:%d", *port)); err != nil {
 		panic(err)
 	}
 }

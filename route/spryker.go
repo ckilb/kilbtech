@@ -3,21 +3,23 @@ package route
 import (
 	"ckilb/kilbtech/dto"
 	"ckilb/kilbtech/tpl"
-	"fmt"
-	"log"
+	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 type Spryker struct {
-	renderer tpl.Renderer
 }
 
 func (r *Spryker) Path() string {
 	return "/spryker-freelancer"
 }
 
-func (r *Spryker) Handler() http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+func (r *Spryker) Method() string {
+	return http.MethodGet
+}
+
+func (r *Spryker) Handler() gin.HandlerFunc {
+	return func(c *gin.Context) {
 		data := tpl.TemplateData{
 			MetaDescription: "Christian Kilb has over 20 years of experience in web development and works with Spryker since 2017 as a freelancer, developer and consultant.",
 			Headline:        "Spryker Freelancer &amp; Developer",
@@ -54,12 +56,10 @@ func (r *Spryker) Handler() http.Handler {
 			},
 		}
 
-		if err := r.renderer.Render(w, "spryker", data); err != nil {
-			log.Println(fmt.Errorf("executing spryker template: %w", err))
-		}
-	})
+		c.HTML(http.StatusOK, "spryker", data)
+	}
 }
 
-func NewSpryker(renderer tpl.Renderer) Route {
-	return &Spryker{renderer: renderer}
+func NewSpryker() Route {
+	return &Spryker{}
 }
