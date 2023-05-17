@@ -32,8 +32,8 @@ func main() {
 	}
 
 	engine := gin.Default()
-	fmt.Println(*staticPath)
-	engine.Static(*staticPath, "static")
+
+	engine.StaticFS("/static", gin.Dir(*staticPath, false))
 
 	renderer, err := tpl.NewRenderer()
 
