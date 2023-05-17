@@ -13,7 +13,7 @@ import (
 
 func main() {
 	port := flag.Int("port", 9090, "port")
-	staticPath := flag.String("staticPath", "../static", "staticPath")
+	staticPath := flag.String("staticPath", "static", "staticPath")
 
 	flag.Parse()
 
