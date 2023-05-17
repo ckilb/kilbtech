@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build-css": "npx tailwindcss -i asset/style.css -o ./static/build/style.css --minify",
+    "build-css": "npx tailwindcss -i ./asset/style.css -o ./static/build/style.css --minify",
     "serve": "go run main.go",
     "dev": "npm run build-css && npm run serve",
     "deploy": "sh ./scripts/deploy.sh"
