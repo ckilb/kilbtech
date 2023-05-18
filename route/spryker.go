@@ -22,7 +22,7 @@ func (r *Spryker) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		data := tpl.TemplateData{
 			MetaDescription: "Christian Kilb has over 20 years of experience in web development and works with Spryker since 2017 as a freelancer, developer and consultant.",
-			Headline:        "Spryker Freelancer &amp; Developer",
+			Headline:        "Spryker Freelancer & Developer",
 			SubHeadline:     "Spryker Developer & Consultant in Hamburg, Germany",
 			TeaserImage:     "antelope",
 			Projects: []dto.Project{
