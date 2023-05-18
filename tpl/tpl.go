@@ -75,7 +75,7 @@ func NewRenderer() (render.HTMLRender, error) {
 	pages := []string{"home", "spryker", "legal"}
 
 	for _, page := range pages {
-		if err := r.addPage("home"); err != nil {
+		if err := r.addPage(page); err != nil {
 			return r, fmt.Errorf("add page %s: %v", page, err)
 		}
 	}
