@@ -131,7 +131,7 @@ class SenderTest extends Test
 
 <p>
     The problem here is, that your test now saves the passed user in the real database.
-    You are not able to mock the logic that does the actual persisting to the database.
+    You are not easily able to mock the logic that does the actual persisting to the database.
     But - especially for a unit test - you <i>should</i> mock it. Because the unit to test here i the <i>Sender</i> class.
     Persisting user data is not the responsibility of the <i>Sender</i> itself.
 </p>
