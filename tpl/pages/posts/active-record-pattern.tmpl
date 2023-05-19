@@ -1,7 +1,8 @@
 {{ define "metadescription" }}Discover the Active Record Pattern, a design pattern for mapping database tables to classes. Learn about its benefits, downsides, and alternatives for effective database interaction.{{ end }}
 
 {{ define "intro_text" }}
-    The active record pattern is a design pattern that maps database tables to classes, enabling developers to interact with the database using object-oriented methods and operations. It is a common implementation of an <strong>Object Relational Mapper (ORM)</strong>. Like everything in software development, it has its benefits and downsides.
+    The active record pattern is a design pattern that maps database tables to classes, enabling developers to interact with the database using object-oriented methods and operations.<br />
+    It is a common implementation of an <strong>Object Relational Mapper (ORM)</strong>. Like everything in software development, it has its benefits and downsides.
 {{ end }}
 
 {{ define "content" }}
@@ -53,7 +54,8 @@ $user->save();</code></pre>
 
 {{template "quote" dict "Text" "A class should have only one reason to change."}}
 <p>
-    While it's often arguable what exactly should be considered a single reason or responsibility in software development, I see more than one responsibilities within a class that implements the active record pattern:
+    While it's often arguable what exactly should be considered a single reason or responsibility in software development,
+    the active record pattern has without any doubt several responsibilities:
 </p>
 
 {{template "list" dict "Items" (slice
@@ -66,7 +68,8 @@ $user->save();</code></pre>
 
 {{template "quote" dict "Text" "A system should be divided into separate modules, each focusing on a specific aspect of functionality, to improve maintainability and modularity."}}
 <p>
-    Every place in your code where you pass the active record object will have the ability to read and modify user rows in your database. In many cases, you pass the object to different places because you need to work with the data values, such as the username, registration data, and so on, for a <i>User</i> object.
+    Every place in your code you pass the active record object to will have the ability to read and modify user rows in your database.
+    In many cases, you probably only pass the object to different places because you need to work with the data values (such as the username, registration data, and so on, for a <i>User</i> object=.
 </p>
 
 <p>
@@ -83,7 +86,7 @@ $user->save();</code></pre>
     <strong>Now ask yourself the question:</strong> Should these places be able to modify the user row in your database?
     While you might argue that a <i>NotificationSender</i> might still be able to modify the user row (for example, to update the <i>lastNotificationSent</i> date), this doesn't necessarily be true for every business class.<br />
     Most likely, you definitely don't want your template engine to be able to update the user row.<br />
-    You could now argue that you can take the risk - but can you be sure every developer in your team will know and follow the rules?
+    You could now argue that you can take the risk - but can you still take, if you work together with many other developers in the same team. Will everyone in your team know and follow the rules?
 </p>
 <p>
     Another downside of the pattern is that <i>testing</i> could be much harder.<br />
@@ -130,8 +133,8 @@ class SenderTest extends Test
 </code></pre>
 
 <p>
-    The problem here is, that your test now saves the passed user in the real database.
-    You are not easily able to mock the logic that does the actual persisting to the database.
+    The problem here is, that - without any further ado - the test now saves the passed user in the real database.
+    You are not easily able to <i>mock</i> the logic that does the actual persisting to the database.
     But - especially for a unit test - you <i>should</i> mock it. Because the unit to test here i the <i>Sender</i> class.
     Persisting user data is not the responsibility of the <i>Sender</i> itself.
 </p>
@@ -194,9 +197,16 @@ $sender->send($user);
 </code></pre>
 
 <p>
-    Nice side effect: By passing the Entity Manager to the constructor it's quite clear that the <i>Sender</i> class will perform database
+    <strong>Nice side effect:</strong> By passing the Entity Manager to the constructor it's quite clear that the <i>Sender</i> class will perform database
     modifications for users. You'll know that even without looking into each method and each method's implementation of the class.
 </p>
+
+{{template "list" dict "Items" (slice
+    "every class that has the <i>UserEntityManager</i> injected, is able to modify user data."
+    "any class without the <i>UserEntityManager</i> injected, won't be able to modify user data."
+    "every class that has the <i>UserRepository</i> injected, is able to read user data."
+    "any class without the <i>UserRepository</i> injected, won't be able to read user data."
+)}}
 
 <p>
 A test case could look like this:
