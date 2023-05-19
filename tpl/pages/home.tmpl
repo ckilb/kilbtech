@@ -1,5 +1,6 @@
 {{ define "title" }}Christian Kilb – Technical Lead | Software Architect | Developer{{end}}
 {{ define "canonical" }}https://kilb.tech{{end}}
+{{ define "metadescription" }}With over 20 years of experience in software development, Christian Kilb has acquired a wealth of knowledge in technologies, strategies and leadership.{{end}}
 
 {{ define "intro_text" }}
 <p class="mb-8">
@@ -21,8 +22,12 @@
 {{ end }}
 
 {{ define "main" }}
-{{ template "teaser_intro" . }}
-{{ template "project_scroller" . }}
+{{ template "teaser_intro" dict
+    "Headline" "Christian Kilb"
+    "SubHeadline" "Technical Lead | Software Architect | Developer"
+    "TeaserImage" "teasers/home"
+}}
+{{ template "scroller" dict "anchor" "projects" }}
 {{ template "projects" . }}
 {{ template "contact" . }}
 {{ end }}

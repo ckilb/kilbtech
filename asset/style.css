@@ -1,5 +1,20 @@
 @import 'aos.css';
+@import "atom-one-dark.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+p {
+    @apply mb-5;
+}
+
+a {
+    @apply underline;
+}
+
+pre  {
+    @apply p-3 rounded-md text-sm mb-3;
+
+    background-color: #282c34;
+}

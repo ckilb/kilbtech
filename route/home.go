@@ -21,10 +21,6 @@ func (r *Home) Method() string {
 func (r *Home) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		data := tpl.TemplateData{
-			MetaDescription: "With over 20 years of experience in software development, Christian Kilb has acquired a wealth of knowledge in technologies, strategies and leadership.",
-			Headline:        "Christian Kilb",
-			SubHeadline:     "Technical Lead | Software Architect | Developer",
-			TeaserImage:     "me",
 			Projects: []dto.Project{
 				{
 					LogoFileName: "marel.svg",

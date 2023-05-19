@@ -1,0 +1,27 @@
+{{ define "title" }}Blog - Christian Kilb{{end}}
+{{ define "canonical" }}https://kilb.tech/blog{{end}}
+{{ define "metadescription" }}Articles about Christian Kilb's thoughts and learnings.{{end}}
+
+{{ define "intro_text" }}
+<ul class="grid grid-cols-12 gap-2 md:gap-4">
+    {{ range .posts }}
+        <li class="col-span-6 md:col-span-4 text-center">
+            <a href="/{{ .Id }}"
+               class="no-underline block md:hover:scale-105 transition-transform">
+                <img class="mb-2 rounded-xl" src="/static/img/posts/{{ .Id }}.png"
+                     alt="{{ .Title }}"/>
+                {{ .Title }}
+            </a>
+        </li>
+    {{end}}
+</ul>
+{{ end }}
+
+{{ define "main" }}
+    {{ template "teaser_intro" dict
+        "Headline" "Blog"
+        "SubHeadline" "Articles about my thoughts & learnings."
+        "TeaserImage" "teasers/blog"
+        "posts" .posts
+    }}
+{{ end }}

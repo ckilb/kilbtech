@@ -1,5 +1,6 @@
 {{define "title"}}Spryker Freelancer & Developer in Hamburg – Christian Kilb{{end}}
 {{define "canonical"}}https://kilb.tech/spryker-freelancer{{end}}
+{{define "metadescription"}}Christian Kilb has over 20 years of experience in web development and works with Spryker since 2017 as a freelancer, developer and consultant.{{end}}
 
 {{ define "intro_text" }}
 <p class="mb-3 md:mb-8">
@@ -36,8 +37,12 @@
 {{ end }}
 
 {{ define "main" }}
-{{ template "teaser_intro" . }}
-{{ template "project_scroller" . }}
+{{ template "teaser_intro" dict
+    "Headline" "Spryker Freelancer & Developer"
+    "SubHeadline" "Spryker Developer & Consultant in Hamburg, Germany"
+    "TeaserImage" "teasers/spryker"
+}}
+{{ template "projects" dict "anchor" "projects" }}
 
 {{ template "projects" . }}
 {{ template "contact" . }}

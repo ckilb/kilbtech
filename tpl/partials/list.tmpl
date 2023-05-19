@@ -1,0 +1,11 @@
+{{ define "list" }}
+
+<ul class="list-disc list-inside ml-1 mb-5">
+    {{ range .Items }}
+        <li>
+            {{ raw . }}
+        </li>
+    {{ end }}
+</ul>
+
+{{ end }}

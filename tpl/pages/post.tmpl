@@ -1,0 +1,18 @@
+{{ define "title" }}{{ .Post.Title }} – {{ .Post.Subtitle }} | Christian Kilb{{end}}
+{{ define "canonical" }}https://kilb.tech/{{ .Post.Id }}{{end}}
+
+{{ define "intro_text" }}
+{{ end }}
+{{ define "main" }}
+    {{ template "teaser_intro" dict
+        "Headline" .Post.Title
+        "SubHeadline" .Post.Subtitle
+        "TeaserImage" (print "posts/" .Post.Id)
+    }}
+
+    {{ template "scroller" dict "anchor" "content" }}
+
+    <article class="mx-auto max-w-5xl" id="content">
+        {{ template "content" . }}
+    </article>
+{{ end }}

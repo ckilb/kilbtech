@@ -1,0 +1,235 @@
+{{ define "metadescription" }}Discover the Active Record Pattern, a design pattern for mapping database tables to classes. Learn about its benefits, downsides, and alternatives for effective database interaction.{{ end }}
+
+{{ define "intro_text" }}
+    The active record pattern is a design pattern that maps database tables to classes, enabling developers to interact with the database using object-oriented methods and operations. It is a common implementation of an <strong>Object Relational Mapper (ORM)</strong>. Like everything in software development, it has its benefits and downsides.
+{{ end }}
+
+{{ define "content" }}
+
+{{template "h2" dict "Text" "Example code"}}
+<pre><code class="language-php rounded-md"><?php
+class User
+{
+    public int $id;
+    public string $name;
+    public string $email;
+
+    public function save() {
+        // Save the user object
+    }
+
+    public static function find($id) {
+        // Retrieve a user object by ID
+    }
+}
+
+// Usage example
+$user = User::find(1); // Retrieve a user with ID 1
+echo $user->name;
+echo $user->email;
+
+$user->name = 'Foo Bar'; // Update the name property
+$user->save(); // Save the updated user object back to the database</code></pre>
+
+{{template "h2" dict "Text" "Benefits"}}
+<p>
+    The pattern simplifies database operations by representing database tables as objects, making interaction and manipulation straightforward.<br />
+    It is easy to grasp & beginner-friendly, and can be a helpful abstraction compared to using plain SQL.
+</p>
+<p>
+    For many <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank">MVC</a> frameworks the M (Model) part is basically an Active Record implementation, like
+    <a href="https://laravel.com/docs/10.x/eloquent" target="_blank">Eloquent</a> in Laravel.
+
+</p>
+
+{{template "h2" dict "Text" "Downsides"}}
+
+<p>
+    From my perspective, it totally makes sense to use ORMs for medium- to bigger-sized projects.<br />
+    Often I'll try to avoid the Active Record pattern though because it basically violates two important principles:
+</p>
+
+{{template "h3" dict "Text" "Single responsibility principle"}}
+
+{{template "quote" dict "Text" "A class should have only one reason to change."}}
+<p>
+    While it's often arguable what exactly should be considered a single reason or responsibility in software development, I see more than one responsibilities within a class that implements the active record pattern:
+</p>
+
+{{template "list" dict "Items" (slice
+    "reading data (usually there's a <i>find()</i> method"
+    "persisting data (usually there's a <i>save()</i> or <i>update()</i> method"
+    "representing a single data row (usually there are public properties or getters to access the values of each column)"
+)}}
+
+{{template "h3" dict "Text" "Separation of concerns principle"}}
+
+{{template "quote" dict "Text" "A system should be divided into separate modules, each focusing on a specific aspect of functionality, to improve maintainability and modularity."}}
+<p>
+    Every place in your code where you pass the active record object will have the ability to read and modify user rows in your database. In many cases, you pass the object to different places because you need to work with the data values, such as the username, registration data, and so on, for a <i>User</i> object.
+</p>
+
+<p>
+    <strong>Is it a bad thing?</strong><br />
+    Not necessarily. For smaller projects, it's a great way to achieve quick results. The pattern provides a clear and convenient way to work with your database.<br />
+    And even for bigger projects, when used with care, the pattern can be quite pleasant to work with.
+</p>
+<p>
+    But there is a risk you should be aware of:<br />
+    Usually, after you read out data from the database, you will pass these data to a lot of places in your code.
+    Like, if you read out a User from the database, you might pass it to some business class (like a <i>NotificationSender</i> or <i>MailSender</i> to send out notifications for that user) or to some template engine to display the user's data.
+</p>
+<p>
+    <strong>Now ask yourself the question:</strong> Should these places be able to modify the user row in your database?
+    While you might argue that a <i>NotificationSender</i> might still be able to modify the user row (for example, to update the <i>lastNotificationSent</i> date), this doesn't necessarily be true for every business class.<br />
+    Most likely, you definitely don't want your template engine to be able to update the user row.<br />
+    You could now argue that you can take the risk - but can you be sure every developer in your team will know and follow the rules?
+</p>
+<p>
+    Another downside of the pattern is that <i>testing</i> could be much harder.<br />
+    Let's assume you want to unit-test a business class that retrieves an Active Record Object:
+</p>
+<pre><code><?php
+class Sender
+{
+    public function send(User $user): void
+    {
+        ...
+        $user->sentAt = date('Y-m-d H:i:s');
+        $user->save();
+    }
+}
+
+...
+
+$sender = new Sender();
+$sender->send($user);
+</code></pre>
+
+<p>
+    How would a unit test for <i>Sender</i> look like? Probably similar to this:
+</p>
+
+<pre><code><?php
+class SenderTest extends Test
+{
+    private Sender $sender;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->sender = new Sender();
+    }
+
+    public function testSend(): void
+    {
+        ...
+    }
+}
+</code></pre>
+
+<p>
+    The problem here is, that your test now saves the passed user in the real database.
+    You are not able to mock the logic that does the actual persisting to the database.
+    But - especially for a unit test - you <i>should</i> mock it. Because the unit to test here i the <i>Sender</i> class.
+    Persisting user data is not the responsibility of the <i>Sender</i> itself.
+</p>
+<p>
+    <strong>Please mind</strong>: I don't say here that it's <i>impossible</i> to mock such logic. If you really want, I'm sure you'd find a way.
+    But the question is how complex it will be and if it's actually worth it.
+</p>
+
+{{template "h2" dict "Text" "Alternatives"}}
+
+<p>
+    One alternative is to not use ORM at all and instead use <strong>plain SQL queries</strong>.
+    For sure there are many developers out there who think that the benefits of an ORM doesn't compensate for the additional complexity and abstractness.<br />
+    For small projects like microservices that might be true and it's worth to consider this approach.
+</p>
+<p>
+    I've worked on many projects in larger teams where it made complete sense to have an ORM in place.<br />
+    In these cases, I chose an ORM that has a more precise separation of responsibilities, which typically looks like this:
+</p>
+
+{{template "list" dict "Items" (slice
+    "a class to <i>read out</i> data from the database. i.e. a <i>UserRepository</i> which contains <i>find*()</i> methods."
+    "a class to <i>insert and modify</i> data in the database, i.e. a <i>UserEntityManager</i> which contains <i>save()</i> and <i>update()</i> methods."
+    "a class representing a data row, i.e. a <i>UserDto</i> class which has setters and getters for every value, but no business logic"
+)}}
+
+<p>
+    With this approach, I can safely pass the
+    <a href="https://en.wikipedia.org/wiki/Data_transfer_object"
+       target="_blank">DTO class</a>
+    to other places in my code and be sure that these
+    places won't be able to read out more data from the database or modify its data.
+</p>
+
+<p>
+    Let's see how a <i>Sender</i> class could look like if we have an entity manager:
+</p>
+
+<pre><code><?php
+class Sender
+{
+    public function __construct(
+        private readonly UserRepositoryInterface $userRepository
+    ) {}
+
+    public function send(UserDto $user): void
+    {
+        ...
+
+        $user->setSentAt(date('Y-m-d H:i:s'));
+        $this->userRepository->save($user);
+    }
+}
+
+...
+
+$entityManager = new UserEntityManager();
+$sender = new Sender($entityManager);
+$sender->send($user);
+</code></pre>
+
+<p>
+    Nice side effect: By passing the Entity Manager to the constructor it's quite clear that the <i>Sender</i> class will perform database
+    modifications for users even without looking into each method and it's implementations.
+</p>
+
+<p>
+A test case could look like this:
+</p>
+<pre><code><?php
+class SenderTest extends Test
+{
+    private Sender $sender;
+
+    /**
+     * @var UserEntityManagerInterface&MockObject
+     */
+    private UserEntityManagerInterface $entityManager;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $entityManager = $this->createMock(UserEntityManagerInterface::class);
+
+        $this->sender = new Sender($entityManager);
+    }
+
+    public function testSend(): void
+    {
+        ...
+    }
+}
+</code></pre>
+<p>
+    You see: mocking the functionality to save a user is now quite straight-forward: No magic involved and easy to grasp.
+    <br />
+    Creating <i>entity managers</i>, <i>repositories</i> and <i>DTOs</i> for every entity  might be a bit time-consuming and "boilerplatey"
+    in the beginning but there's a good chance it will pay off later on.
+</p>
+{{end}}
