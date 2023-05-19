@@ -17,4 +17,5 @@ pre  {
     @apply p-3 rounded-md text-sm mb-3;
 
     background-color: #282c34;
+    overflow-x: auto
 }
