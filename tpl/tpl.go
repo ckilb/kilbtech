@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin/render"
+	"html"
 	"html/template"
 	"io"
 )
@@ -69,6 +70,9 @@ func (r *renderer) addFromFsFiles(base string, name string, files []string) erro
 	funcMap := template.FuncMap{
 		"slice": func(args ...interface{}) []interface{} {
 			return args
+		},
+		"escape": func(arg string) string {
+			return html.EscapeString(arg)
 		},
 		"raw": func(arg string) template.HTML {
 			return template.HTML(arg)

@@ -1,42 +1,96 @@
 {{ define "metadescription" }}Discover the Active Record Pattern, a design pattern for mapping database tables to classes. Learn about its benefits, downsides, and alternatives for effective database interaction.{{ end }}
 
 {{ define "intro_text" }}
-    The active record pattern is a design pattern that maps database tables to classes, enabling developers to interact with the database using object-oriented methods and operations.<br />
-    It is a common implementation of an <strong>Object Relational Mapper (ORM)</strong>. Like everything in software development, it has its benefits and downsides.
+    Tailwind CSS is a utility-first CSS framework that provides a comprehensive set of pre-defined classes, enabling developers to quickly build modern and responsive user interfaces.<br />
+    It focuses on simplicity and customization by offering a low-level approach to styling components.<br />
+    This blog post will explain Tailwind's approach in a way I wished it was explained to me.
 {{ end }}
 
 {{ define "content" }}
 
-{{template "h2" dict "Text" "Example code"}}
-<pre><code class="language-php"><?php
-class User
-{
-    public int $id;
-    public string $name;
-    public string $email;
+{{template "h2" dict "Text" "Once upon a time there was no CSS"}}
 
-    public function save() {
-        // Save the user object
-    }
-
-    public static function find($id) {
-        // Retrieve a user object by ID
-    }
-}
-
-// Usage example
-$user = User::find(1); // Retrieve a user with ID 1
-echo $user->name;
-echo $user->email;
-
-$user->name = 'Foo Bar';
-$user->save();</code></pre>
-
-{{template "h2" dict "Text" "Benefits"}}
 <p>
-    The pattern simplifies database operations by representing database tables as objects, making interaction and manipulation straightforward.<br />
-    It is easy to grasp & beginner-friendly, and can be a helpful abstraction compared to using plain SQL.
+    When I started with web development in my early teenage years, CSS wasn't a big deal. While it was released in 1996
+    already it took a while to get widely adapted.<br />
+    Website layouts were basically built with <i>{{"<table>"}}</i> tags and HTML attributes like
+    <i>color</i>, <i>bgcolor</i>, <i>cellpadding</i> and so on.<br />
+    Back then the source code looked similar to this:
 </p>
+
+<pre><code class="language-html">{{ `<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<body>
+    <table>
+        <tr>
+            <td align="center" colspan="2">
+                <a href="/"><font color="red" face="Verdana">My website</font></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <u>SIDEBAR</u><br /><br />
+                <a href="/foo">Foo</a><br />
+                <a href="/bar">Bar</a>
+            </td>
+            <td>
+                <h1>Foo</h1><br /><br />
+                <font color="#00008b">Lorem ipsum</font>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>` }}</code></pre>
+
+<p>
+    JavaScript was mostly used to add some <i>questionable</i> effects to the mouse cursor - and to annoy people with popups and alert preventing you from leaving the website.<br />
+</p>
+<p>
+    Popular software to write HTML code was <i>Macromedia Dreamweaver</i> and... my personal favorite...
+    <a href="https://de.wikipedia.org/wiki/Microsoft_FrontPage" target="_blank"><i>Frontpage Express</i></a>.
+</p>
+<p>
+    But... things were so simple back then.
+</p>
+<p>
+    If you are old enough to remember these times, let us take a brief moment of introspection, shall we?
+</p>
+<p>
+    No SPA frameworks, preprocessors, package managers, dependency hells, bloated web browsers...
+</p>
+<p>
+    ...
+</p>
+<p>
+    OK, that's enough.
+</p>
+<p>
+    We would not be where we are today if the WWW and it's technologies haven't evolved.<br />
+    Nowadays there are fancy E-commerce platforms, great games and billion-dollar enterprise applications running
+    in a browser - no matter what operation system you use. That's actually great thing and would not have been possible
+    with the tools we have right now.
+</p>
+
+{{template "h2" dict "Text" "Then there came CSS... and inline styles"}}
+<p>
+    During the years the functionality of CSS increased, web browser got better in supporting it and therefore
+    it got increasingly widespread.
+</p>
+<p>
+    While it was already possible to put your CSS stylesheets in a separate file or <i>{{"<style>"}}</i> block it
+    wasn't too uncommon to simply use inline styles.<br />
+    So this...
+</p>
+
+<pre><code>{{ `<font color="red">my text</font>`}}</code></pre>
+
+<p>
+    simply got changed to this:
+</p>
+
+<pre><code>{{ `<span style="color: red;">my text</font>`}}</code></pre>
+
+    TODO HERE
 <p>
     For many <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank">MVC</a> frameworks the M (Model) part is basically an Active Record implementation, like
     <a href="https://laravel.com/docs/10.x/eloquent" target="_blank">Eloquent</a> in Laravel.

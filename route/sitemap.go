@@ -28,6 +28,10 @@ func (r *Sitemap) Handler() gin.HandlerFunc {
 	}
 
 	for _, post := range r.posts {
+		if !post.IsActive {
+			continue
+		}
+
 		lines = append(lines, "<url>")
 		lines = append(lines, fmt.Sprintf("<loc>https://kilb.tech/%s</loc>", post.Id))
 		lines = append(lines, "</url>")

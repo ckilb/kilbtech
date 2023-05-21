@@ -5,14 +5,16 @@
 {{ define "intro_text" }}
 <ul class="grid grid-cols-12 gap-2 md:gap-4">
     {{ range .posts }}
-        <li class="col-span-6 md:col-span-4 text-center">
-            <a href="/{{ .Id }}"
-               class="no-underline block md:hover:scale-105 transition-transform">
-                <img class="mb-2 rounded-xl" src="/static/img/posts/{{ .Id }}.png"
-                     alt="{{ .Title }}"/>
-                {{ .Title }}
-            </a>
-        </li>
+        {{ if .IsActive }}
+            <li class="col-span-6 md:col-span-4 text-center">
+                <a href="/{{ .Id }}"
+                   class="no-underline block md:hover:scale-105 transition-transform">
+                    <img class="mb-2 rounded-xl" src="/static/img/posts/{{ .Id }}.webp"
+                         alt="{{ .Title }}"/>
+                    {{ .Title }}
+                </a>
+            </li>
+        {{ end }}
     {{end}}
 </ul>
 {{ end }}

@@ -37,7 +37,8 @@ func main() {
 	}
 
 	for _, post := range posts {
-		routes = append(routes, route.NewPost(&post))
+		p := post
+		routes = append(routes, route.NewPost(p))
 	}
 
 	engine := gin.Default()

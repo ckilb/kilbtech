@@ -9,11 +9,11 @@ import (
 
 type PostTemplateData struct {
 	tpl.TemplateData
-	Post *blog.Post
+	Post blog.Post
 }
 
 type Post struct {
-	post *blog.Post
+	post blog.Post
 }
 
 func (r *Post) Path() string {
@@ -34,6 +34,6 @@ func (r *Post) Handler() gin.HandlerFunc {
 	}
 }
 
-func NewPost(p *blog.Post) Route {
+func NewPost(p blog.Post) Route {
 	return &Post{p}
 }
