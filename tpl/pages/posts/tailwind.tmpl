@@ -85,215 +85,153 @@
 <pre><code>{{ `<font color="red">my text</font>`}}</code></pre>
 
 <p>
-    simply got changed to this:
+    simply became this:
 </p>
 
 <pre><code>{{ `<span style="color: red;">my text</font>`}}</code></pre>
 
-    TODO HERE
 <p>
-    For many <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank">MVC</a> frameworks the M (Model) part is basically an Active Record implementation, like
-    <a href="https://laravel.com/docs/10.x/eloquent" target="_blank">Eloquent</a> in Laravel.
-
+    So, the implementation of a linked navigation list would look like this:
 </p>
 
-{{template "h2" dict "Text" "Downsides"}}
+<pre><code>{{ `<nav>
+    <ul style="list-style-type: none;">
+        <li style="padding: 5px; ...">
+            <a style="text-decoration: none; color: darkblue; ..." href="...">Foo</a>
+        </li>
+        <li style="padding: 5px; ...">
+            <a style="text-decoration: none; color: darkblue; ..." href="...">Bar</a>
+        </li>
+        <li style="padding: 5px; ...">
+            <a style="text-decoration: none; color: darkblue; ..." href="...">Hello</a>
+        </li>
+        <li style="padding: 5px; ...">
+            <a style="text-decoration: none; color: darkblue; ..." href="...">World</a>
+        </li>
+    </ul>
+</nav>`}}</code></pre>
 
 <p>
-    From my perspective, it totally makes sense to use ORMs for medium- to bigger-sized projects.<br />
-    Often I'll try to avoid the Active Record pattern though because it basically violates two important principles:
-</p>
+    You can see, we have a lot of duplicate style information here. This basically had two downsides:<br />
 
-{{template "h3" dict "Text" "Single responsibility principle"}}
-
-{{template "quote" dict "Text" "A class should have only one reason to change."}}
-<p>
-    While it's often arguable what exactly should be considered a single reason or responsibility in software development,
-    the active record pattern has without any doubt several responsibilities:
-</p>
-
-{{template "list" dict "Items" (slice
-    "reading data (usually there's a <i>find()</i> method)"
-    "persisting data (usually there's a <i>save()</i> or <i>update()</i> method)"
-    "representing a single data row (usually there are public properties or getters to access the values of each column)"
-)}}
-
-{{template "h3" dict "Text" "Separation of concerns principle"}}
-
-{{template "quote" dict "Text" "A system should be divided into separate modules, each focusing on a specific aspect of functionality, to improve maintainability and modularity."}}
-<p>
-    Every place in your code you pass the active record object to will have the ability to read and modify user rows in your database.
-    In many cases, you probably only pass the object to different places because you need to work with the data values (such as the username, registration data, and so on, for a <i>User</i> object=.
+    - Your HTML code got bigger, so it may be slower to load (<i>We come to tha point later again)</i><br />
+    - If you want to change the style for multiple elements of the same type you had to touch all the places.
 </p>
 
 <p>
-    <strong>Is it a bad thing?</strong><br />
-    Not necessarily. For smaller projects, it's a great way to achieve quick results. The pattern provides a clear and convenient way to work with your database.<br />
-    And even for bigger projects, when used with care, the pattern can be quite pleasant to work with.
+    So, many developers quickly agreed to use CSS classes instead...
 </p>
-<p>
-    But there is a risk you should be aware of:<br />
-    Usually, after you read out data from the database, you will pass these data to a lot of places in your code.
-    Like, if you read out a User from the database, you might pass it to some business class (like a <i>NotificationSender</i> or <i>MailSender</i> to send out notifications for that user) or to some template engine to display the user's data.
-</p>
-<p>
-    <strong>Now ask yourself the question:</strong> Should these places be able to modify the user row in your database?
-    While you might argue that a <i>NotificationSender</i> might still be able to modify the user row (for example, to update the <i>lastNotificationSent</i> date), this doesn't necessarily be true for every business class.<br />
-    Most likely, you definitely don't want your template engine to be able to update the user row.<br />
-    You could now argue that you can take the risk - but can you still take, if you work together with many other developers in the same team. Will everyone in your team know and follow the rules?
-</p>
-<p>
-    Another downside of the pattern is that <i>testing</i> could be much harder.<br />
-    Let's assume you want to unit-test a business class that retrieves an Active Record Object:
-</p>
-<pre><code><?php
-class Sender
-{
-    public function send(User $user): void
-    {
-        ...
-        $user->sentAt = date('Y-m-d H:i:s');
-        $user->save();
-    }
-}
 
-...
+{{template "h2" dict "Text" "Semantic HTML & CSS"}}
 
-$sender = new Sender();
-$sender->send($user);
-</code></pre>
 
 <p>
-    How would a unit test for <i>Sender</i> look like? Probably similar to this:
+    When you decide to use CSS classes instead of inline styles you have to think about <i>names</i> for them.<br />
+    There is the common approach to have your HTML structure as semantic as possible. That's good for crawlers
+    - because for machines structured, semantic HTML code is better to understand - and has evidential a good
+    effect to search engine rankings of the website.
 </p>
+<p>
+    To have good <i>CSS class names</i> & keep your HTML code semantic, the idea came up to give your CSS classes
+    a semantic name, too. So, the describe classes should not describe the styles itself (like "text-red") but
+    the element the classes are assigned to (like "sidebar"). CSS classes should only be used, when necessary, to not clutter
+    the code:
+</p>
+<pre><code>{{ `<nav>
+    <ul class="sidebar">
+        <li>
+            <a href="...">Foo</a>
+        </li>
+        <li>
+            <a href="...">Bar</a>
+        </li>
+        <li>
+            <a href="...">Hello</a>
+        </li>
+        <li>
+            <a href="...">World</a>
+        </li>
+    </ul>
+</nav>`}}</code></pre>
 
-<pre><code><?php
-class SenderTest extends Test
-{
-    private Sender $sender;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->sender = new Sender();
+<pre><code>{{ `<style type="text/css">
+    ul.sidebar {
+        list-style-type: none;
     }
 
-    public function testSend(): void
-    {
-        ...
-    }
-}
-</code></pre>
-
-<p>
-    The problem here is, that - without any further ado - the test now saves the passed user in the real database.
-    You are not easily able to <i>mock</i> the logic that does the actual persisting to the database.
-    But - especially for a unit test - you <i>should</i> mock it. Because the unit to test here i the <i>Sender</i> class.
-    Persisting user data is not the responsibility of the <i>Sender</i> itself.
-</p>
-<p>
-    <strong>Please mind</strong>: I don't say here that it's <i>impossible</i> to mock such logic. If you really want, I'm sure you'd find a way.
-    But the question is how complex it will be and if it's actually worth it.
-</p>
-
-{{template "h2" dict "Text" "Alternatives"}}
-
-<p>
-    One alternative is to not use ORM at all and instead use <strong>plain SQL queries</strong>.
-    For sure there are many developers out there who think that the benefits of an ORM doesn't compensate for the additional complexity and abstractness.<br />
-    For small projects like microservices that might be true and it's worth to consider this approach.
-</p>
-<p>
-    I've worked on many projects in larger teams where it made complete sense to have an ORM in place.<br />
-    In these cases, I chose an ORM that has a more precise separation of responsibilities, which typically looks like this:
-</p>
-
-{{template "list" dict "Items" (slice
-    "a class to <i>read out</i> data from the database. i.e. a <i>UserRepository</i> which contains <i>find*()</i> methods."
-    "a class to <i>insert and modify</i> data in the database, i.e. a <i>UserEntityManager</i> which contains <i>save()</i> and <i>update()</i> methods."
-    "a class representing a data row, i.e. a <i>UserDto</i> class which has setters and getters for every value, but no business logic"
-)}}
-
-<p>
-    With this approach, I can safely pass the
-    <a href="https://en.wikipedia.org/wiki/Data_transfer_object"
-       target="_blank">DTO class</a>
-    to other places in my code and be sure that these
-    places won't be able to read out more data from the database or modify its data.
-</p>
-
-<p>
-    Let's see how a <i>Sender</i> class could look like if we have an entity manager:
-</p>
-
-<pre><code><?php
-class Sender
-{
-    public function __construct(
-        private readonly UserRepositoryInterface $userRepository
-    ) {}
-
-    public function send(UserDto $user): void
-    {
-        ...
-
-        $user->setSentAt(date('Y-m-d H:i:s'));
-        $this->userRepository->save($user);
-    }
-}
-
-...
-
-$entityManager = new UserEntityManager();
-$sender = new Sender($entityManager);
-$sender->send($user);
-</code></pre>
-
-<p>
-    <strong>Nice side effect:</strong> By passing the Entity Manager to the constructor it's quite clear that the <i>Sender</i> class will perform database
-    modifications for users. You'll know that even without looking into each method and each method's implementation of the class.
-</p>
-
-{{template "list" dict "Items" (slice
-    "every class that has the <i>UserEntityManager</i> injected, is able to modify user data."
-    "any class without the <i>UserEntityManager</i> injected, won't be able to modify user data."
-    "every class that has the <i>UserRepository</i> injected, is able to read user data."
-    "any class without the <i>UserRepository</i> injected, won't be able to read user data."
-)}}
-
-<p>
-A test case could look like this:
-</p>
-<pre><code><?php
-class SenderTest extends Test
-{
-    private Sender $sender;
-
-    /**
-     * @var UserEntityManagerInterface&MockObject
-     */
-    private UserEntityManagerInterface $entityManager;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $entityManager = $this->createMock(UserEntityManagerInterface::class);
-
-        $this->sender = new Sender($entityManager);
+    ul.sidebar > li {
+        padding: 5px;
     }
 
-    public function testSend(): void
-    {
-        ...
+    ul.sidebar > li > a {
+        text-decoration: none;
+        color: darkblue;
     }
-}
-</code></pre>
+
+</style>`}}</code></pre>
+
 <p>
-    You see: mocking the functionality to save a user is now quite straight-forward: No magic involved and easy to grasp.
-    <br />
-    Creating <i>entity managers</i>, <i>repositories</i> and <i>DTOs</i> for every entity  might be a bit time-consuming and "boilerplatey"
-    in the beginning but there's a good chance it will pay off later on.
+    This was considered a clean way to structure your HTML and implement your CSS classes.<br />
+    It had a big downside though:<br />
+    In bigger projects, the nesting level of CSS classes got quite high.<br />
+    Superset languages on top of CSS - like <a href="https://sass-lang.com/" target="_blank">SCSS</a> - made
+    handling this a bit easier - but didn't fix the problem.
+</p>
+
+<p>
+    I worked on several dozen website projects that time.<br />
+    How many projects do you think were strictly implementing semantic HTML and CSS?
+</p>
+
+<p>
+    ?
+</p>
+
+<p>
+    Right.<br />
+    <strong>Zero.</strong>
+</p>
+
+
+<p>
+    There are other approaches to have a clean CSS structure. Like <a href="https://getbem.com/introduction/">BEM</a>,
+    wherein you don't try to keep the number of CSS classes as low as possible but instead classify every element you want
+    to have a style into <i>blocks</i>, <i>elements</i> and <i>modifiers</i>.
+</p>
+
+<pre><code>{{ `<nav class="sidebar">
+    <ul class="sidebar__list">
+        <li class="sidebar__list-item">
+            <a href="...">Foo</a>
+        </li>
+        <li class="sidebar__list-item">
+            <a class="sidebar__list-item-link href="...">Bar</a>
+        </li>
+        <li class="sidebar__list-item">
+            <a class="sidebar__list-item-link href="...">Hello</a>
+        </li>
+        <li class="sidebar__list-item">
+            <a class="sidebar__list-item-link href="...">World</a>
+        </li>
+    </ul>
+</nav>`}}</code></pre>
+
+<p>
+    BEM makes sure that the nesting level doesn't get too deep. Every <i>element</i> is inside a <i>block</i> and
+    can have multiple <i>modifiers</i>. That's it.
+</p>
+<p>
+    Still, there are some downsides.<br />
+    First of all it's not always clear what should be considered a <i>block</i> or <i>element</i>.<br />
+    Secondly - as you can see in the example above - we again have a lot of code duplication again. Instead of <i>style</i>
+    attributes we now repeat <i>CSS class names</i> instead.
+</p>
+<p>
+    For sure BEM is a nice approach and for many cases superior than inline styles.<br />
+    But isn't it a bit frustrating to have to decide between code duplication and crazy nesting levels?
+</p>
+<p>
+    Well, there's an alternative approach. And it's so easy that I wonder why no one really came up with it before.<br />
+    Tailwind CSS is implementing this new appraoch, even though - in the past - the .
 </p>
 {{end}}
