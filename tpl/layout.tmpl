@@ -9,7 +9,7 @@
     <meta name="robots" content="index,follow" />
 
     <link rel="canonical" href="{{template "canonical" .}}" />
-    <link rel="stylesheet" href="/static/build/style.css">
+    <link rel="stylesheet" href="/static/build/style.css?id={{ assetId }}">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
@@ -20,8 +20,8 @@
     <meta name="msapplication-config" content="/static/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <script src="/static/aos.js" defer></script>
-    <script src="/static/script.js" defer></script>
+    <script src="/static/aos.js?id={{ assetId }}" defer></script>
+    <script src="/static/script.js?id={{ assetId }}" defer></script>
 
     <style>
         @font-face {
@@ -31,6 +31,9 @@
             font-display: swap;
         }
     </style>
+
+    {{template "head" }}
+    {{ define "head"}}{{end}}
 </head>
 
 <body class="bg-slate-900 text-gray-50 font-light relative leading-7">
@@ -77,7 +80,4 @@
             </ul>
         </nav>
     </footer>
-
-    <script src="/static/js/highlight.js"></script>
-    <script>hljs.highlightAll();</script>
 </body>

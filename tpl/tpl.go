@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin/render"
+	"github.com/google/uuid"
 	"html"
 	"html/template"
 	"io"
@@ -67,7 +68,11 @@ func (r *renderer) addPage(name string, paths ...string) error {
 }
 
 func (r *renderer) addFromFsFiles(base string, name string, files []string) error {
+	assetId := uuid.NewString()
 	funcMap := template.FuncMap{
+		"assetId": func() string {
+			return assetId
+		},
 		"slice": func(args ...interface{}) []interface{} {
 			return args
 		},

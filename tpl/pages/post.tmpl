@@ -1,8 +1,11 @@
 {{ define "title" }}{{ .Post.Title }} – {{ .Post.Subtitle }} | Christian Kilb{{end}}
 {{ define "canonical" }}https://kilb.tech/{{ .Post.Id }}{{end}}
 
-{{ define "intro_text" }}
-{{ end }}
+{{define "head"}}
+    <script src="/static/js/highlight.js?id={{ assetId }}"></script>
+    <script>hljs.highlightAll();</script>
+{{end}}
+
 {{ define "main" }}
     {{ template "teaser_intro" dict
         "Headline" .Post.Title
