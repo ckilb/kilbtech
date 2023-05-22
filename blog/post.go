@@ -10,6 +10,12 @@ type Post struct {
 func GetPosts() []Post {
 	return []Post{
 		{
+			Id:       "spryker",
+			Title:    "Spryker",
+			Subtitle: "... what it is & if you should use it",
+			IsActive: false,
+		},
+		{
 			Id:       "tailwind",
 			Title:    "Tailwind",
 			Subtitle: "... and a brief history of CSS",
