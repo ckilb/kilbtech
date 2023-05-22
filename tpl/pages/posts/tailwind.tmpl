@@ -12,7 +12,9 @@
 
 <p>
     When I started with web development in my early teenage years, CSS wasn't a big deal. While it was released in 1996
-    already it took a while to get widely adapted.<br />
+    already it took a while to get widely adapted.
+</p>
+<p>
     Website layouts were basically built with <i>{{"<table>"}}</i> tags and HTML attributes like
     <i>color</i>, <i>bgcolor</i>, <i>cellpadding</i> and so on.<br />
     Back then HTML source code looked similar to this:
@@ -43,14 +45,14 @@
 </html>` }}</code></pre>
 
 <p>
-    JavaScript was mostly used to add some <i>questionable</i> effects to the mouse cursor - and to annoy people with popups and alert preventing you from leaving the website.<br />
+    JavaScript was mostly used to add some <i>questionable</i> effects to the mouse cursor - and to annoy people with popups and alert messages preventing you from leaving the website.<br />
 </p>
 <p>
     Popular software to write HTML code was <i>Macromedia Dreamweaver</i> and... my personal favorite...
     <a href="https://de.wikipedia.org/wiki/Microsoft_FrontPage" target="_blank"><i>Frontpage Express</i></a>.
 </p>
 <p>
-    Actually, things were so simple back then...
+    Actually, things were simple back then...
 </p>
 <p>
     If you are old enough to remember these times, let us take a brief moment of introspection, shall we?
@@ -125,7 +127,6 @@
 </p>
 
 {{template "h2" dict "Text" "Semantic HTML & CSS"}}
-
 
 <p>
     When you decide to use CSS classes instead of inline styles you have to think about <i>names</i> for them.<br />
@@ -248,7 +249,7 @@
     Let's forget about CSS classes again and have another look at our navigation with inline styles:
 </p>
 
-<pre><code>{{ `<nav>
+<pre><code class="language-html">{{ `<nav>
     <ul style="list style">
         <li style="the same item style">
             <a style="the same link style" href="...">Foo</a>
@@ -277,7 +278,7 @@
 </p>
 
 <p>
-    <i>navigation.html</i>
+    <i>navigation.html:</i>
 </p>
 
 <pre><code class="language-html">{{ `<nav>
@@ -290,7 +291,7 @@
 </nav>`}}</code></pre>
 
 <p>
-    <i>navitem.html</i>
+    <i>navitem.html:</i>
 </p>
 <pre><code class="language-html">{{ `<li style="item style">
     {% include 'link.html' with {'href': href, 'text': text} %}
@@ -352,7 +353,7 @@
 </p>
 
 <p>
-    <i>grid.html</i>
+    <i>grid.html:</i>
 </p>
 <pre><code class="language-html">{{ `<div class="grid grid-cols-12 gap-2" >
     {% include 'griditem.html' with {'content': 'foo '}%}
@@ -362,12 +363,11 @@
 </div>`}}</code></pre>
 
 <p>
-    <i>griditem.html</i>
+    <i>griditem.html:</i>
 </p>
 <pre><code>{{ `<div class="col-span-12 md:col-span-6 lg:-col-span-4">{{ content }}</div>`}}</code></pre>
 
-
-<h3>CSS class configuration</h3>
+{{template "h3" dict "Text" "CSS class configuration"}}
 
 <p>
     Tailwind enables developers to follow a consistent style guide.<br />
@@ -378,7 +378,7 @@
     This does not only work for colors but nearly every CSS attributes you can imagine.
 </p>
 
-<h4>Performance</h4>
+{{template "h3" dict "Text" "Performance"}}
 
 <p>
     In early times it was considered good programming style to have your HTML code as small as possible.<br />
@@ -392,5 +392,50 @@
 "compared to media files like images and videos, HTML document sizes are so small that they are most often negligible"
 "most web servers and browsers support GZIP or other compressions like Brotli. So HTML will be transfered compressed anyway."
 )}}
+
+
+{{template "h2" dict "Text" "Downsides of Tailwind CSS"}}
+
+<p>
+    Now that you know about the idea and benefits of Tailwind CSS I don't want to keep quiet about it's downsides.
+</p>
+
+{{template "h3" dict "Text" "Verbosity"}}
+
+<p>
+    As mentioned before, your HTML tag class attributes can and will be quite long when using Tailwind.<br />
+    Lines like this will be no rarity.
+</p>
+
+<pre><code class="language-html">{{ `<button class="inline-block py-3 px-5 bg-gradient-to-b from-yellow-500 to-orange-400 font-semibold text-white rounded-lg md:hover:scale-110 transition-all duration-300" ...>`}}</code></pre>
+
+<p>
+    If you really do not want to have such thing in your HTML, you could move the list of classes into another CSS file and combine it into a single one.<br />
+</p>
+
+<pre><code class="language-css">{{ `.primary-btn {
+    @apply inline-block py-3 px-5 bg-gradient-to-b from-yellow-500 to-orange-400 font-semibold text-white rounded-lg md:hover:scale-110 transition-all duration-300;
+}`}}</code></pre>
+
+<p>
+    It's questionable though if this makes your code easier to understand if you have to look into several places (.html + .css file) to understand the implementation of your element's layout.<br />
+    If you keep your (HTML) components small, having a few long lines of class lists might not be such a big deal breaker anymore.
+</p>
+
+{{template "h3" dict "Text" "You have to learn it first"}}
+
+<p>
+    Tailwind consists of a huge number of <i>CSS class names</i> that are only more or less loosely based on the <i>CSS attribute</i> they work with.<br />
+
+    <i>margin</i> is <i>m</i> in Tailwind. <i>padding</i> is <i>p</i>, <i>transform: scale(n)</i> is <i>scale-n</i> and so on.
+</p>
+<p>
+    This is a bit of an entry threshold. To work productively with Tailwind from the beginning (and probably later on, too) I strongly recommend to have an extension
+    (<a href="https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss" target="_blank">VsCode</a> or <a href="https://www.jetbrains.com/help/idea/tailwind-css.html" target="_blank">IntelliJ</a>)
+    installed that will help you with autocompletion.<br />
+    It might be also helpful to have the
+    <a href="https://tailwindcss.com/docs/installation" target="_blank">official Tailwind documentation</a> open in a browser tab so you are able
+    search for CSS attributes and find the corresponding Tailwind class.
+</p>
 
 {{end}}
