@@ -118,12 +118,12 @@
 <p>
     You can see, we have a lot of duplicate style information here. This basically had two downsides:<br />
 
-    - Your HTML code got bigger, so it may be slower to load (<i>We come to tha point later again)</i><br />
+    - Your HTML code got bigger, so it may be slower to load (<i>We come to that point later again)</i><br />
     - If you want to change the style for multiple elements of the same type you had to touch all the places.
 </p>
 
 <p>
-    So, many developers quickly agreed to use CSS classes instead...
+    So, developers quickly agreed to use CSS classes instead...
 </p>
 
 {{template "h2" dict "Text" "Semantic HTML & CSS"}}
@@ -136,8 +136,8 @@
 </p>
 <p>
     To have good <i>CSS class names</i> & keep your HTML code semantic, the idea came up to give your CSS classes
-    a semantic name, too. So, the describe classes should not describe the styles itself (like "text-red") but
-    the element the classes are assigned to (like "sidebar"). CSS classes should only be used, when necessary, to not clutter
+    a semantic name, too. So, the naming of classes should not describe the styles itself (like "text-red", "btn-blue" etc.) but
+    the element the classes are assigned to (like "sidebar"). CSS classes should only be used when necessary, to not clutter
     the code:
 </p>
 <pre><code>{{ `<nav>
@@ -191,13 +191,17 @@
 </p>
 
 <p>
-    Right.<br />
-    <strong>Zero.</strong>
+    ?
+</p>
+
+<p>
+    Right. <strong>Zero.</strong>
 </p>
 
 
 <p>
-    There are other approaches to have a clean CSS structure. Like <a href="https://getbem.com/introduction/">BEM</a>,
+    There are other approaches to have a clean CSS structure.<br />
+    Like <a href="https://getbem.com/introduction/">BEM</a>,
     wherein you don't try to keep the number of CSS classes as low as possible but instead classify every element you want
     to have a style into <i>blocks</i>, <i>elements</i> and <i>modifiers</i>.
 </p>
@@ -304,7 +308,7 @@
 
 
 <p>
-    Now, your CSS styles actually are reusable - but instead of <i>CSS class names</i> you reuse <i>atomic HTML templates</i>.
+    Now, your CSS styles actually are being reused - but instead of just reusing <i>CSS class names</i> you reuse <i>atomic HTML templates</i> that contain <i>CSS classes</i>.
 </p>
 
 <p>
@@ -318,6 +322,8 @@
 <p>
     So why not use just inline styles but a framework like Tailwind CSS instead?
 </p>
+
+{{template "h3" dict "Text" "Downsides of inline styles"}}
 
 <p>
     Inline styles have a few downsides:
@@ -334,7 +340,7 @@
     just mentioned.
 </p>
 
-<h3>Tailwind Example</h3>
+{{template "h3" dict "Text" "Tailwind Example"}}
 <p>
     While Tailwind class names are most likely still more verbose than those of other languages, it's much less
     verbose than inline styles.<br />
@@ -346,7 +352,7 @@
 <pre><code>{{ `<a class="inline-block text-red font-bold p-1" href="{{ href }}">{{ text }}</a>`}}</code></pre>
 
 
-<h3>Tailwind Media Queries Example</h3>
+{{template "h3" dict "Text" "Tailwind Media Queries Example"}}
 <p>
     Also, Tailwind allows you to use media queries.<br />
     If you want to implement a grid with shows 1 column per row on mobile, 2 columns per row on tables and 3 columns per row on bigger screens you can do like this:
