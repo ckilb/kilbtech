@@ -151,8 +151,8 @@
     the element the classes are assigned to (like "sidebar"). CSS classes should only be used when necessary, to not clutter
     the code:
 </p>
-<pre><code>{{ `<nav>
-    <ul class="sidebar">
+<pre><code>{{ `<nav class="sidebar">
+    <ul>
         <li>
             <a href="...">Foo</a>
         </li>
@@ -169,15 +169,15 @@
 </nav>`}}</code></pre>
 
 <pre><code>{{ `<style type="text/css">
-    ul.sidebar {
+    nav.sidebar ul {
         list-style-type: none;
     }
 
-    ul.sidebar > li {
+    nav.sidebar ul > li {
         padding: 5px;
     }
 
-    ul.sidebar > li > a {
+    nav.sidebar ul > li > a {
         text-decoration: none;
         color: darkblue;
     }
@@ -185,15 +185,17 @@
 </style>`}}</code></pre>
 
 <p>
-    This was considered a clean way to structure your HTML and implement your CSS classes.<br />
-    It had a big downside though:<br />
-    In bigger projects, the nesting level of CSS classes got quite high.<br />
-    Superset languages on top of CSS - like <a href="https://sass-lang.com/" target="_blank">SCSS</a> - made
-    handling this a bit easier - but didn't fix the problem.
+    This was and still is considered a clean way to structure your HTML and implement your CSS classes.<br />
+    The approach has a big downside though:<br />
+    In bigger projects, the nesting level of CSS classes gets quite high.<br />
+    High nesting levels not only make your CSS hardly readable - it's also way harder to maintain it: If you are required
+    to change the structure of your HTML later on you have to adjust the CSS code to the new structure.<br />
+    Superset languages on top of CSS - like <a href="https://sass-lang.com/" target="_blank">SCSS</a> - make
+    your CSS, even with higher nesting levels, more readable to some degree - but they don't fix the actual problem.<br />
 </p>
 
 <p>
-    I worked on several dozen website projects that time.<br />
+    I've worked on several dozen website projects that time.<br />
     How many projects do you think were strictly implementing semantic HTML and CSS?
 </p>
 
@@ -209,10 +211,15 @@
     Right. <strong>Zero.</strong>
 </p>
 
+<p>
+    The time and effort to "keep it clean" in a semantic way was simply not worth it.
+</p>
 
 <p>
-    There are other approaches to have a clean CSS structure.<br />
-    Like <a href="https://getbem.com/introduction/">BEM</a>,
+    Of course there are other approaches to have a clean CSS structure.
+</p>
+<p>
+    A popular one is <a href="https://getbem.com/introduction/">BEM</a>,
     wherein you don't try to keep the number of CSS classes as low as possible but instead classify every element you want
     to have a style into <i>blocks</i>, <i>elements</i> and <i>modifiers</i>.
 </p>
