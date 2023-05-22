@@ -28,7 +28,7 @@ func main() {
 
 	routes := []route.Route{
 		route.NewHome(),
-		route.NewSpryker(),
+		route.NewSprykerFreelancer(),
 		route.NewBlog(posts),
 		route.NewLegal(),
 		route.NewRobots(),

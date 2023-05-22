@@ -1,8 +1,8 @@
 package tpl
 
 import (
-	"ckilb/kilbtech/blog"
 	"ckilb/kilbtech/dto"
+	"ckilb/kilbtech/route"
 	"embed"
 	_ "embed"
 	"errors"
@@ -110,22 +110,20 @@ func (r *renderer) addFromFsFiles(base string, name string, files []string) erro
 	return nil
 }
 
-func NewRenderer(pages []string, posts []blog.Post) (render.HTMLRender, error) {
+func NewRenderer(routes []route.Route) (render.HTMLRender, error) {
 	mr := multitemplate.NewRenderer()
-	r := &renderer{}
-	r.Renderer = mr
+	renderer := &renderer{}
+	renderer.Renderer = mr
 
-	for _, page := range pages {
-		if err := r.addPage(page, "pages/"+page+".tmpl"); err != nil {
-			return r, fmt.Errorf("add page %s: %w", page, err)
+	for _, r := range routes {
+		if r.Page() == "" {
+			continue
+		}
+
+		if err := renderer.addPage(r.Page(), "pages/"+r.Page()+".tmpl"); err != nil {
+			return renderer, fmt.Errorf("add page %s: %w", r.Page(), err)
 		}
 	}
 
-	for _, post := range posts {
-		if err := r.addPage("posts/"+post.Id, "pages/post.tmpl", "pages/posts/"+post.Id+".tmpl"); err != nil {
-			return r, fmt.Errorf("add post %s: %w", post.Id, err)
-		}
-	}
-
-	return r, nil
+	return renderer, nil
 }

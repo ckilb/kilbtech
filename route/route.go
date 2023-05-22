@@ -8,4 +8,5 @@ type Route interface {
 	Path() string
 	Handler() gin.HandlerFunc
 	Method() string
+	Page() string
 }

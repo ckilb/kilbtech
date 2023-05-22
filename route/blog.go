@@ -18,6 +18,10 @@ func (r *Blog) Method() string {
 	return http.MethodGet
 }
 
+func (r *Blog) Page() string {
+	return "blog"
+}
+
 func (r *Blog) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.HTML(http.StatusOK, "blog", gin.H{

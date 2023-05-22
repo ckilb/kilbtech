@@ -17,6 +17,10 @@ func (r *Legal) Method() string {
 	return http.MethodGet
 }
 
+func (r *Legal) Page() string {
+	return "legal"
+}
+
 func (r *Legal) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		data := tpl.TemplateData{}

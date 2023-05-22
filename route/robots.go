@@ -15,6 +15,10 @@ func (r *Robots) Path() string {
 func (r *Robots) Method() string {
 	return http.MethodGet
 }
+
+func (r *Robots) Page() string {
+	return ""
+}
 func (r *Robots) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.String(http.StatusOK, "User-agent: *\nAllow: /")

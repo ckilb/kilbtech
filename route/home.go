@@ -18,6 +18,10 @@ func (r *Home) Method() string {
 	return http.MethodGet
 }
 
+func (r *Home) Page() string {
+	return "home"
+}
+
 func (r *Home) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		data := tpl.TemplateData{
@@ -45,7 +49,7 @@ func (r *Home) Handler() gin.HandlerFunc {
 					Title:        "DEPT",
 					Position:     "Lead Developer, B2B e-commerce",
 					Url:          "https://www.deptagency.com",
-					Description:  "As a Lead Developer, I was asked to support DEPT with my expertise in several enterprise-level projects in an advisory and hands-on manner. In close exchange with the customers, I collected, specified and implemented requirements.\n\nThe complexity of the projects often made it necessary to break down extensive business requirements and problems into smaller components - in order to finally communicate them to the team of experienced Spryker software developers in an understandable way",
+					Description:  "As a Lead Developer, I was asked to support DEPT with my expertise in several enterprise-level projects in an advisory and hands-on manner. In close exchange with the customers, I collected, specified and implemented requirements.\n\nThe complexity of the projects often made it necessary to break down extensive business requirements and problems into smaller components - in order to finally communicate them to the team of experienced SprykerFreelancer software developers in an understandable way",
 					LogoWidth:    730,
 					LogoHeight:   200,
 				},
@@ -70,7 +74,7 @@ func (r *Home) Handler() gin.HandlerFunc {
 			},
 		}
 
-		c.HTML(http.StatusOK, "home", data)
+		c.HTML(http.StatusOK, r.Page(), data)
 	}
 }
 

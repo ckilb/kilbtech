@@ -21,6 +21,10 @@ func (r *Sitemap) Method() string {
 	return http.MethodGet
 }
 
+func (r *Sitemap) Page() string {
+	return ""
+}
+
 func (r *Sitemap) Handler() gin.HandlerFunc {
 	lines := []string{
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>",

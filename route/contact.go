@@ -26,6 +26,10 @@ func (r *Contact) Method() string {
 	return http.MethodPost
 }
 
+func (r *Contact) Page() string {
+	return ""
+}
+
 func (r *Contact) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var body ContactRequest
