@@ -1,7 +1,6 @@
 package route
 
 import (
-	"ckilb/kilbtech/tpl"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -23,9 +22,7 @@ func (r *Legal) Page() string {
 
 func (r *Legal) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		data := tpl.TemplateData{}
-
-		c.HTML(http.StatusOK, "legal", data)
+		c.HTML(http.StatusOK, "legal", gin.H{})
 	}
 }
 

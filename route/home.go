@@ -2,7 +2,6 @@ package route
 
 import (
 	"ckilb/kilbtech/dto"
-	"ckilb/kilbtech/tpl"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -24,8 +23,8 @@ func (r *Home) Page() string {
 
 func (r *Home) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		data := tpl.TemplateData{
-			Projects: []dto.Project{
+		data := gin.H{
+			"Projects": []dto.Project{
 				{
 					LogoFileName: "marel.svg",
 					Title:        "Marel",
