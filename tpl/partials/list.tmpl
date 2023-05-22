@@ -1,8 +1,13 @@
 {{ define "list" }}
 
-<ul class="list-disc list-inside ml-1 mb-5">
+<ul class="list-none list-inside ml-1 mb-5 relative inline-block
+    before:absolute before:block before:border-l  before:border-t before:content-[''] before:h-5 before:w-5 before:border-yellow-400
+    before:left-[-10px] before:top-[-3px]
+    after:absolute after:block after:border-r after:border-b after:content-[''] after:h-5 after:w-5 after:border-yellow-400
+    after:right-[-10px] after:bottom-[-3px]
+">
     {{ range .Items }}
-        <li>
+        <li class="before:content-['»'] before:text-yellow-400 before:text-lg">
             {{ raw . }}
         </li>
     {{ end }}
