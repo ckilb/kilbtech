@@ -13,7 +13,7 @@ func GetPosts() []Post {
 			Id:       "tailwind",
 			Title:    "Tailwind",
 			Subtitle: "...and a brief history of CSS",
-			IsActive: false,
+			IsActive: true,
 		},
 		{
 			Id:       "active-record-pattern",
