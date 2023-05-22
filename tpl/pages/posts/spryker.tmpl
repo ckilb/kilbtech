@@ -1,12 +1,104 @@
 {{ define "metadescription" }}{{ end }}
 
 {{ define "intro_text" }}
-
+    Spryker is a quite young PHP framework which enabled companies to implement their own E-Commerce platform.<br />
+    I work with <a href="/spryker-freelancer">Spryker as a freelancer</a> since 2017 and will share my experience with it
+    inside this blog post.<br />I'll explain what advantages and downsides I see in Spryker and also give you some help
+    if you are in the decision process right now.
 {{ end }}
 
 {{ define "content" }}
 
-{{template "h2" dict "Text" "Once upon a time there was no CSS"}}
+{{template "h2" dict "Text" "What is Spryker?"}}
+
+This is what Spryker themselves explain their product:
+
+{{template "quote" dict "Text" "[Spryker is ] a modular, customizable commerce stack with next-generation cloud capabilities that scale with your business."}}
+
+I - as a developer - would summarize like this:
+
+{{template "quote" dict "Text" "Spryker is collection of PHP modules you can use as a base to implement your own E-Commerce platform."}}
+
+<p>
+    Let's be a bit more detailed:
+</p>
+
+<p>
+    Spryker consists of many <i>PHP Composer modules</i>.<br />
+    If you tie them together you can build an E-Commerce platform with quite specific features.<br />
+    You can also add your own or overwrite existing modules for custom features.
+</p>
+<p>
+    Spryker heavily relies on several technologies, especially:
+</p>
 
 
+{{template "list" dict "Items" (slice
+"<strong>PHP</strong>: the programming language Spryker is implemented with"
+"<strong>MySQL or Propel</strong>: The database to store all the entities"
+"<strong>ElasticSearch</strong>: The search engine that is usually used for product searches"
+"<strong>Redis</strong>: A key value store which will be used in a cache-like manner"
+)}}
+
+<p>
+    There are more technologies in use, but these are probably the ones you or your developers will work the most with.
+</p>
+
+
+{{template "h3" dict "Text" "Spryker modules"}}
+
+<p>
+    Let's first have a look at some of these modules, so you just get a rough idea of it. Please mind that this is just a exemplary list.
+    The list of existing modules out there is much bigger.
+</p>
+
+<p>
+    <strong>spryker/kernel</strong>: This is basically the core of Spryker. Every other module are depending on this one.
+    It contains the logic for <i>Dependency Injection</i>, <i>Request handling</i> and so on.
+</p>
+
+<p>
+    <strong>spryker/product</strong>: This module will provide functionality to save and read products in the database.
+</p>
+
+<p>
+    <strong>spryker/product-management</strong>: This module will extend the <i>Spryker backoffice</i> so you are able to modify product data there.
+</p>
+
+<p>
+    <strong>spryker/product-storage</strong>: This module will provide functionality to persist product data into Redis so they are available in a performant way.
+</p>
+
+<p>
+    <strong>spryker/category</strong>: This module will provide functionality to save and read categories in the database.
+</p>
+
+<p>
+    <strong>spryker/cart</strong>: This module will provide basic cart functionality, so products can be added to the cart.
+</p>
+
+<p>
+    <strong>spryker/carts-rest-api</strong>: This module will provide a REST API endpoint to enable third party software to retrieve customer carts.
+</p>
+
+<p>
+    <strong>spryker/sales</strong>: This module provides basic checkout and order functionality, so customers are able to place orders.
+</p>
+
+<p>
+    All the modules are publicly available on Github:
+    <br />
+    <a href="https://github.com/spryker" target="_blank">https://github.com/spryker</a>
+</p>
+
+<p>
+    Because Spryker modules are divided in quite small pieces, developers will be able to install only the functionality they
+    really need. At least, in theory. We will come later to that point again.
+</p>
+
+{{template "h2" dict "Text" "How to start a project in Spryker?"}}
+
+<p>
+    Most companies I worked with started
+</p>
 {{end}}

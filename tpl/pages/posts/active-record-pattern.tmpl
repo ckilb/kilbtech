@@ -38,7 +38,7 @@ $user->save();</code></pre>
     It is easy to grasp & beginner-friendly, and can be a helpful abstraction compared to using plain SQL.
 </p>
 <p>
-    For many <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank">MVC</a> frameworks the M (Model) part is basically an Active Record implementation, like
+    For many <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank">MVC</a> frameworks the M (Model) part is basically an implementation of Active Record, like
     <a href="https://laravel.com/docs/10.x/eloquent" target="_blank">Eloquent</a> in Laravel.
 
 </p>
@@ -69,7 +69,7 @@ $user->save();</code></pre>
 {{template "quote" dict "Text" "A system should be divided into separate modules, each focusing on a specific aspect of functionality, to improve maintainability and modularity."}}
 <p>
     Every place in your code you pass the active record object to will have the ability to read and modify user rows in your database.
-    In many cases, you probably only pass the object to different places because you need to work with the data values (such as the username, registration data, and so on, for a <i>User</i> object=.
+    In many cases, you probably only pass the object to different places because you need to work with the data fields (such as - for an <i>User</i> object: the username, registration date, status and so on).
 </p>
 
 <p>
