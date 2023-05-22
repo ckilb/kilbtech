@@ -12,7 +12,7 @@ func GetPosts() []Post {
 		{
 			Id:       "tailwind",
 			Title:    "Tailwind",
-			Subtitle: "...and a brief history of CSS",
+			Subtitle: "... and a brief history of CSS",
 			IsActive: true,
 		},
 		{
