@@ -22,9 +22,13 @@ func (r *Blog) Page() string {
 	return "blog"
 }
 
+func (r *Blog) Templates() []string {
+	return []string{r.Page()}
+}
+
 func (r *Blog) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.HTML(http.StatusOK, "blog", gin.H{
+		c.HTML(http.StatusOK, r.Page(), gin.H{
 			"posts": r.posts,
 		})
 	}

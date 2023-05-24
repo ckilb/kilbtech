@@ -19,6 +19,11 @@ func (r *Robots) Method() string {
 func (r *Robots) Page() string {
 	return ""
 }
+
+func (r *Robots) Templates() []string {
+	return []string{}
+}
+
 func (r *Robots) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.String(http.StatusOK, "User-agent: *\nAllow: /")

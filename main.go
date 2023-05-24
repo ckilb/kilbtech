@@ -45,7 +45,7 @@ func main() {
 
 	engine.StaticFS("/static", gin.Dir(*staticPath, false))
 
-	renderer, err := tpl.NewRenderer(pages, posts)
+	renderer, err := tpl.NewRenderer(routes)
 
 	if err != nil {
 		panic(err)

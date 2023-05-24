@@ -10,6 +10,7 @@ import (
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin/render"
 	"github.com/google/uuid"
+	"github.com/samber/lo"
 	"html"
 	"html/template"
 	"io"
@@ -120,7 +121,11 @@ func NewRenderer(routes []route.Route) (render.HTMLRender, error) {
 			continue
 		}
 
-		if err := renderer.addPage(r.Page(), "pages/"+r.Page()+".tmpl"); err != nil {
+		paths := lo.Map(r.Templates(), func(t string, _ int) string {
+			return "pages/" + t + ".tmpl"
+		})
+
+		if err := renderer.addPage(r.Page(), paths...); err != nil {
 			return renderer, fmt.Errorf("add page %s: %w", r.Page(), err)
 		}
 	}

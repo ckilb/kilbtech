@@ -20,9 +20,13 @@ func (r *Legal) Page() string {
 	return "legal"
 }
 
+func (r *Legal) Templates() []string {
+	return []string{r.Page()}
+}
+
 func (r *Legal) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.HTML(http.StatusOK, "legal", gin.H{})
+		c.HTML(http.StatusOK, r.Page(), gin.H{})
 	}
 }
 

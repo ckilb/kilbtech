@@ -21,6 +21,10 @@ func (r *SprykerFreelancer) Page() string {
 	return "spryker-freelancer"
 }
 
+func (r *SprykerFreelancer) Templates() []string {
+	return []string{r.Page()}
+}
+
 func (r *SprykerFreelancer) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		data := gin.H{
@@ -55,7 +59,7 @@ func (r *SprykerFreelancer) Handler() gin.HandlerFunc {
 			},
 		}
 
-		c.HTML(http.StatusOK, "spryker", data)
+		c.HTML(http.StatusOK, r.Page(), data)
 	}
 }
 

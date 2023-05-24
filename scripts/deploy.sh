@@ -1,6 +1,9 @@
 rm -rf ./build &&
 mkdir -p ./build/static &&
 cp -r ./static/* ./build/static &&
+rid==$(uuidgen | md5sum)
+bin="main_${rid}"
+out="./build/${bin}"
 env GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./build/main ./main.go &&
 ssh root@173.212.224.156 << END_SSH
   systemctl stop kilbtech.service

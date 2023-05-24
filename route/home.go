@@ -21,6 +21,10 @@ func (r *Home) Page() string {
 	return "home"
 }
 
+func (r *Home) Templates() []string {
+	return []string{r.Page()}
+}
+
 func (r *Home) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		data := gin.H{

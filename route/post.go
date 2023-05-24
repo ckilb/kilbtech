@@ -22,6 +22,13 @@ func (r *Post) Page() string {
 	return "posts/" + r.post.Id
 }
 
+func (r *Post) Templates() []string {
+	return []string{
+		"post",
+		r.Page(),
+	}
+}
+
 func (r *Post) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.HTML(http.StatusOK, r.Page(), gin.H{
