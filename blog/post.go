@@ -10,6 +10,12 @@ type Post struct {
 func GetPosts() []Post {
 	return []Post{
 		{
+			Id:       "pocketbook-inkpad-color-2",
+			Title:    "Pocketbook InkPad Color 2 Review",
+			Subtitle: "A review",
+			IsActive: true,
+		},
+		{
 			Id:       "spryker",
 			Title:    "Spryker",
 			Subtitle: "... what it is & if you should use it",

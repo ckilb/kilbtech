@@ -1,0 +1,249 @@
+{{ define "metadescription" }}Pocketbook Inkpad Color 2: A review{{ end }}
+
+{{ define "intro_text" }}
+    This is my review of the Pocketbook Inkpad Color 2, thew new e-reader from Pocketbook with an 7.8 inch color display. It comes with IPX8 waterproofness, sound speakers and a quad core processor.<br />
+    Because I also own a <strong>Kindle Paperwhite Signature</strong>, I'll make some comparisons to this device.<br />
+    Also, I'll installed KoReader - an alternative to the original reader app.
+{{ end }}
+
+{{ define "content" }}
+
+{{template "h2" dict "Text" "First setup"}}
+
+<p>
+    I've ordered the Pocketbook directly from their website (pocketbook.de) to Hamburg, Germany - and I have to point out that
+    the delivery was incredibly fast. Even though Pocketbook communicated a delivery time of a week, it came the next day.
+</p>
+<p>
+    I won't explain in detail how to set up the <strong>Pocketbook InkPad Color 2</strong>. It's quite straight forward and there are
+    other videos and review out there which will demonstrate it to you. Please also mind, that the software on
+    the Pocketbook InkPad Color 2 is the same like for other Pocketbook devices. So there is no real difference here.
+</p>
+
+<p>
+    I still like to mention that there is still room for improvement. For example the Dropbox Login for Sync didn't initially work
+    and I have to try a few more attempts. Same for the Pocketbook Cloud Sync. It didn't want my books to sync initially. After restarting the
+    device it worked.<br />
+    I suppose this is no real down side of the device because competitors won't even have such syncing features.<br />
+    But still, this is a <strong>downside of the UX within the first few minutes</strong> using the device and it's worth to mention.
+</p>
+
+<p>
+    After I did set up the device I installed <strong>KOReader, an alternative reader software</strong>.<br />
+    It's a great benefit of the Pocketbook devices that it's very simple do to so. Just attach the device via USB
+    to your computer, copy some files, and... done.
+</p>
+
+<p>
+    ...
+</p>
+
+<p>
+    Well, in theory. Because the device is available for just a few days it wasn't supported by KoReader.<br />
+    Luckily this could be easily done by adding a few lines of code to KOReader.<br />
+    Even more luckily my
+    <a href="https://github.com/koreader/koreader/pull/10685" target="_blank">Pull Request to support InkPad Color 2</a> was accepted just a few minutes after I created it.<br />
+    So in case <i>you<</i> are thinking about using KOReader on the InkPad Color 2, it's very likely that it is already
+    supported by the most recent version.
+</p>
+
+{{template "h2" dict "Text" "Display Quality"}}
+
+<p>
+    The overall <strong>display quality is quite good</strong>. The display is uniform and text is easily readable, no matter if you are outside or inside,
+    with or without sunlight, with or without backlight enabled.
+</p>
+
+<p>
+    Reading in moderate sunlight <i>without</i> backlight enabled:
+    <a target="_blank" href="/static/img/posts/pocketbook-inkpad-color-2/outside-light-off.jpg">
+        <img class="max-w-sm rounded-xl my-5 block"
+             src="/static/img/posts/pocketbook-inkpad-color-2/outside-light-off.jpg"
+             alt="Display without backlight" />
+    </a>
+</p>
+
+<p>
+    Reading in moderate sunlight <i>with</i> backlight enabled, max brightness:
+
+    <a target="_blank" href="/static/img/posts/pocketbook-inkpad-color-2/outside-max-brightness.jpg">
+        <img class="max-w-sm rounded-xl my-5 block"
+             src="/static/img/posts/pocketbook-inkpad-color-2/outside-max-brightness.jpg"
+             alt="Display with max brightness" />
+    </a>
+</p>
+
+
+<p>
+    You can't expect the same display quality like for a newest-version black/white device though.<br />
+    It's worth because the technology to display colors will add a lot of tiny black background dots to the display.<br />
+    You won't notice these dots if you don't look too close, but what you will notice is that the background - that actually should be white - is grayish.
+</p>
+
+<p>
+    Here is a closeup view where you can see the black dots I mean. You can also see that color images have a lower DPI than text:
+    <a target="_blank" href="/static/img/posts/pocketbook-inkpad-color-2/img-vs-text-dpi.jpg">
+        <img class="max-w-sm rounded-xl my-5 block"
+             src="/static/img/posts/pocketbook-inkpad-color-2/img-vs-text-dpi.jpg"
+             alt="Image vs Text DPI" />
+    </a>
+</p>
+
+<p>
+    What does that mean?<br />
+    The <strong>contrast between black text and background is worse</strong>. It's not really an issue if you are outside and the sun is shining.
+    But if you are inside, the lower contrast may be come an issue. You can <i>fix</i> this by increasing the backlight.
+    Roughly you have to add 30% more of backlight to the Inkpad Color 2 to have the same contrast like for the Kindle Paperwhite.
+    I don't think that's an real issue. It isn't for me. Also, I never use the maximum brightness because it's still capable of blinding my eyes.
+</p>
+
+<p>
+    Unfortunately my device has a defective pixel. It's no deal-breaker, but it's still a bit annoying. The main purpose of an E-reader is
+    to provide a great reading experience. If there's an annoying little pixel this will decrease the pleasure of reading. Not a lot, but it's demerit.<br />
+    This is most likely just an issue with my specific device.<br />
+    <strong>Still I'll contact Pocketbook and may update this post afterwards.</strong>
+</p>
+
+<p>
+    Here you can see the defective pixel:
+    <a target="_blank" href="/static/img/posts/pocketbook-inkpad-color-2/defective-pixel.jpg">
+        <img class="max-w-sm rounded-xl my-5 block"
+             src="/static/img/posts/pocketbook-inkpad-color-2/defective-pixel.jpg"
+             alt="Defective pixel" />
+    </a>
+</p>
+
+<p>
+    The display backlight is quite uniform. You can see a slight change in color temperature from top (cold) to bottom (warm). But it's no deal breaker.
+    If you look closely you will find the same <i>issue</i> on the Kindle Paperwhite, even if it's even less apparent on the Kindle.
+</p>
+
+<p>
+    Displaying colorful images is great. There is sometimes a <strong>burn-in visible</strong> - but it only happens rarely. See for yourself:
+</p>
+
+<iframe class="w-full max-w-2xl rounded-xl my-5 block aspect-[3/4]"
+        src="https://www.youtube.com/embed/JIp5fxIpPuA" title="Pocketbook Inkpad Color 2 Image Burnin" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+{{template "h2" dict "Text" "KOReader"}}
+
+<p>
+    Like I already mentioned above I don't use the original application for reading ebooks on the Pocketbook. Instead, I'm using KOReader.
+    This is not the right place to tell about all the benefits KOReader has, but a few I like to point out:
+</p>
+
+<ul>
+    <li>In KOreader, dictionary lookup is just one "long press" away. In Pocketbook's original software you first have to open the highlight menu and then click on the dictionary button.</li>
+    <li>In KOreader you can increase font contrast and weight very granular. This improves readability, especially for devices with lower contrasts.</li>
+    <li>KOReader feels a bit faster</li>
+</ul>
+
+<p>
+    KOreader has some Wifi issues on Pocketbook devices.<br />
+    You need to make sure that Wifi is working on the Pocketbook before you open the KOreader app. Otherwise
+    KOreader will not be able to establish the connection.
+</p>
+
+<p>
+    If you are technically skilled you might give KOreader a try. In my opinion isPocketbook with it's Dropbox Sync and
+    KOreader as the reader software one of the best E-reader software you can have right now.
+</p>
+
+<p>
+    Here you can see the text <i>without</i> increased contrast in KOReader:
+
+    <a target="_blank" href="/static/img/posts/pocketbook-inkpad-color-2/koreader-no-contrast.jpg">
+        <img class="max-w-sm rounded-xl my-5 block"
+             src="/static/img/posts/pocketbook-inkpad-color-2/koreader-no-contrast.jpg"
+             alt="KOReader with contrast" />
+    </a>
+</p>
+
+<p>
+    And here you can see it in  a slightly different light situation <i>with</i> contrast increased.
+
+    <a target="_blank" href="/static/img/posts/pocketbook-inkpad-color-2/koreader-constrast.jpg">
+        <img class="max-w-sm rounded-xl my-5 block"
+             src="/static/img/posts/pocketbook-inkpad-color-2/koreader-constrast.jpg"
+             alt="KOReader with contrast" />
+    </a>
+</p>
+
+{{template "h2" dict "Text" "Hardware buttons"}}
+
+<p>
+    In comparison to the Kindle Paperwhite the Pocketbook has hardware buttons.<br />
+    This might not make a big difference to everyone but I really like the usage of hardware buttons, especially for page turns.<br />
+    With hardware buttons you can keep your thumb on the button and once you need to switch to the next page you just need to press.
+</p>
+<p>
+    For E-readers without hardware buttons you have to use the touch screen. Usually you tap with your finger on the right side
+    of the screen to switch to the next page.<br />
+    This is also an option with the Pocketbook - but you have to at least move your thumb a bit, or worse change the way you are holding the device.
+</p>
+
+<p>
+    The hardware buttons work flawlessly and have a <strong>good haptic feedback</strong>.<br />
+    They may be a bit noisy sometimes.<br />
+    Again I don't know if this is only an issue with my device but the left home button is nearly silent while the other 3 buttons (back, forward, power off) make a <i>clicky</i> sound.<br />
+    This might be a bit annoying for you or your partner in case you want to use the buttons reading at night.<br />
+    Turn on your speakers and listen for yourself:
+</p>
+
+<iframe class="w-full max-w-2xl rounded-xl my-5 block aspect-[3/4]"
+         src="https://www.youtube.com/embed/L08k6B9GioQ" title="Pocketbook Inkpad Color 2 Button Noise" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<p>
+    <strong>I'll contact Pocketbook to find out if this may be intended behaviour.</strong>
+</p>
+
+{{template "h2" dict "Text" "Device Speed"}}
+
+<p>
+    E-readers are slow. You probably already know that. It's because of how the E-ink displays work.<br />
+    Pocketbooks InkPpad Color 2 is no exception. <br />
+    It has a quad core processor built in and I can tell that it's <strong>fast enough</strong> for all the tasks you usually
+    use an E-reader with (which is mostly... <i>reading</i>).<br />
+    Don't even think about using the built-in web browser for your daily businesses though.
+</p>
+
+<p>
+    The Kindle Paperwhite feels a bit faster overall. But I would say it's neglectable. <br />
+</p>
+
+<p>
+    Don't let your first experience with the device fool you: The device is noticeable slower at the beginning. Probably, because of background tasks such
+    as update-downloading and syncing. After a few minutes or hours it will be faster.
+</p>
+
+<p>
+    What's interesting: Page turns are noticeably faster using the hardware buttons. The time for a page turn is similar to the Kindle Paperwhite then (which only has a touch screen without hardware buttons).
+    If you use the touch screen of the Pocketbook, it takes a a bit longer.
+</p>
+
+<p>
+    <strong>Again, I'll contact Pocketbook to find out if this may be an software issue.</strong>
+</p>
+
+{{template "h2" dict "Text" "Summary"}}
+
+<p>
+    Overall the Pocketbook is a great device.<br />
+    I've mentioned some flaws with it but keep in mind that I may be a bit more picky than average.
+</p>
+<p>
+    You should ask yourself some questions to find out if this is the right device for you:
+    Do you <i>need</i> a color device? If no, then there are cheaper devices out there. You still might to buy a Pocketbook because of Onleihe, Dropbox and ePub support.
+    If you need colors, it's probably the best product you can get for the price.
+    If you want to save some money you might check out the
+    <a target="_blank" href="https://www.amazon.de/PocketBook-Speicher-Farb-Display-Vordergrundbeleuchtung-Bluetooth/dp/B08DSH8XQB/ref=sr_1_2?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&amp;crid=1IZW4GUTTMSV1&amp;keywords=pocketbook+color&amp;qid=1689180634&amp;sprefix=pocketbook+color%252Caps%252C85&amp;sr=8-2&_encoding=UTF8&tag=littleup01-21&linkCode=ur2&linkId=66a3c3798bb10121f1098483e7f76c67&camp=1638&creative=6742">Pocketbook Color*</a>
+    which is smaller and older but may be sufficient for your needs.
+    There's also the first version of the
+    <a target="_blank" href="https://www.amazon.de/PocketBook-Speicher-Farb-Display-Vordergrundbeleuchtung-Bluetooth/dp/B08VJK1Y1Q/ref=sr_1_2?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&amp;crid=3JFZQLIOYOPX4&amp;keywords=inkpad+color&amp;qid=1689180818&amp;sprefix=inkpad+color%252Caps%252C84&amp;sr=8-2&_encoding=UTF8&tag=littleup01-21&linkCode=ur2&linkId=bbff5dc2ea02036a16e769f1b5f424c5&camp=1638&creative=6742">Pocketbook InkPad Color</a>.
+    But because of the improvements of the second version and the difference in price is not too high I recommend to get the second version.
+</p>
+
+<p>
+    *These are affiliate links. If you click on such a link and you buy a product, I'll get a small revenue. This won't increase the price for you.
+</p>
+{{end}}
