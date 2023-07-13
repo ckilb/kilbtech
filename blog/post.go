@@ -11,8 +11,8 @@ func GetPosts() []Post {
 	return []Post{
 		{
 			Id:       "pocketbook-inkpad-color-2",
-			Title:    "Pocketbook InkPad Color 2 Test & Review",
-			Subtitle: "I'm testing the InkPad Color 2 with KOReader",
+			Title:    "Pocketbook InkPad Color 2 Review",
+			Subtitle: "Testing the InkPad Color 2 with KOReader",
 			IsActive: true,
 		},
 		{
