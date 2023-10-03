@@ -66,6 +66,15 @@ func (r *Home) Handler() gin.HandlerFunc {
 					LogoHeight:   59,
 				},
 				{
+					LogoFileName: "innogames.svg",
+					Title:        "InnoGames",
+					Position:     "Senior Backend Developer, Forge of Empires",
+					Url:          "https://www.innogames.de",
+					Description:  "As a <strong>senior backend developer</strong>, I implemented various improvements in the popular online browser game <strong>Forge of Empires</strong>. I worked closely with the frontend team to refactor the tutorial, enhancing the in-game experience for new customers. Additionally, I improved the battle AI and made various performance enhancements.",
+					LogoWidth:    546,
+					LogoHeight:   69,
+				},
+				{
 					LogoFileName: "kilb.svg",
 					Title:        "Product Designer",
 					Position:     "Owner",
