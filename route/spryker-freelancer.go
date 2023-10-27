@@ -34,7 +34,7 @@ func (r *SprykerFreelancer) Handler() gin.HandlerFunc {
 					Title:        "Marel",
 					Position:     "Technical Lead, Customer Portal",
 					Url:          "https://portal.marel.com",
-					Description:  "As a <strong>Technical Lead</strong>, I was tasked with leading the implementation of a new customer portal platform using Spryker for one of the world's <strong>largest food processing companies</strong>. Thanks to this new portal, customers can now easily place, view, and manage their orders online. This marks a significant milestone in Marel's digital transformation journey.",
+					Description:  "As a <strong>Technical Lead</strong>, I was tasked with leading the implementation of a new customer portal using Spryker for one of the world's <strong>largest food processing companies</strong>. Thanks to this new portal, customers can now easily place, view, and manage their orders online. This marks a significant milestone in Marel's digital transformation journey.",
 					LogoWidth:    1730,
 					LogoHeight:   410,
 				},
