@@ -78,7 +78,7 @@ func (r *Home) Handler() gin.HandlerFunc {
 					LogoFileName: "kilb.svg",
 					Title:        "Product Designer",
 					Position:     "Owner",
-					Url:          "https://store.shopware.com/en/kilb647502658205/kilb-product-designer-product-designer-for-shirts-cups-posters-cards...-plugin-version.html",
+					Url:          "https://product-designer.io",
 					Description:  "Along with working for my clients, I continuously strive to enhance my skills and knowledge by working on my own projects. One noteworthy example is the <strong>Product Designer extension</strong> I created for <strong>Shopware</strong> and <strong>WooCommerce</strong>. This extension enables medium-sized and enterprise-level businesses to offer their customers personalized designs for their products.",
 					LogoWidth:    1544,
 					LogoHeight:   553,
