@@ -10,6 +10,12 @@ type Post struct {
 func GetPosts() []Post {
 	return []Post{
 		{
+			Id:       "orm-hate",
+			Title:    "Don't hate ORMs",
+			Subtitle: "... if you mean Active Records instead.",
+			IsActive: true,
+		},
+		{
 			Id:       "golang-templates",
 			Title:    "Go's template engine: A quick guide",
 			Subtitle: "How to work with Go's template engine",

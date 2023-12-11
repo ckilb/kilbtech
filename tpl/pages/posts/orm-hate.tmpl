@@ -1,0 +1,406 @@
+{{ define "metadescription" }}ORM is a good thing and you probably need it for your project, too. Don't mistake it with the Active Record Pattern.{{ end }}
+
+{{ define "intro_text" }}
+    When I'm browsing <a href="https://www.reddit.com/r/golang/comments/13erxsv/why_orms_are_so_hated/" target="_blank">Reddit</a> programming subs, or reading the comments of that <a href="https://news.ycombinator.com/item?id=36497613" target="_blank">orange page</a> I once in a while stumble upon
+    people discussing if <strong>ORM</strong> libraries, object relational mapping, are a good or bad thing.<br />
+    I'm wondering how else developers would read and work with data from the database in their non-trivial projects. And almost always, when I was asking questions, I came to to the same conclusion again and again:
+    <br />
+    <strong>People mistaken ORM with Active Records</strong>.<br />
+    Often they even propose their own "alternative" solution, which is just their own, custom implementation of <strong>ORM</strong>.<br />
+    This blog post will show you the difference between both and will also explain why it's mostly <i>never</i> possible to avoid ORM.
+{{ end }}
+
+{{ define "content" }}
+
+{{template "h2" dict "Text" "The definition of ORM"}}
+
+<p>
+    Let's have a look how Wikipedia defines ORM:
+</p>
+
+{{template "quote" dict "Text" "Object–relational mapping (ORM, O/RM, and O/R mapping tool) in computer science is a programming technique for converting data between a relational database and the heap of an object-oriented programming language."}}
+
+<p>
+    That's actually it. But to better understand what ORM is, and especially what it <i>isn't</i>, let's find out what the abbrevation <strong>ORM</strong> exactly means:
+</p>
+
+{{template "list" dict "Items" (slice
+    "<strong>O, \"Object\"</strong>: an object (instance of a class) in your programming language, which usually represents a row from a database"
+    "<strong>R, \"Relation\"</strong>: the relation defines what database row the objects (and what database columns that object properties) are related to, and what database columns that object properties "
+    "<strong>M, \"Mapping\"</strong>: the action of creating objects that have a relation to your database"
+)}}
+
+{{template "h2" dict "Text" "An example of a very simple ORM"}}
+
+<p>
+    Let's assume we have a database with a <i>users</i> table.<br />
+    The table has the following columns: id, first_name, last_name
+</p>
+
+<p>
+    Somewhere in your code you need to work with the user with ID 3. So we read out that user using SQL:
+</p>
+<pre><code class="language-sql">{{ `SELECT id, first_name, last_name FROM users WHERE id = 3`}}
+</code></pre>
+
+<p>
+    You can execute that query using your programming language's SQL extension. For example, in PHP you probably will
+    use <a href="https://www.php.net/manual/en/book.pdo.php" target="_blank">PDO</a>.<br />
+    The database extension of your database doesn't know about any database objects. So you will receive a <i>map</i> object like this:
+</p>
+
+
+<pre><code class="language-php">{{ `map{
+  ["id"]=>
+  int(3)
+  ["first_name"]=>
+  string(3) "Foo"
+  ["last_name"]=>
+  string(3) "Bar"
+}` }} </code></pre>
+
+<p>
+    Now you could work with that <strong>map</strong> object, pass it everywhere in your business logic where you need it.<br />
+    But this will sooner or later become a problem because that <i>map</i> is not well defined.
+</p>
+<p>
+    In PHP map objects are simply arrays. So if you have a function that expects a user, you would need to define it like this:
+</p>
+
+<pre><code class="language-php">{{`<?php function greet(array $user) { ... }` }} </code></pre>
+
+<p>
+    The argument has the <i>array</i> type. In other programming languages this will probably some kind of <i>map</i> type.
+    So the compiler makes sure you pass an <i>array</i> or a <i>map</i>.
+    But it doesn't make sure that it's actually an <i>user</i> array/map that contains an ID, first name and last name.
+</p>
+
+<p>
+    So how to avoid that?<br />
+    You know it already: Right after reading out the object from the database you map it to an object:
+</p>
+
+
+<pre><code class="language-php">{{ `<?php
+class User {
+	private int $id;
+	private string $firstName;
+	private string $lastName;
+
+	public function getId(): int
+	{
+	    return $this->id;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+	public static function fromRaw(array $raw): self
+	{
+		$user = new self();
+		$user->id = $raw['id'];
+		$user->firstName = $raw['first_name'];
+		$user->lastName = $raw['last_name'];
+
+		return $user;
+	}
+}
+
+$raw = fetch('SELECT id, first_name, last_name FROM users WHERE id = 3');
+$user = User::fromRaw($raw)
+` }} </code></pre>
+
+<p>
+    You can now rewrite your function like this:
+</p>
+
+<pre><code class="language-php">{{`<?php function greet(User $user) { ... }` }} </code></pre>
+
+<p>
+    This is much safer because everywhere you want work with a user, you pass a <i>User</i> object. The compiler will tell you
+    if you pass something else by mistake.
+</p>
+
+<p>
+    You know what we just did here, right?
+</p>
+<p>
+    Right?
+</p>
+<p>
+    Correct!
+</p>
+<p>
+    We just implemented an <strong>ORM</strong>. <br />
+    We build some <strong>mapping</strong> logic, that maps <strong>objects</strong> to the <strong>related</strong> database data.
+</p>
+
+<p>
+    Does our ORM support collections (multiple users)? No.<br />
+    Does our ORM handle a relationships? No.<br />
+    Is our ORM even capable of saving data? No.<br />
+    Is there room for improvement? For sure.<br />
+    <br />
+    Still, it's ORM.
+</p>
+
+<p>
+    For the sake of completeness, here is an example how to create a collection of users:
+</p>
+
+<pre><code class="language-php">{{ `<?php
+class UserCollection {
+    /**
+    * @var array<User>
+    */
+	private array $users = [];
+
+    /**
+    * @return @array<User>
+    */
+	public function getUsers(): array
+	{
+	    return $this->id;
+    }
+
+	public static function fromRaw(array $raw): self
+	{
+	    $collection = new UserCollection();
+
+		foreach ($raw as $userRaw) {
+		    $collection->users[] = User::fromRaw($userRaw);
+		}
+
+		return $collection;
+	}
+}
+
+$raw = fetch('SELECT id, first_name, last_name FROM users WHERE id IN (3, 4)');
+$users = UserCollection::fromRaw($raw);
+` }} </code></pre>
+
+{{template "h2" dict "Text" "Saving & Reading data"}}
+
+<p>
+    After you implemented an ORM you might want to normalize the way data can be retrieved and saved.<br />
+    You probably don't want to repeat the SQL query to find a user by ID at different places in your business logic.
+</p>
+
+<p>
+    An obvious place to implement data retrieval is in the corresponding object. You probably have seen something similar to this
+    in many ORM libraries. Like <a href="https://guides.rubyonrails.org/active_record_basics.html" target="_blank">Ruby on Rails</a> or <a href="https://laravel.com/docs/10.x/eloquent" target="_blank">Laravel's Eloquent</a>.
+</p>
+
+<pre><code class="language-php">{{ `<?php
+class User extends ActiveRecord {
+	private int $id;
+	private string $firstName;
+	private string $lastName;
+
+	...
+
+	public static function findById(int $id): User
+	{
+	    $raw = $this->fetch('SELECT id, first_name, last_name FROM users WHERE id = ?', $id);
+
+	    return self::fromRaw($raw);
+	}
+}
+
+$user = User::findById($id)
+` }} </code></pre>
+
+<p>
+    This is convenient, because the same class is used for both data retrieval and relation representation.<br />
+    Additionally the class could be extended by a save() method to insert or update database rows:
+</p>
+
+<pre><code class="language-php">{{ `<?php
+class User extends ActiveRecord {
+	private int $id;
+	private string $firstName;
+	private string $lastName;
+
+	...
+
+	public  function save(): void
+	{
+	    $this->execute('INSERT INTO users (id, first_name, last_name) VALUES (?, ?, ?) ON DUPLICATE UPDATE', $this->id, $this->firstName, $this->lastName);
+	}
+}
+
+$user = User::findById($id);
+$user->firstName = 'Guy';
+$user->save();
+` }} </code></pre>
+
+<p>
+    If the objects that represent your database's data are also able to read out and modify (insert, update, delete) your data, it's considered an <i>Active Record</i>.
+    This is a specific design pattern.<br />
+    Yes, <i>Active Records</i> are an implementation of an ORM. But not every ORM is an Active Record.
+</p>
+
+<p>
+    I've created another blog post about the problems regarding Active Records:
+    <a href="/active-record-pattern">Active Record Pattern</a>.
+    To make it short: There's probably no issues with Active Records in smaller projects, but in mid size or enterprise projects you may don't <i>allow</i> all the business logic you pass
+    a User object to, to also read out more or modify data existing data.
+    <br />
+    Because of this violation of <i>separation of concerns</i> and the <i>single responsibility principle</i> Active Records are often disliked.<br />
+    But this is no reason to dislike ORMs in general - because, again, ORms are not (necessarily) Active Records.
+</p>
+
+<p>
+    So, what's the alternative to implementing the saving and reading logic withing the same class?<br />
+    Yep. To implement the saving and reading logic in some other class.<br />
+    <br />
+    In many ORM libraries this class is called a <i>repository</i>.
+</p>
+
+<pre><code class="language-php">{{ `<?php
+class UserRepository  {
+	public function __construct(private readonly Database $database) {}
+
+	...
+
+	public  function findUserById(int $id): User
+	{
+	    $raw = $this->fetch('SELECT id, first_name, last_name FROM users WHERE id = ?', $id);
+
+	    return User::fromRaw($raw);
+	}
+
+	public function findAll(): UserCollection
+	{
+	    $raw = $this->fetch('SELECT id, first_name, last_name FROM users');
+
+	    return UserCollection::fromRaw($raw);
+	}
+}
+
+$databae = ...;
+$repository = new UserRepository($database);
+$user = $repository->findById(3);
+$users = $repository->findAll();
+` }} </code></pre>
+
+<p>
+    Using this approach, all your business logic that retrieves a <i>User</i> object won't be able to use the same class or object to read or manipulate data.<br />
+    Still, you have one single class that is responsible to read users from your database: <i>UserRepository</i>.
+</p>
+
+<p>
+    And, by the way, do you see how it's possible that user repository contains SQL code? This is totally legit.<br >
+    ORM critics often claim that ORMs have to be fast and instead they prefer to write their own, fast SQL queries.
+    But: One does not preclude the other.
+</p>
+
+<p>
+    What about saving or deleting data?<br />
+    Well, you could still use <i>Repository</i> class.<br />
+    But you may also want to keep <i>reading data</i> and <i>manipulating data</i> separated. In that case you could create an <i>EntityManager</i>
+</p>
+
+<pre><code class="language-php">{{ `<?php
+class UserEntityManager  {
+	public function __construct(private readonly Database $database) {}
+
+	...
+
+	public  function save(User $user): id
+	{
+	    $this->execute('INSERT INTO users (id, first_name, last_name) VALUES (?, ?, ?) ON DUPLICATE UPDATE', $user->getId(), $this->getFirstName(), $this->getLastName());
+	}
+
+$databae = ...;
+$repository = new UserRepository($database);
+$entityManager = new UserEntityManager($database);
+$user = $repository->findById(3);
+$user->firstName = 'Dude';
+$entityManager->save($user);
+` }} </code></pre>
+
+<p>
+    While we are at it... you may want to have your <i>User</i> class to be <i>DTO</i>, a stupid data transfer object with no business logic in it at all.<br />
+    In that case, you should move the mapping logic implemented in the <i>fromRaw</i> method into another class:
+</p>
+
+<pre><code class="language-php">{{ `<?php
+<?php
+class User {
+	private int $id;
+	private string $firstName;
+	private string $lastName;
+
+	public function __construct(
+	    private int $id,
+	    private string $firstName,
+	    private string $lastName
+    ) {}
+
+	public function getId(): int
+	{
+	    return $this->id;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+}
+
+class UserMapper  {
+	public function map(array $raw): User
+	{
+	    $user = new User();
+		$user->id = $raw['id'];
+		$user->firstName = $raw['first_name'];
+		$user->lastName = $raw['last_name'];
+
+		return $user;
+	}
+}
+` }} </code></pre>
+
+<p>
+    You then have to inject your <i>UserMapper</i> into your <i>UserRepository</i>, so the repository is able to
+    not only retrieve the raw data from the database but also create instances of <i>User</i> objects.
+</p>
+
+<p>
+    You probably don't want to implement all this by yourself.<br />
+    There are great libraries out there which do this for you. A good example is PHP's <a href="https://www.doctrine-project.org" target="_blank">Doctrine</a> or Java's <a href="https://hibernate.org" target="_blank">Hibernate</a>.
+    For Go, you could use <a href="https://gorm.io" target="_blank">GORM</a>, but you might have to implement the repositories yourself.
+</p>
+
+
+{{template "h2" dict "Text" "Summary"}}
+
+<p>
+    I hope I could convince you that ORMs are not only <i>a good idea</i>, no, they are <i>necessary</i> if your software reaches a certain size.<br />
+    You <i>have to</i> make sure that the data you work with are in a specific structure - therefore you <i>have to</i> use ORMs to some degree.
+</p>
+
+<p>
+    You may don't want to integrate a huge ORM library. You may start with something simple, probably you <i>could</i> write your own ORM. But keep in mind that often software doesn't stay small and simple - it grows.
+    And it's not unlikely that it will grow to a size where it's beneficial to use a reliable, fully tested ORM instead of your own custom solution.
+</p>
+
+<p>
+    ORMs don't have to be slow. They don't have to be complex. They don't have to violate well-proven software paradigms.<br />
+    <strong>ORMs are great</strong>.
+</p>
+
+{{ end }}
