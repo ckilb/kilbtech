@@ -3,10 +3,10 @@
 {{ define "metadescription" }}Articles about Christian Kilb's thoughts and learnings.{{end}}
 
 {{ define "intro_text" }}
-<ul class="grid grid-cols-12 gap-2 md:gap-4">
+<ul class="grid grid-cols-12 gap-x-2 gap-y-10 md:gap-x-10 md:gap-y-20">
     {{ range .posts }}
         {{ if .IsActive }}
-            <li class="col-span-6 md:col-span-4 text-center">
+            <li class="col-span-12 md:col-span-6 text-center">
                 <a href="/{{ .Id }}"
                    class="no-underline block md:hover:scale-105 transition-transform">
                     <img class="mb-2 rounded-xl" src="/static/img/posts/{{ .Id }}.webp"

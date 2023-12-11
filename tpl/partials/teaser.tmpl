@@ -1,7 +1,7 @@
 {{ define "teaser" }}
 <div class="bg-gradient-to-b from-slate-700 to-slate-950 overflow-hidden items-end">
     <div class="max-w-6xl grid gap-2 md:gap-8 grid-cols-12 items-end mx-auto mt-2 md:mt-8">
-        <div class="col-span-5 px-2 text-center">
+        <div class="col-span-6 px-2 text-center">
             <img data-aos="zoom-out"
                  data-aos-duration="1500"
                  class="inline-block rounded-t-xl max-h-[40vh] w-auto"
@@ -11,14 +11,14 @@
                  width="1080"
                  height="1080"/>
         </div>
-        <div class="col-span-7 pr-2 pb-3 md:pb-12">
+        <div class="col-span-6 pr-2 pb-3 md:pb-12">
             <h1 class="text-gray-50 text-xl sm:text-2xl md:text-6xl mb-3 md:mb-5"
                 data-aos="fade-up"
                 data-aos-duration="1000">{{ .Headline }}</h1>
             <h2 class="animate__delay-1s text-gray-300 text-xs sm:text-lg md:text-2xl md:ml-1 mb-3 md:mb-8"
                 data-aos="fade-up"
                 data-aos-duration="1000"
-                data-aos-delay="500">{{ .SubHeadline }}</h2>
+                data-aos-delay="500">{{ .SubHeadline | raw }}</h2>
 
             <div class="after:clear-both"
                  data-aos="fade-up text-[0px]"
@@ -41,14 +41,6 @@
                     <a href="https://www.xing.com/profile/Christian_Kilb2"
                        target="_blank">
                         <img src="/static/xing.svg" alt="Xing" title="Xing" width="52" height="52"
-                             class="inline-block h-8 w-8 md:h-12 md:w-12 rounded-md opacity-75 md:hover:opacity-100 md:hover:scale-110 transition-all duration-300" />
-                    </a>
-                </div>
-
-                <div class="block float-left ml-2 md:ml-4">
-                    <a href="https://www.instagram.com/ck_dot/"
-                       target="_blank">
-                        <img src="/static/img/instagram.svg" alt="Instagram" title="Instagram" width="52" height="52"
                              class="inline-block h-8 w-8 md:h-12 md:w-12 rounded-md opacity-75 md:hover:opacity-100 md:hover:scale-110 transition-all duration-300" />
                     </a>
                 </div>
