@@ -1,0 +1,605 @@
+{{ define "metadescription" }}A practical quick guide how to render templates with multiple pages, sub templates and variable data. Find out how to embed your template files into the final binary.{{ end }}
+
+{{ define "intro_text" }}
+	It's really great that Go ships with a <strong>template engine</strong>, so there is no installation of third party libraries
+	necessary.<br />
+	Still, when I was new to Go it took me a while to find out how to work with it and I didn't find a quick guide that answers
+	most of my questions.<br />
+    Now, after I managed to work with Go's template engine within several projects, I like to present to you this practical quick guide which will not only tell you how to render templates with <strong>multiple pages</strong>,
+	<strong>sub templates</strong> and <strong>variable data</strong> but also also how to <strong>embed your template files</strong>
+	into the final binary, so you don't need to copy these to your servers.
+{{ end }}
+
+{{ define "content" }}
+
+{{template "h2" dict "Text" "Parsing & displaying a template"}}
+
+<p>
+    First things first.<br />
+    You may already know how to parse and display a template file in Go.
+    For those of you who don't here is a very simple example:
+</p>
+
+<strong>main.go</strong>
+<pre><code class="language-go">
+package main
+
+import (
+	"html/template"
+	"log"
+	"net/http"
+	"os"
+)
+
+func main() {
+	// get the current working directory
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// parse the template file in the current working directory
+	tpl, err := template.ParseFiles(dir + "/template/layout.tmpl")
+
+	// create & start a web server that will render the template
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		err := tpl.Execute(w, nil)
+
+		if err != nil {
+			panic(err)
+		}
+	})
+
+	http.ListenAndServe(":3210", nil)
+}
+</code></pre>
+
+{{template "h2" dict "Text" "Implementing sub templates"}}
+<p>
+    In our template file we might want to include some sub templates.<br />
+    It makes sense to create sub template files not only to keep your file sizes small but also increase
+    reusability: You can include your sub template file in multiple parents.
+</p>
+
+<p>
+    How to do so?<br />
+    First have a look into the base template file:
+</p>
+
+<strong>tpls/layout.tmpl</strong>
+<pre><code class="language-html">{{ `<html>
+    <head>
+        <title>Go Template Example</title>
+    </head>
+</html>
+<body>
+    <aside>
+        {{ template "sidebar" . }}
+    </aside>
+    <main>
+        {{ template "main" . }}
+</main>
+</body>
+</html>` }}
+</code></pre>
+
+<p>
+    As you can see the file contains a simple HTML document structure.
+    The template code of the  sidebar is not included into that file. Instead, a template block with the name <i>sidebar</i> has to be loaded.<br />
+    If you would run the code above to render that file without any changes you will get a runtime error after you load the page in your web browser:<br />
+    <i>html/template:layout.tmpl:8:20: no such template "sidebar"</i>
+    Please mind: You will not get a compilation error. Neither you will get an error right after the program has started.<br />
+    Go will find out that a template is missing after you try to execute the parsed template instance.
+</p>
+<p>
+    So, how to fix it? We have to create the sub templates of course.<br />
+    Let's do that:
+</p>
+
+<strong>tpls/sidebar.tmpl</strong>
+<pre><code class="language-html">{{ `{{ define "sidebar" }}
+<ul>
+    <li>my</li>
+    <li>sidebar</li>
+    <li>foo</li>
+    <li>bar</li>
+</ul>
+{{ end }} `}}
+</code></pre>
+
+
+<strong>tpls/pages/home.tmpl</strong>
+<pre><code class="language-html">{{ `{{ define "main" }}
+    <strong>Welcome to the Home Page.</strong>
+{{ end }}`}}
+</code></pre>
+
+<p>
+    Don't forget to wrap your HTML code with <i>{{"{{"}} define "template_name" {{"}}"}} and  {{"{{"}} end {{"}}"}}</i>.
+    This will tell Go that the wrapped content is the one that should be loaded in your base template.
+</p>
+
+<p>
+    After the sub templates have been created, the files have to be parsed, too...
+</p>
+
+<strong>main.go</strong>
+<pre><code class="language-go">package main
+
+import (
+	...
+)
+
+func main() {
+	...
+
+	// parse the template file in the current working directory
+	tpl, err := template.ParseFiles(dir + "/template/layout.tmpl", dir + "/template/sidebar.tmpl", dir + "/template/page/home.tmpl")
+
+	...
+}
+</code></pre>
+
+<p>
+    And that's how you implement sub templates.<br />
+    Please mind that the order you pass the template files into the <i>template.ParseFiles</i> method matters.
+    The first passed file should be your base template.
+</p>
+
+
+{{template "h2" dict "Text" "Implementing multiple pages (template slots)"}}
+
+<p>
+    In the example above only the <i>home</i> template will be loaded as the <i>main</i> template.<br />
+    How can we achieve to support multiple pages? To do so, we have to create multiple template instances - one for each page.<br />
+    The instances will be saved in a map, indexed by the page name
+</p>
+
+<strong>main.go</strong>
+<pre><code class="language-go">package main
+
+import (
+	"html/template"
+	"log"
+	"net/http"
+	"os"
+)
+
+var tpls map[string]*template.Template
+
+func main() {
+	// get the current working directory
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	pages := []string{
+		"home", "about",
+	}
+
+	tpls = make(map[string]*template.Template)
+
+	for _, page := range pages {
+		// parse the template file in the current working directory
+		tpl, err := template.ParseFiles(dir+"/tpls/layout.tmpl", dir+"/tpls/sidebar.tmpl", dir+"/tpls/pages/"+page+".tmpl")
+
+		if err != nil {
+			panic(err)
+		}
+
+		tpls[page] = tpl
+	}
+
+	// create & start a web server that will render the templates
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		err := tpls["home"].Execute(w, nil)
+
+		if err != nil {
+			panic(err)
+		}
+	})
+
+	// create & start a web server that will render the template
+	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
+		err := tpls["about"].Execute(w, nil)
+
+		if err != nil {
+			panic(err)
+		}
+	})
+
+	http.ListenAndServe(":3210", nil)
+}
+</code></pre>
+
+<strong>tpls/pages/about.tmpl</strong>
+<pre><code class="language-html">{{ `{{ define "main" }}
+	A few info about me...
+{{ end }}`}}</code></pre>
+
+<p>
+    If you restart your Go application, loading <i>/</i> in your web browser will show the layout including your <i>home</i> template.<br />
+    If you go to <i>/about</i> it will load the <i>about</i> template instead.
+</p>
+
+
+{{template "h2" dict "Text" "Pass data to your templates & sub templates"}}
+
+<p>
+    First we update the <i>home.tmpl</i> file so it's able to display a passed variable:
+</p>
+
+
+<strong>tpls/pages/home.tmpl</strong>
+<pre><code class="language-html">{{ `{{ define "main" }}
+	Welcome, {{ .name }}!
+{{ end }}`}}</code></pre>
+
+<p>
+    Also, we have to pass the name from the <i>main.go</i> file:
+</p>
+
+
+<strong>main.go</strong>
+<pre><code class="language-go">
+package main
+
+import (
+	"html/template"
+	"log"
+	"net/http"
+	"os"
+)
+
+var tpls map[string]*template.Template
+
+func main() {
+	...
+
+	// create & start a web server that will render the templates
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		err := tpls["home"].Execute(w, map[string]interface{}{
+			"name": "Fred",
+		})
+
+		if err != nil {
+			panic(err)
+		}
+	})
+
+	...
+}
+</code></pre>
+
+<p>
+    You can see that we now pass a <i>map</i> object as a second argument to the <i>Execute</i> method.<br />
+    The <i>key</i> type of the map is a string, so it's possible to access the value from the template (<i>{{ `{{ .key }}` }}</i>).<br />
+    The <i>value</i> type is <i>interface{}</i>. This allows <i>any</i> type to be set as a value. <i>interface{}</i> should
+    be avoided in general because it's undermining the benefit of a strongly types programming language.<br />
+    But, in this case, because the object is only used in the template files and therefore there's no further need of type strictness, it's no big deal.
+</p>
+
+
+<p>
+    Let's assume we want to implement a re-usable <i>headline</i> component.<br />
+    Both of our pages, <i>home</i> and <i>about</i> should make use of this component.<br />
+    But there's a catch: The home page should show the headline in black color, while the <i>about</i> page should display
+    it in blue. Also, of course, the text of the headline should correspond to the current page.
+</p>
+
+<p>
+    The first part is a bit tricky:<br />
+    We have to implement a template helper function which can be used to pass variable data from template to template.<br />
+    The helper function will have the name <i>dict</i> and it accepts a map object of key type <i>string</i> and <i>any</i> value type.<br />
+    The <i>dict</i> function will first check if the number of passed arguments is dividable by 2. If not, it will break.<br />
+    Then, it will create a new map where each argument (key) is mapped to the next argument (value).<br />
+    This might seem a bit strange at the beginning, but it will simply passing data in sub templates. You will see...
+</p>
+<strong>main.go</strong>
+<pre><code class="language-go">
+package main
+
+import (
+	"html/template"
+	"log"
+	"net/http"
+	"os"
+)
+
+
+func main() {
+	...
+
+    funcMap := template.FuncMap{
+		"dict": func(values ...interface{}) (map[string]interface{}, error) {
+			if len(values)%2 != 0 {
+				return nil, errors.New("invalid dict call")
+			}
+			dict := make(map[string]interface{}, len(values)/2)
+			for i := 0; i < len(values); i += 2 {
+				key, ok := values[i].(string)
+				if !ok {
+					return nil, errors.New("dict keys must be strings")
+				}
+
+				dict[key] = values[i+1]
+			}
+			return dict, nil
+		},
+	}
+
+    ...
+
+	for _, page := range pages {
+		// parse the template file in the current working directory
+		tpl := template.New("layout.tmpl").Funcs(funcMap)
+
+		tpl, err = tpl.ParseFiles(dir+"/tpls/layout.tmpl", dir+"/tpls/sidebar.tmpl", dir+"/tpls/pages/"+page+".tmpl", dir+"/tpls/headline.tmpl")
+
+		if err != nil {
+			panic(err)
+		}
+
+		tpls[page] = tpl
+	}
+
+    ...
+</code></pre>
+
+<p>
+    Unfortunately it's not possible to pass helper functions to the <i>ParseFiles</i> method.<br />
+	In theory, we could add these helper functions <i>after parsing</i> to the created template instance. But this would be too late. The functions have to be registered <i>before</i> parsing.<br />
+    That's why we had to create a template instance first (with the name of our base template file <i>layout.tmpl</i>), then add the helper function, then parse the template files.
+</p>
+
+<p>
+    Now we create a new template <i>headline.tmpl</i>:
+</p>
+
+<strong>tpls/headline.tmpl</strong>
+<pre><code class="language-html">{{ `{{  define "headline" }}
+    <h1 style="font-size: 24pt; font-weight: bold; color: {{ .color }}">{{ .text }}</h1>
+{{ end }} ` }}
+</code></pre>
+
+<p>
+    ... and update our <i>home</i> and <i>about</i> template:
+</p>
+
+<strong>tpls/home.tmpl</strong>
+<pre><code class="language-html">{{ `{{ define "main" }}
+{{ template "headline" dict "color" "black" "text" "Home" }}
+Welcome, {{ .name }}!
+{{ end }}`}}
+</code></pre>
+
+
+<strong>tpls/about.tmpl</strong>
+<pre><code>{{ `{{ define "main" }}
+    {{template "headline" dict "color" "blue" "text" "About me"}}
+
+    A few info about me...
+{{ end }}` }}</code></pre>
+
+<p>
+    And that's how you pass variable data from template to template...
+</p>
+
+{{template "h2" dict "Text" "Embed templates into your binary"}}
+
+<p>
+    In the examples above we created a folder <i>tpls</i> where we placed all our template files.<br />
+    The implementation in <i>main.go</i> reads these files relative to the working directory.
+</p>
+<p>
+    So... what happens if you run your application from some other directory? It will fail to load the template files.
+</p>
+<p>
+    Iif you want to deploy your binary application to another server you not only need to make sure that you don't forget about deploying your template files, too. You also need to make sure
+    that you run the application from the right directory.
+</p>
+
+<p>
+    There's another way though. Go makes it very easy to <i>embed</i> files during compilation. So what we could do instead is to embed our template files into the binary.
+</p>
+
+<p>
+    How to do so?<br />
+    First we move our template logic from <i>main.go</i> to another file <i>tpls.go</i> which we place in the same
+    directory where the <i>tmpl</i> files are located:
+</p>
+
+<strong>tpls/tpls.go</strong>
+<pre><code class="language-go">
+package tpls
+
+import (
+	"errors"
+	"html/template"
+	"os"
+)
+
+var tpls map[string]*template.Template
+
+func Init() {
+	dir, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+
+	pages := []string{
+		"home", "about",
+	}
+
+	tpls = make(map[string]*template.Template)
+
+	funcMap := template.FuncMap{
+		"dict": func(values ...interface{}) (map[string]interface{}, error) {
+			if len(values)%2 != 0 {
+				return nil, errors.New("invalid dict call")
+			}
+			dict := make(map[string]interface{}, len(values)/2)
+			for i := 0; i < len(values); i += 2 {
+				key, ok := values[i].(string)
+				if !ok {
+					return nil, errors.New("dict keys must be strings")
+				}
+
+				dict[key] = values[i+1]
+			}
+			return dict, nil
+		},
+	}
+
+	for _, page := range pages {
+		tpl := template.New("layout.tmpl").Funcs(funcMap)
+		tpl, err := tpl.ParseFiles(
+			dir+"/tpls/layout.tmpl",
+			dir+"/tpls/pages/"+page+".tmpl",
+			dir+"/tpls/sidebar.tmpl",
+			dir+"/tpls/headline.tmpl",
+		)
+
+		if err != nil {
+			panic(err)
+		}
+
+		tpls[page] = tpl
+	}
+}
+
+func Get(page string) *template.Template {
+	return tpls[page]
+}
+</code></pre>
+
+<strong>main.go</strong>
+<pre><code class="language-go">
+package main
+
+import (
+	"ckilb/golang-layout-tpl/tpls"
+	"net/http"
+)
+
+func main() {
+	tpls.Init()
+
+	// create & start a web server that will render the templates
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		err := tpls.Get("home").Execute(w, map[string]interface{}{
+			"name": "Fred",
+		})
+
+		if err != nil {
+			panic(err)
+		}
+	})
+
+	// create & start a web server that will render the template
+	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
+		err := tpls.Get("about").Execute(w, nil)
+
+		if err != nil {
+			panic(err)
+		}
+	})
+
+	http.ListenAndServe(":3210", nil)
+}
+</code></pre>
+
+<p>
+	This is a bit cleaner because we don't pollute the <i>main.go</i> file with too much template logic.<br />
+	Now we change the file <i>tpls.go</i> so it will <i>embed</i> the template files.
+</p>
+
+<strong>tpls/tpls.go</strong>
+<pre><code class="language-go">
+package tpls
+
+import (
+	"embed"
+	"errors"
+	"html/template"
+)
+
+//go:embed **/*.tmpl *.tmpl
+var filesystem embed.FS
+var tpls map[string]*template.Template
+
+func Init() {
+	pages := []string{
+		"home", "about",
+	}
+
+	tpls = make(map[string]*template.Template)
+
+	funcMap := template.FuncMap{
+		"dict": func(values ...interface{}) (map[string]interface{}, error) {
+			if len(values)%2 != 0 {
+				return nil, errors.New("invalid dict call")
+			}
+			dict := make(map[string]interface{}, len(values)/2)
+			for i := 0; i < len(values); i += 2 {
+				key, ok := values[i].(string)
+				if !ok {
+					return nil, errors.New("dict keys must be strings")
+				}
+
+				dict[key] = values[i+1]
+			}
+			return dict, nil
+		},
+	}
+
+	for _, page := range pages {
+		tpl := template.New("layout.tmpl").Funcs(funcMap)
+		tpl, err := tpl.ParseFS(
+			filesystem,
+			"layout.tmpl",
+			"pages/"+page+".tmpl",
+			"sidebar.tmpl",
+			"headline.tmpl",
+		)
+
+		if err != nil {
+			panic(err)
+		}
+
+		tpls[page] = tpl
+	}
+}
+
+func Get(page string) *template.Template {
+	return tpls[page]
+}
+
+</code></pre>
+
+<p>
+	First I removed the usages of <i>os.GetCwd</i>. We don't need the working directory anymore.<br />
+	Also, instead of parsing the files from the binary file's filesystem using <i>template.ParseFiles</i> I use
+	<i>template.ParseFS</i> which allows me to pass the file system created by Go which represents my embedded template files.
+</p>
+
+{{template "h2" dict "Text" "Summary"}}
+
+<p>
+	Working with Go templates can be quite tricky. But once you understand how it works it's a powerful template engine without the need
+	of third party libraries.<br />
+	It might be a bit more complex in the beginning, especially in comparison to other template engines from other programming languages (like Twig from PHP). But this is mainly due to the fact
+	that Go isn't combining parsing and executing for performance reasons.<br />
+	Usually template files only have to be parsed once (like, when you start your web server). Once a request comes in the execution (= displaying) of the template can be much faster then.<br />
+	Also, many other template engines bring a lot of helper functions by default. In Go, you instead have to create and register them yourself. I can't make a decision what I like more. For sure
+	it's helpful if you have a bunch of helper functions from the beginning. Otherwise it's a cleaner approach to only have those functions registered you actually need. Of course there are third party libraries that
+	provide some popular functions - but especially for small functions I prefer to write them myself.
+</p>
+
+<p>
+	You can find all the example source code here:<br />
+	<a href="https://github.com/ckilb/golang-layout-tpl-example" target="_blank">https://github.com/ckilb/golang-layout-tpl-example</a>
+</p>
+
+{{ end }}

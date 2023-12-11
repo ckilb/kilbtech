@@ -10,6 +10,12 @@ type Post struct {
 func GetPosts() []Post {
 	return []Post{
 		{
+			Id:       "golang-templates",
+			Title:    "Go's template engine: A quick guide",
+			Subtitle: "How to work with Go's template engine",
+			IsActive: true,
+		},
+		{
 			Id:       "pocketbook-inkpad-color-2",
 			Title:    "Pocketbook InkPad Color 2 Review",
 			Subtitle: "Testing the InkPad Color 2 with KOReader",
