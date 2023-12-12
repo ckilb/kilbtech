@@ -60,11 +60,11 @@
 }` }} </code></pre>
 
 <p>
-    Now you could work with that <strong>map</strong> object, pass it everywhere in your business logic where you need it.<br />
+    Now you could work with that <i>map</i> object, pass it everywhere in your business logic where you need it.<br />
     But this will sooner or later become a problem because that <i>map</i> is not well defined.
 </p>
 <p>
-    In PHP map objects are simply arrays. So if you have a function that expects a user, you would need to define it like this:
+    In PHP <i>map</i> objects are simply <i>arrays</i>. So if you have a function that expects a user, you would need to define it like this:
 </p>
 
 <pre><code class="language-php">{{`<?php function greet(array $user) { ... }` }} </code></pre>
@@ -77,7 +77,7 @@
 
 <p>
     So how to avoid that?<br />
-    You know it already: Right after reading out the object from the database you map it to an object:
+    Right after reading out the object from the database we map it to an object:
 </p>
 
 
@@ -298,8 +298,10 @@ $users = $repository->findAll();
 
 <p>
     And, by the way, do you see how it's possible that user repository contains SQL code? This is totally legit.<br >
-    ORM critics often claim that ORMs have to be fast and instead they prefer to write their own, fast SQL queries.
-    But: One does not preclude the other.
+    Critics often claim that ORMs are <i>slow</i>, so instead they prefer to write their own, <i>fast</i> and custom SQL queries.
+    But: One does not preclude the other.<br />
+    Sure, many ORM libraries ship with a bunch of query methods that are quite common - like <i>findById</i>, <i>findAll</i> etc. But usually
+    they don't <i>force</i> you to do so.
 </p>
 
 <p>
