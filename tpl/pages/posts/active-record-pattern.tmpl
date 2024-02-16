@@ -177,7 +177,7 @@ class SenderTest extends Test
 class Sender
 {
     public function __construct(
-        private readonly UserRepositoryInterface $userRepository
+        private readonly UserEntityManagerInterface $userEntityManager
     ) {}
 
     public function send(UserDto $user): void
@@ -185,7 +185,7 @@ class Sender
         ...
 
         $user->setSentAt(date('Y-m-d H:i:s'));
-        $this->userRepository->save($user);
+        $this->userEntityManager->save($user);
     }
 }
 
