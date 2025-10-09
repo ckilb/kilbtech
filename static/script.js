@@ -25,6 +25,7 @@ if (contactForm) {
         fetch(contactForm.getAttribute('action'), {
             method: contactForm.getAttribute('method'),
             body: JSON.stringify({
+                name: data.get('name'),
                 email: data.get('email'),
                 message: data.get('message')
             })

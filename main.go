@@ -8,6 +8,7 @@ import (
 	_ "embed"
 	"flag"
 	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )

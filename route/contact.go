@@ -3,9 +3,10 @@ package route
 import (
 	"ckilb/kilbtech/mail"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type ContactRequest struct {
@@ -47,7 +48,7 @@ func (r *Contact) Handler() gin.HandlerFunc {
 		}
 
 		if body.Name != "" {
-			c.AbortWithStatus(400)
+			c.AbortWithStatus(204)
 
 			return
 		}
