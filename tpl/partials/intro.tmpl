@@ -1,8 +1,10 @@
 {{ define "intro" }}
-<div class="md:min-h-[40vh] grid items-center">
-    <div class="p-3 md:p-8 py-5 md:py-7 max-w-6xl mx-auto text-base md:text-xl leading-relaxed font-extralight"
-         data-aos="fade-zoom-in"
-         data-aos-duration="2000">
+<div class="md:min-h-[40vh] grid items-center relative z-10 mt-8 md:mt-12">
+    <div class="p-6 md:p-12 max-w-5xl mx-auto text-base md:text-xl leading-relaxed font-light text-slate-300 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl relative overflow-hidden"
+         data-aos="fade-up"
+         data-aos-duration="1500">
+        <!-- Glow effect inside the card -->
+        <div class="absolute top-[-50%] left-[-10%] w-[120%] h-[120%] bg-gradient-to-br from-orange-500/10 via-transparent to-blue-500/10 rounded-full blur-3xl -z-10 animate-spin-slow"></div>
         {{ template "intro_text" . }}
     </div>
 </div>

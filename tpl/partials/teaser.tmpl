@@ -1,51 +1,75 @@
 {{ define "teaser" }}
-<div class="bg-gradient-to-b from-slate-700 to-slate-950 overflow-hidden items-end">
-    <div class="max-w-6xl grid gap-2 md:gap-8 grid-cols-12 items-end mx-auto mt-2 md:mt-8">
-        <div class="col-span-6 px-2 text-center">
-            <img data-aos="zoom-out"
-                 data-aos-duration="1500"
-                 class="inline-block rounded-t-xl max-h-[40vh] w-auto"
-                 src="/static/img/{{ .TeaserImage }}.webp"
-                 alt="Christian Kilb"
-                 title="Christian Kilb"
-                 width="1080"
-                 height="1080"/>
-        </div>
-        <div class="col-span-6 pr-2 pb-3 md:pb-12">
-            <h1 class="text-gray-50 text-xl sm:text-2xl md:text-6xl mb-3 md:mb-5"
+<div class="relative overflow-hidden flex flex-col items-center justify-end min-h-[90vh] md:min-h-screen pt-24 pb-8" style="background: radial-gradient(circle at center, #111111 0%, #000000 100%);">
+
+    <!-- Background Animated Blobs -->
+    <div class="blob bg-emerald-600/30 w-72 h-72 md:w-96 md:h-96 top-10 left-[-10%] md:left-[15%]"></div>
+
+    <!-- Background Grid overlay -->
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0wIDAuNWg0ME0wLjUgMHY0MCIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiAvPjwvc3ZnPg==')] opacity-40 z-0"></div>
+
+    <!-- Main Content Grid -->
+    <div class="max-w-7xl w-full grid gap-8 lg:gap-16 grid-cols-1 md:grid-cols-2 items-center mx-auto px-6 relative z-10">
+        <!-- Text Column -->
+        <div class="order-2 md:order-1 flex flex-col justify-center text-center md:text-left pb-16 md:pb-32 z-20">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-500"
+                style="font-family: 'Outfit', sans-serif;"
                 data-aos="fade-up"
                 data-aos-duration="1000">{{ .Headline }}</h1>
-            <h2 class="animate__delay-1s text-gray-300 text-xs sm:text-lg md:text-2xl md:ml-1 mb-3 md:mb-8"
+
+            <h2 class="animate__delay-1s text-lg sm:text-xl md:text-3xl lg:text-4xl font-light text-slate-300 mb-8 md:mb-12"
                 data-aos="fade-up"
                 data-aos-duration="1000"
-                data-aos-delay="500">{{ .SubHeadline | raw }}</h2>
+                data-aos-delay="300">
+                {{ .SubHeadline | raw }}
+            </h2>
 
-            <div class="after:clear-both"
-                 data-aos="fade-up text-[0px]"
-                 data-aos-delay="750"
+            <!-- Actions and Socials -->
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 md:gap-6 mt-4"
+                 data-aos="zoom-in-up"
+                 data-aos-delay="600"
                  data-aos-duration="1000">
-                <div class="block float-left md:ml-1">
-                    <a class="inline-block h-8 md:h-12 leading-[2rem] md:leading-[3rem] px-3 md:px-5 bg-gradient-to-b from-yellow-500 to-orange-400 font-semibold text-white text-sm rounded-md opacity-90 md:hover:opacity-100 md:hover:scale-110 transition-all duration-300 no-underline"
-                       href="#contact">Contact</a>
-                </div>
 
-                <div class="block float-left ml-2 md:ml-4">
+                <a class="relative inline-flex items-center justify-center px-8 py-4 font-semibold text-white transition-all duration-300 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full hover:shadow-[0_0_30px_rgba(249,115,22,0.6)] hover:scale-105 active:scale-95 no-underline overflow-hidden group"
+                   href="#contact">
+                    <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                    <span class="relative">Let's Talk</span>
+                </a>
+
+                <div class="flex items-center gap-4">
                     <a href="https://www.linkedin.com/in/christian-kilb-93a8674b/"
-                       target="_blank">
-                        <img src="/static/linkedin.svg" alt="LinkedIn" title="LinkedIn" width="52" height="52"
-                             class="inline-block h-8 w-8 md:h-12 md:w-12 rounded-md opacity-75 md:hover:opacity-100 md:hover:scale-110 transition-all duration-300" />
+                       target="_blank"
+                       class="group p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 hover:scale-110 transition-all duration-300 backdrop-blur-sm shadow-xl">
+                        <img src="/static/linkedin.svg" alt="LinkedIn" title="LinkedIn" width="28" height="28"
+                             class="opacity-80 group-hover:opacity-100 transition-opacity" />
                     </a>
-                </div>
 
-                <div class="block float-left ml-2 md:ml-4">
                     <a href="https://www.xing.com/profile/Christian_Kilb2"
-                       target="_blank">
-                        <img src="/static/xing.svg" alt="Xing" title="Xing" width="52" height="52"
-                             class="inline-block h-8 w-8 md:h-12 md:w-12 rounded-md opacity-75 md:hover:opacity-100 md:hover:scale-110 transition-all duration-300" />
+                       target="_blank"
+                       class="group p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 hover:scale-110 transition-all duration-300 backdrop-blur-sm shadow-xl">
+                        <img src="/static/xing.svg" alt="Xing" title="Xing" width="28" height="28"
+                             class="opacity-80 group-hover:opacity-100 transition-opacity" />
                     </a>
                 </div>
             </div>
+        </div>
 
+        <!-- Image / Artistic Evolution Canvas -->
+        <div class="order-1 md:order-2 flex justify-center items-end relative" style="perspective: 1200px;">
+            <div class="relative w-full max-w-[400px] lg:max-w-[500px]">
+
+                <!-- Premium CSS Reveal Masking -->
+                <div class="reveal-mask rounded-t-3xl overflow-hidden drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-b-0 relative z-10 bg-transparent">
+                    <!-- The source image, acts as the final reveal target and supplies pixel data for matrix.js -->
+                    <img id="hero-img-matrix"
+                         class="reveal-scale-in block w-full h-auto filter brightness-110 contrast-125 transition-transform duration-300 transform-gpu"
+                         src="/static/img/{{ .TeaserImage }}.webp"
+                         alt="Christian Kilb"
+                         title="Christian Kilb"
+                         width="1080"
+                         height="1080"/>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>

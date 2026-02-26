@@ -20,7 +20,12 @@
     <meta name="msapplication-config" content="/static/browserconfig.xml">
 
     <script src="/static/aos.js?id={{ assetId }}" defer></script>
+    <script src="/static/matrix.js?id={{ assetId }}" defer></script>
     <script src="/static/script.js?id={{ assetId }}" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
         @font-face {
@@ -29,34 +34,69 @@
             font-weight: 1 999;
             font-display: swap;
         }
+        /* Custom animated blob utilities */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            animation: moveBlob 15s infinite alternate ease-in-out;
+        }
+        @keyframes moveBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(100px, -50px) scale(1.1); }
+            100% { transform: translate(-50px, 100px) scale(0.9); }
+        }
+
+        /* Modern Premium Animations */
+        .reveal-mask {
+            clip-path: inset(100% 0 0 0);
+            animation: slideUpReveal 1.6s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+            animation-delay: 0.1s;
+        }
+
+        .reveal-scale-in {
+            transform: scale(1.1);
+            animation: scaleInReveal 1.6s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+            animation-delay: 0.1s;
+        }
+
+        @keyframes slideUpReveal {
+            to { clip-path: inset(0 0 0 0); }
+        }
+
+        @keyframes scaleInReveal {
+            to { transform: scale(1); }
+        }
     </style>
 
     {{template "head" }}
     {{ define "head"}}{{end}}
 </head>
 
-<body class="bg-slate-900 text-gray-50 font-light relative leading-7">
-    <header class="bg-slate-700 md:bg-transparent md:absolute top-0 left-0 w-full text-right p-3 text-xs md:text-base">
+<body class="bg-[#050505] text-gray-50 font-light relative leading-7 selection:bg-orange-500 selection:text-white">
+    <header class="bg-black/20 backdrop-blur-md md:bg-transparent md:absolute top-0 left-0 w-full text-right p-3 md:p-6 text-xs md:text-base z-50 transition-all duration-300">
         <nav class="inline-block">
-            <ul>
-                <li class="inline-block ml-4">
-                    <a class="md:opacity-75 md:hover:opacity-100 transition-all duration-500 no-underline"
+            <ul class="flex items-center space-x-6 md:space-x-8">
+                <li>
+                    <a class="text-gray-300 hover:text-white md:opacity-80 md:hover:opacity-100 transition-all duration-300 no-underline font-medium hover:tracking-wide"
                        href="/">About me</a>
                 </li>
-                <li class="inline-block ml-4">
-                    <a class="md:opacity-75 md:hover:opacity-100 transition-all duration-500 no-underline"
+                <li>
+                    <a class="text-gray-300 hover:text-white md:opacity-80 md:hover:opacity-100 transition-all duration-300 no-underline font-medium hover:tracking-wide"
                        href="/spryker-freelancer">Spryker</a>
                 </li>
-                <li class="inline-block ml-4">
-                    <a class="md:opacity-75 md:hover:opacity-100 transition-all duration-500 no-underline"
+                <li>
+                    <a class="text-gray-300 hover:text-white md:opacity-80 md:hover:opacity-100 transition-all duration-300 no-underline font-medium hover:tracking-wide"
                        href="/blog">Blog</a>
                 </li>
-                <li class="inline-block ml-4">
-                    <a class="md:opacity-75 md:hover:opacity-100 transition-all duration-500 no-underline"
+                <li>
+                    <a class="md:opacity-80 md:hover:opacity-100 transition-all duration-300 transform hover:scale-110 no-underline"
                        href="https://github.com/ckilb/kilbtech"
-                       target=" blank">
+                       target="_blank">
+                        <!-- Github Icon logic -->
                         <img src="/static/gh.svg"
-                             class="w-5 inline md:align-text-bottom"
+                             class="w-5 inline md:align-text-bottom filter invert opacity-80 hover:opacity-100"
                              width="50"
                              height="50"
                              alt="Github"
@@ -66,17 +106,18 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <main class="overflow-hidden">
         {{template "main" .}}
     </main>
-    <footer class="text-center my-5">
+    <footer class="text-center mt-12 mb-8 relative z-10">
         <nav>
             <ul>
                 <li>
-                    <a class="text-xs opacity-75 md:hover:opacity-100"
+                    <a class="text-xs text-gray-400 hover:text-orange-400 transition-colors duration-300"
                        href="/legal">Legal notice (Impressum)</a>
                 </li>
             </ul>
         </nav>
     </footer>
 </body>
+</html>
