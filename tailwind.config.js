@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Work Sans', ...defaultTheme.fontFamily.sans],
+        'sans': ['Schibsted Grotesk', ...defaultTheme.fontFamily.sans],
       },
     }
   },

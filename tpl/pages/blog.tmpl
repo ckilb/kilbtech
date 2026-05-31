@@ -3,15 +3,17 @@
 {{ define "metadescription" }}Articles about Christian Kilb's thoughts and learnings.{{end}}
 
 {{ define "intro_text" }}
-<ul class="grid grid-cols-12 gap-x-2 gap-y-10 md:gap-x-10 md:gap-y-20">
+<ul class="flex flex-col gap-4 text-left">
     {{ range .posts }}
         {{ if .IsActive }}
-            <li class="col-span-12 md:col-span-6 text-center">
-                <a href="/{{ .Id }}"
-                   class="no-underline block md:hover:scale-105 transition-transform">
-                    <img class="mb-2 rounded-xl" src="/static/img/posts/{{ .Id }}.webp"
-                         alt="{{ .Title }}"/>
-                    {{ .Title }}
+            <li>
+                <a href="/{{ .Id }}" class="no-underline flex items-center gap-4">
+                    <span class="text-sm opacity-50 shrink-0 w-24">{{ .Date }}</span>
+                    <img src="/static/img/posts/{{ .Id }}.webp" class="h-14 w-14 object-contain shrink-0" alt="{{ .Title }}">
+                    <div class="flex-1">
+                        <div class="font-semibold">{{ .Title }}</div>
+                        <div class="text-sm opacity-60">{{ .Subtitle }}</div>
+                    </div>
                 </a>
             </li>
         {{ end }}

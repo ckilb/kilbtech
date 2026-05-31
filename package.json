@@ -5,7 +5,7 @@
   "scripts": {
     "build-css": "npx tailwindcss -i ./asset/style.css -o ./static/build/style.css --minify",
     "serve": "go run main.go",
-    "dev": "npm run build-css && npm run serve",
+    "dev": "npm run build-css && ~/go/bin/air",
     "deploy": "sh ./scripts/deploy.sh"
   },
   "author": "",
