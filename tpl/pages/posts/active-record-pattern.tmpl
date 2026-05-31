@@ -1,8 +1,7 @@
 {{ define "metadescription" }}Discover the Active Record Pattern, a design pattern for mapping database tables to classes. Learn about its benefits, downsides, and alternatives for effective database interaction.{{ end }}
 
 {{ define "intro_text" }}
-    The active record pattern is a design pattern that maps database tables to classes, enabling developers to interact with the database using object-oriented methods and operations.<br />
-    It is a common implementation of an <strong>Object Relational Mapper (ORM)</strong>. Like everything in software development, it has its benefits and downsides.
+    <strong>TL;DR:</strong> The Active Record pattern is convenient for small projects, but it violates the Single Responsibility and Separation of Concerns principles — making testing harder and giving every consumer of your objects unintended write access to the database. A better alternative is splitting responsibilities into a Repository, an EntityManager, and a plain DTO.
 {{ end }}
 
 {{ define "content" }}

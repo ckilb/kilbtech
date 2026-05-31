@@ -1,13 +1,7 @@
 {{ define "metadescription" }}A practical quick guide how to render templates with multiple pages, sub templates and variable data. Find out how to embed your template files into the final binary.{{ end }}
 
 {{ define "intro_text" }}
-	It's really great that Go ships with a <strong>template engine</strong>, so there is no installation of third party libraries
-	necessary.<br />
-	Still, when I was new to Go it took me a while to find out how to work with it and I didn't find a quick guide that answers
-	most of my questions.<br />
-    Now, after I managed to work with Go's template engine within several projects, I like to present to you this practical quick guide which will not only tell you how to render templates with <strong>multiple pages</strong>,
-	<strong>sub templates</strong> and <strong>variable data</strong> but also also how to <strong>embed your template files</strong>
-	into the final binary, so you don't need to copy these to your servers.
+    <strong>TL;DR:</strong> Go's built-in template engine is powerful but has a learning curve. This guide covers the essentials: parsing and rendering templates, composing sub-templates, supporting multiple pages, passing variable data between templates using a <code>dict</code> helper, and embedding all template files directly into your compiled binary so you never have to ship them separately.
 {{ end }}
 
 {{ define "content" }}

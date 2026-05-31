@@ -1,10 +1,10 @@
 {{ define "teaser" }}
 <div class="bg-gradient-to-b from-slate-700 to-slate-950 overflow-hidden items-end">
-    <div class="max-w-6xl grid gap-2 md:gap-8 grid-cols-12 items-end mx-auto mt-2 md:mt-8">
+    <div class="max-w-6xl grid gap-2 md:gap-8 grid-cols-12 items-{{ if .ItemsAlign }}{{ .ItemsAlign }}{{ else }}end{{ end }} mx-auto mt-2 md:mt-8">
         <div class="col-span-6 px-2 text-center">
             <img data-aos="zoom-out"
                  data-aos-duration="1500"
-                 class="inline-block rounded-t-xl max-h-[40vh] w-auto"
+                 class="inline-block {{ if not .ItemsAlign }}rounded-t-xl {{ end }}max-h-[40vh] w-auto"
                  src="/static/img/{{ .TeaserImage }}.webp"
                  alt="Christian Kilb"
                  title="Christian Kilb"

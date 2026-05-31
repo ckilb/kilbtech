@@ -1,13 +1,7 @@
 {{ define "metadescription" }}ORM is a good thing and you probably need it for your project, too. Don't mistake it with the Active Record Pattern.{{ end }}
 
 {{ define "intro_text" }}
-    When I'm browsing <a href="https://www.reddit.com/r/golang/comments/13erxsv/why_orms_are_so_hated/" target="_blank">Reddit</a> programming subs, or reading the comments of that <a href="https://news.ycombinator.com/item?id=36497613" target="_blank">orange page</a> I once in a while stumble upon
-    people discussing if <strong>ORM</strong> libraries, object relational mapping, are a good or bad thing.<br />
-    I'm wondering how else developers would read and work with data from the database in their non-trivial projects. And almost always, when I was asking questions, I came to to the same conclusion again and again:
-    <br />
-    <strong>People mistaken ORM with Active Records</strong>.<br />
-    Often they even propose their own "alternative" solution, which is just their own, custom implementation of <strong>ORM</strong>.<br />
-    This blog post will show you the difference between both and will also explain why it's mostly <i>never</i> possible to avoid ORM.
+    <strong>TL;DR:</strong> Most developers who say they hate ORMs are actually criticising the Active Record pattern — they are not the same thing. ORM simply means mapping database rows to typed objects, which is something every non-trivial project does in some form. This post explains the difference and why a well-structured ORM with repositories and entity managers is both necessary and a good idea.
 {{ end }}
 
 {{ define "content" }}
