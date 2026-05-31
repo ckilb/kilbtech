@@ -11,6 +11,13 @@ type Post struct {
 func GetPosts() []Post {
 	return []Post{
 		{
+			Id:       "ship-first",
+			Title:    "Ship First, Design Later",
+			Subtitle: "Why I stopped waiting for Figma files.",
+			Date:     "2026-05-31",
+			IsActive: true,
+		},
+		{
 			Id:       "orm-hate",
 			Title:    "Don't hate ORMs",
 			Subtitle: "... if you mean Active Records instead.",

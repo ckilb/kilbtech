@@ -1,0 +1,110 @@
+{{ define "metadescription" }}AI tools can now generate usable UI from a plain description. The mockup-first workflow is a bottleneck worth questioning -- and changing. Here's what that shift looks like and what it means for the UX/UI role.{{ end }}
+
+{{ define "intro_text" }}
+    One pattern I've seen repeat itself across teams and projects: developers blocked at the start of a feature, waiting for a design file that isn't ready. The requirements are clear, the backend exists, the implementation is straightforward -- but nothing moves because Figma isn't done yet.<br />
+    I've spent a fair amount of time questioning why that is, and pushing to change it. The mockup was rarely the hard prerequisite it was treated as. Half the actual design decisions ended up being made during implementation anyway. The Figma file mostly gave everyone a false sense of having figured things out upfront.<br />
+    AI tools now make the argument for changing that process even cleaner.
+{{ end }}
+
+{{ define "content" }}
+
+{{template "h2" dict "Text" "How it used to go"}}
+
+<p>
+    The workflow is always the same. Product defines a feature. Designer opens Figma. Development waits.
+</p>
+<p>
+    A few days later, a link arrives in Slack. The team opens it and finds the happy path, looking clean and polished. What they don't find: the empty state, the error message, the loading spinner, the mobile layout for the navigation, and what happens when someone's display name is 63 characters long.
+</p>
+<p>
+    So the developer asks. Sometimes they get answers. More often they get "just do something reasonable" or "we'll handle that later". The developer makes the call and implements it. Then someone reviews the feature, disagrees with that call, and back it goes.
+</p>
+<p>
+    In my experience, what comes out of Figma is more of a starting point than a specification. The real design work happens during and after implementation, through reviews, feedback rounds, and iterations. The mockup is just the opening move.
+</p>
+<p>
+    This is not a problem with designers. It's a process design problem. And process problems are worth fixing.
+</p>
+
+{{template "h2" dict "Text" "What AI tools changed"}}
+
+<p>
+    Tools like <a href="https://v0.dev" target="_blank">v0</a>, Claude, or Cursor can generate reasonable UI code from a plain text description.
+    Not award-winning design. Not pixel-perfect layouts. But something workable that covers the basic structure, handles states, and gives you something to iterate on.
+</p>
+<p>
+    That changes the calculation significantly.
+</p>
+<p>
+    If a developer can describe a feature and get back a usable first draft of the UI in a few minutes, the mockup stops being a prerequisite. Work starts. The design becomes iterative from the beginning rather than a gate everyone waits in front of.
+</p>
+<p>
+    The part that makes this stick: the design decisions that used to get deferred to implementation time are now just... made during implementation. By the developer, with AI. Which is mostly what happened anyway, just without anyone acknowledging it.
+</p>
+<p>
+    You save time. You ship sooner. You have something real to react to.
+</p>
+
+{{template "h2" dict "Text" "UX/UI becomes a quality gate"}}
+
+<p>
+    None of this means UX/UI designers are less important. It means the point in the workflow where they add value shifts.
+</p>
+<p>
+    Instead of producing the initial design, they review what got built and drive it toward something good. That's not so different from QA. Testers don't write the code they test. They verify it, find the gaps, and send it back with clear feedback.
+</p>
+<p>
+    UX designers can do the same thing. A developer ships a first version. The UX person goes through it: this button needs more weight, the mobile spacing is off, we need a confirmation step here before the destructive action. The developer or AI fixes it.
+</p>
+<p>
+    For teams that already do design reviews and iterate in short cycles, this isn't a big conceptual shift. It's just moving <i>when</i> the design contribution happens from the very start of a feature to just after the first working version exists.
+</p>
+<p>
+    Arguably, this is also when design feedback is most useful. Looking at a real screen in a real browser is different from looking at a Figma file. Edge cases surface. Interaction details become visible. Things that looked fine in the mockup reveal themselves as awkward in the actual flow.
+</p>
+
+{{template "h2" dict "Text" "Write specs, not wireframes"}}
+
+<p>
+    Here's the part that doesn't get talked about enough.
+</p>
+<p>
+    The most valuable thing a UX designer can produce right now is not a wireframe. It's a specification.
+</p>
+<p>
+    Not a PDF. Not a Confluence page nobody reads. A plain text file, committed to the repository, that describes how a feature should behave.
+</p>
+<p>
+    What happens when a user submits a form with invalid data? What are the edge cases for the search? What are the accessibility requirements for this screen? What does the empty state say? What is the exact wording of the error message?
+</p>
+<p>
+    These are hard, valuable questions. Right now most teams either skip them entirely or bury the answers somewhere they'll never be found again.
+</p>
+<p>
+    If these answers lived in a <i>spec.md</i> file next to the code, AI tools could actually use them. Instead of a developer guessing what the error message should say, the AI reads the spec and gets it right the first time. Instead of an accessibility requirement getting forgotten, it's in the file and gets implemented along with the feature.
+</p>
+<p>
+    This is something a Figma file simply cannot do. You can't ask an AI to "implement this feature according to the Figma file and handle all the edge cases". You <i>can</i> ask it to "implement this feature according to <i>spec.md</i>".
+</p>
+<p>
+    A spec in the repo is also a living document. It gets updated when the feature changes. It gets reviewed in pull requests. It doesn't drift from the code the way a design file inevitably does.
+</p>
+
+{{template "h2" dict "Text" "What this means in practice"}}
+
+<p>
+    I'm not saying every team should immediately throw out their design process.
+    But I do think the traditional sequence, where development is blocked until design delivers,
+    is becoming harder to justify.
+</p>
+<p>
+    The useful shift is: start implementation with a description and AI-generated scaffolding, then bring in UX to review and refine. Write specs as text, commit them alongside the code, and let AI use them during implementation.
+</p>
+<p>
+    Design work doesn't go away. It just stops being the thing you wait for and becomes the thing you do continuously, based on something real.
+</p>
+<p>
+    Every time I've pushed a team to try this, the result was the same: features shipped faster, the feedback loops got shorter, and the design that ended up in production was better because it was shaped by a real, working screen rather than a static file.
+</p>
+
+{{ end }}
