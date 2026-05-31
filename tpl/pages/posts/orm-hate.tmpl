@@ -6,6 +6,7 @@
 
 {{ define "content" }}
 
+<section>
 {{template "h2" dict "Text" "The definition of ORM"}}
 
 <p>
@@ -24,6 +25,9 @@
     "<strong>M, \"Mapping\"</strong>: the action of creating objects that have a relation to your database"
 )}}
 
+</section>
+
+<section>
 {{template "h2" dict "Text" "An example of a very simple ORM"}}
 
 <p>
@@ -180,6 +184,9 @@ $raw = fetch('SELECT id, first_name, last_name FROM users WHERE id IN (3, 4)');
 $users = UserCollection::fromRaw($raw);
 ` }} </code></pre>
 
+</section>
+
+<section>
 {{template "h2" dict "Text" "Saving & Reading data"}}
 
 <p>
@@ -404,6 +411,9 @@ class UserRepository
 </p>
 
 
+</section>
+
+<section>
 {{template "h2" dict "Text" "Summary"}}
 
 <p>
@@ -420,5 +430,6 @@ class UserRepository
     ORMs don't have to be slow. They don't have to be complex. They don't have to violate well-proven software paradigms.<br />
     <strong>ORMs are great</strong>.
 </p>
+</section>
 
 {{ end }}

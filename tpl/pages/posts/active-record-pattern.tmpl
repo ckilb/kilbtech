@@ -6,6 +6,7 @@
 
 {{ define "content" }}
 
+<section>
 {{template "h2" dict "Text" "Example code"}}
 <pre><code class="language-php"><?php
 class User
@@ -31,6 +32,9 @@ echo $user->email;
 $user->name = 'Foo Bar';
 $user->save();</code></pre>
 
+</section>
+
+<section>
 {{template "h2" dict "Text" "Benefits"}}
 <p>
     The pattern simplifies database operations by representing database tables as objects, making interaction and manipulation straightforward.<br />
@@ -42,6 +46,9 @@ $user->save();</code></pre>
 
 </p>
 
+</section>
+
+<section>
 {{template "h2" dict "Text" "Downsides"}}
 
 <p>
@@ -142,6 +149,9 @@ class SenderTest extends Test
     But the question is how complex it will be and if it's actually worth it.
 </p>
 
+</section>
+
+<section>
 {{template "h2" dict "Text" "Alternatives"}}
 
 <p>
@@ -241,4 +251,5 @@ class SenderTest extends Test
     Creating <i>entity managers</i>, <i>repositories</i> and <i>DTOs</i> for every entity  might be a bit time-consuming and "boilerplatey"
     in the beginning but there's a good chance it will pay off later on.
 </p>
+</section>
 {{end}}

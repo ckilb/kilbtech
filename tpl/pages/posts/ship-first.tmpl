@@ -6,6 +6,7 @@
 
 {{ define "content" }}
 
+<section>
 {{template "h2" dict "Text" "How it used to go"}}
 
 <p>
@@ -24,6 +25,9 @@
     This is not a problem with designers. It's a process design problem. And process problems are worth fixing.
 </p>
 
+</section>
+
+<section>
 {{template "h2" dict "Text" "What AI tools changed"}}
 
 <p>
@@ -43,6 +47,9 @@
     You save time. You ship sooner. You have something real to react to.
 </p>
 
+</section>
+
+<section>
 {{template "h2" dict "Text" "UX/UI becomes a quality gate"}}
 
 <p>
@@ -61,6 +68,9 @@
     Arguably, this is also when design feedback is most useful. Looking at a real screen in a real browser is different from looking at a Figma file. Edge cases surface. Interaction details become visible. Things that looked fine in the mockup reveal themselves as awkward in the actual flow.
 </p>
 
+</section>
+
+<section>
 {{template "h2" dict "Text" "Write specs, not wireframes"}}
 
 <p>
@@ -91,6 +101,9 @@
     Done well, a spec also enforces consistency across the product. When the exact wording of an error message, the behavior of a loading state, or the language used in confirmations is written down and version-controlled, it becomes a shared reference. Not just for this feature, but for the next one that touches the same surface. Without it, every developer makes independent judgment calls, and the accumulated result is a product that behaves slightly differently depending on which corner you happen to be in.
 </p>
 
+</section>
+
+<section>
 {{template "h2" dict "Text" "What this means in practice"}}
 
 <p>
@@ -107,5 +120,6 @@
 <p>
     Every time I've pushed a team to try this, the result was the same: features shipped faster, the feedback loops got shorter, and the design that ended up in production was better because it was shaped by a real, working screen rather than a static file.
 </p>
+</section>
 
 {{ end }}
