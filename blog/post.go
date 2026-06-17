@@ -11,6 +11,13 @@ type Post struct {
 func GetPosts() []Post {
 	return []Post{
 		{
+			Id:       "fighting-complexity",
+			Title:    "Fighting Complexity",
+			Subtitle: "My actual job, every single day.",
+			Date:     "2026-06-17",
+			IsActive: true,
+		},
+		{
 			Id:       "ship-first",
 			Title:    "Ship First, Design Later",
 			Subtitle: "Why I stopped waiting for Figma files.",

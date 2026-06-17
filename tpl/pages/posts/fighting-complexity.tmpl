@@ -1,0 +1,124 @@
+{{ define "metadescription" }}Keeping complexity low is the actual job, not a side effect of it. Intrinsic complexity makes a product unique; accidental complexity is the enemy. How a grug-brained developer fights it: a strict, clean foundation.{{ end }}
+
+{{ define "intro_text" }}
+    <span class="font-semibold">TL;DR:</span> My main job is not adding features. It is keeping complexity low. Complexity grows on its own, a little more every day, so fighting it is daily work. Intrinsic complexity is good - it is the part that makes a product unique. Accidental complexity is the enemy. I am a grug-brained developer, but strict about conventions and architecture, because a clean, strict foundation is the only thing that keeps the daily business from getting out of hand.
+{{ end }}
+
+{{ define "content" }}
+
+<section>
+{{template "h2" dict "Text" "My actual job"}}
+
+<p>
+    If you asked me what I get paid to do, the honest answer is not "write features". It is "keep complexity low". Features are the visible output. Managing complexity is the work that decides whether the next feature takes two days or two weeks.
+</p>
+<p>
+    Every system starts simple. A handful of files, a clear flow, a model you can hold in your head. Then it grows. More features, more edge cases, more people touching it. At some point nobody can keep the whole thing in their head anymore, and that is the moment velocity starts to die. Not because the team got worse, but because the system got harder to reason about.
+</p>
+<p>
+    So my real job is to push back against that. Constantly. Every change either adds complexity or removes it, and most of the time my contribution is making sure it adds as little as possible.
+</p>
+
+</section>
+
+<section>
+{{template "h2" dict "Text" "Complexity only goes up"}}
+
+<p>
+    Here is the uncomfortable part: complexity does not stay flat. Left alone, it always increases. Every feature you bolt on, every quick fix under deadline pressure, every "we will clean this up later", every new developer with their own habits adds a little more.
+</p>
+<p>
+    That is why this is a daily battle and not a one-time cleanup. You do not "solve" complexity once and move on. You fight it the same way you fight dust in a house. Skip it for a month and the mess is obvious. The only way to keep a codebase livable is to clean as you go.
+</p>
+<p>
+    Nobody adds complexity on purpose. It arrives one reasonable decision at a time. Each individual choice looks fine in isolation. The accumulated result is a system where every change is scary and every estimate is a guess.
+</p>
+
+</section>
+
+<section>
+{{template "h2" dict "Text" "Two kinds of complexity"}}
+
+<p>
+    Not all complexity is the same, and this distinction is the whole point. There is intrinsic complexity and there is accidental complexity.
+</p>
+<p>
+    <span class="font-semibold">Intrinsic complexity</span> is the complexity of the problem itself. The business rules. The domain. The edge cases that exist because the real world is messy. This kind is good. It is the part that is genuinely hard, the part competitors cannot trivially copy, the part that makes the product yours. A logistics system is complicated because logistics is complicated. That complexity is the value. You do not want to remove it - you want to model it well.
+</p>
+<p>
+    <span class="font-semibold">Accidental complexity</span> is everything else. The complexity you added by accident: the clever abstraction nobody understands, the three different ways of doing the same thing, the framework you did not need, the layer of indirection that solves a problem you do not have. This kind is pure cost. It makes the intrinsic complexity harder to see and harder to work with.
+</p>
+<p>
+    The enemy is accidental complexity. The job is to spend as little of your complexity budget on it as possible, so there is room left for the intrinsic kind that actually matters.
+</p>
+
+</section>
+
+<section>
+{{template "h2" dict "Text" "I am a grug-brained developer"}}
+
+<p>
+    There is a wonderful essay called <a href="https://grugbrain.dev/" target="_blank">The Grug Brained Developer</a>. If you have not read it, stop here and go read it. It is the most honest thing written about software in years, and it says, in caveman voice, what a lot of senior developers quietly believe: complexity is the eternal enemy, and the smartest move is usually the simple one.
+</p>
+<p>
+    I am a grug-brained developer. I am suspicious of clever code. I reach for the boring solution first. I would rather write something slightly repetitive that anyone can read than a beautiful abstraction that only I understand. When I feel the urge to be clever, I have learned to treat it as a warning sign, not a good idea.
+</p>
+<p>
+    This is not about being a worse engineer. It is about knowing where the danger comes from. The danger is almost never "this code is too simple". The danger is complexity that crept in because someone, often me, wanted to feel smart.
+</p>
+
+</section>
+
+<section>
+{{template "h2" dict "Text" "... but strict about the foundation"}}
+
+<p>
+    Here is where people expect a contradiction. Grug-brained sounds like "relaxed", like "do whatever is easy". It is the opposite. Being grug-brained about features means being strict about the foundation.
+</p>
+<p>
+    I am strict about conventions. One way to structure a module, not five. Consistent naming. A clear, enforced architecture with boundaries that mean something. Predictable file layout. The same patterns applied the same way everywhere, so that opening an unfamiliar part of the codebase feels familiar anyway.
+</p>
+<p>
+    That strictness is not bureaucracy. It is the thing that lets the rest stay simple. A clean, strict foundation is what keeps the daily business from getting out of hand. When the base is solid and the rules are clear, each new feature slots into a known shape instead of inventing its own. The accidental complexity has nowhere to accumulate.
+</p>
+<p>
+    Loosen the foundation and the opposite happens. Every developer makes their own reasonable call, every feature gets its own little architecture, and the system slowly drifts into something nobody designed and nobody fully understands. Strict conventions are how you say no to that, one pull request at a time.
+</p>
+<p>
+    So the two halves fit together. Be simple where it counts - the features, the code people read every day. Be strict where it counts - the conventions and the architecture underneath. Simplicity on top is only sustainable if the foundation refuses to bend.
+</p>
+
+</section>
+
+<section>
+{{template "h2" dict "Text" "The daily battle"}}
+
+<p>
+    None of this is dramatic. It does not look like heroic work. It looks like declining a clever abstraction in code review, like deleting a feature flag that has outlived its purpose, like insisting the new module follow the same pattern as the old ones, like spending an afternoon making something boring instead of leaving it interesting.
+</p>
+<p>
+    But that is the job. Keep the intrinsic complexity, fight the accidental kind, and protect the foundation that makes the fight winnable. Do it every day, because the day you stop is the day complexity starts winning again.
+</p>
+</section>
+
+<section>
+{{template "h2" dict "Text" "Battles I have fought - and not always won"}}
+
+<p>
+    Theory is easy to agree with. Here are cases from my own experience - or from colleagues - where accidental complexity won a round it should have lost. Each one felt reasonable in the moment.
+</p>
+
+{{template "list" dict "Items" (slice
+    "Building a fancy auto-generation system for event types across three programming languages - when the project had two languages in use and exactly one event type in total. The system was elegant. It was also solving a problem that did not exist yet and might never exist."
+    "Introducing Amazon SNS into a stack where RabbitMQ had been running reliably for years and handled every requirement without complaint. Adding a second message broker did not solve a problem. It created one: now there are two systems to understand, operate, and keep consistent."
+    "Building a full theme configuration page so customers could customize their sidebar color - because one customer wanted their sidebar in a different fixed color. A configuration UI for one customer, one setting, one value. A hard-coded override would have taken an hour and been honest about what it was."
+    "Building a search and list platform in React with ecommerce cloud software, when Go and htmx would have covered the requirements completely. The complexity did not come from the problem. It came from the tool choice - and from splitting frontend and backend across two separate agencies, which turned every small decision into a coordination problem. Everyone working on it paid that cost for months."
+    "Adding another improvement to a local setup script that had already grown past the point where anyone fully understood it. The script had become the problem. Rewriting it from scratch would have taken a few days. Instead, the team kept patching it, and the complexity kept compounding."
+)}}
+
+<p>
+    In every case, the decision to add complexity felt justified at the time. A smart person made a reasonable call. The warning sign, in hindsight, is always the same: the solution was bigger than the problem.
+</p>
+</section>
+
+{{ end }}
