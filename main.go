@@ -35,6 +35,7 @@ func main() {
 		route.NewRobots(),
 		route.NewContact(sender),
 		route.NewSitemap(pages, posts),
+		route.NewRss(posts),
 	}
 
 	for _, post := range posts {
