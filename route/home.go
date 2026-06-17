@@ -41,10 +41,10 @@ func (r *Home) Handler() gin.HandlerFunc {
 				},
 				{
 					LogoFileName: "marel.svg",
-					Title:        "Marel",
+					Title:        "JBT Marel",
 					Position:     "Technical Lead, Customer Portal",
-					Url:          "https://portal.marel.com",
-					Description:  "As a <strong>Technical Lead</strong>, I was responsible for creating a new <strong>customer portal</strong> from scratch. This new platform enables customers of one of the largest food processing companies worldwide to place, view, and manage their orders online. The successful implementation of this project was a significant step towards digitalization for Marel.",
+					Url:          "https://jbtmarel.com/",
+					Description:  "As a <strong>Technical Lead</strong>, I was responsible for creating a new <strong>customer portal</strong> from scratch. This new platform enables customers of one of the largest food processing companies worldwide to place, view, and manage their orders online. The successful implementation of this project was a significant step towards digitalization for JBT Marel.",
 					LogoWidth:    1730,
 					LogoHeight:   410,
 				},
