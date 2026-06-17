@@ -8,7 +8,7 @@
             <a class="col-span-5 order-first group-even:order-last text-center"
                href="{{ .Url }}"
                target="_blank">
-                <img class="h-12 inline-block"
+                <img class="{{ if .LogoClass }}{{ .LogoClass }}{{ else }}h-12 inline-block{{ end }}"
                      src="/static/{{ .LogoFileName }}"
                      alt="{{ .Title }}"
                      title="{{ .Title }}"

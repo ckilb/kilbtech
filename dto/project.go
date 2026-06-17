@@ -8,4 +8,5 @@ type Project struct {
 	Description  string
 	LogoWidth    uint
 	LogoHeight   uint
+	LogoClass    string
 }

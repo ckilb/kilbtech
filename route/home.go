@@ -37,6 +37,7 @@ func (r *Home) Handler() gin.HandlerFunc {
 					Description:  "As a <strong>Staff Engineer</strong>, I am happy to work supporting a team of ~30 developers. I established a new <strong>monorepo architecture</strong> including a component library and <strong>Vue SPA</strong>, modularizing the PHP monolith into single domains and service apps, and enabling modern <strong>AI-assisted development</strong> with Nix, Git worktrees, and GitHub Codespaces — among many other things.",
 					LogoWidth:    296,
 					LogoHeight:   77,
+					LogoClass:    "h-8 w-auto inline-block",
 				},
 				{
 					LogoFileName: "marel.svg",
